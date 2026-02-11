@@ -39,7 +39,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="inline-block rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-sm font-medium text-gold">
+            <span className="inline-block rounded-full border border-brand-green-light/30 bg-brand-green/10 px-4 py-1.5 text-sm font-medium text-brand-green-light">
               Strategic Consulting &amp; Professional Solutions
             </span>
           </motion.div>
@@ -51,7 +51,7 @@ const Hero = () => {
             className="mt-6 font-heading text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
           >
             Empowering Africa's{" "}
-            <span className="text-gold">Business</span> Landscape
+            <span className="text-brand-blue-light">Business</span> Landscape
           </motion.h1>
 
           <motion.p
@@ -71,7 +71,7 @@ const Hero = () => {
             className="mt-10 flex flex-wrap gap-4"
           >
             <Button
-              variant="gold"
+              variant="brand"
               size="lg"
               onClick={() => scrollTo("services")}
               className="group"
@@ -103,7 +103,7 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1.2 + i * 0.1 }}
             >
-              <div className="font-heading text-3xl font-bold text-gold sm:text-4xl">
+              <div className="font-heading text-3xl font-bold text-brand-blue-light sm:text-4xl">
                 {stat.value}
               </div>
               <div className="mt-1 text-sm text-white/60">{stat.label}</div>

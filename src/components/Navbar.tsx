@@ -91,7 +91,7 @@ const Navbar = () => {
               className={
                 scrolled
                   ? "text-foreground hover:text-accent"
-                  : "text-white hover:text-gold"
+                  : "text-white hover:text-brand-green-light"
               }
               aria-label="Toggle theme"
             >
