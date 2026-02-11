@@ -42,7 +42,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-secondary/50">
+    <section id="contact" className="py-24 bg-muted/40 dark:bg-secondary/60">
       <div className="container mx-auto px-4 lg:px-8">
         <SectionHeading
           title="Get In Touch"
@@ -92,7 +92,7 @@ const Contact = () => {
           >
             <form
               onSubmit={handleSubmit}
-              className="space-y-5 rounded-xl border border-border bg-card p-8 shadow-sm"
+              className="space-y-5 rounded-xl border border-border bg-card p-8 shadow-sm dark:shadow-md dark:shadow-black/20"
             >
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>

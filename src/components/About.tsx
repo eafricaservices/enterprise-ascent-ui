@@ -14,7 +14,7 @@ const values = [
 
 const About = () => {
   return (
-    <section id="about" className="py-24 bg-secondary/50">
+    <section id="about" className="py-24 bg-muted/40 dark:bg-secondary/60">
       <div className="container mx-auto px-4 lg:px-8">
         <SectionHeading
           title="About E-Africa Services"

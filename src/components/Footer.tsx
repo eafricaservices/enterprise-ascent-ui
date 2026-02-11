@@ -26,7 +26,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer className="bg-primary dark:bg-card text-primary-foreground dark:text-foreground">
       <div className="container mx-auto px-4 py-16 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
@@ -104,7 +104,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-primary-foreground/10">
+      <div className="border-t border-primary-foreground/10 dark:border-border">
         <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 py-6 sm:flex-row lg:px-8">
           <p className="text-sm opacity-60">
             © {new Date().getFullYear()} E-Africa Services. All rights

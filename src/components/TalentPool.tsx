@@ -38,7 +38,7 @@ const TalentPool = () => {
   return (
     <section
       id="talent-pool"
-      className="relative overflow-hidden bg-primary py-24 text-primary-foreground"
+      className="relative overflow-hidden bg-primary dark:bg-muted py-24 text-primary-foreground dark:text-foreground"
     >
       {/* Decorative bg blurs */}
       <div className="pointer-events-none absolute inset-0 opacity-[0.07]">
@@ -61,7 +61,7 @@ const TalentPool = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="rounded-xl border border-primary-foreground/10 bg-primary-foreground/5 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-primary-foreground/10"
+              className="rounded-xl border border-primary-foreground/10 dark:border-border bg-primary-foreground/5 dark:bg-card p-6 backdrop-blur-sm transition-all duration-300 hover:bg-primary-foreground/10 dark:hover:bg-secondary"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent/20 text-accent">
                 <feature.icon className="h-6 w-6" />

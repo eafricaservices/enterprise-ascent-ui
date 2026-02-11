@@ -50,7 +50,7 @@ const services = [
 
 const Services = () => {
   return (
-    <section id="services" className="py-24 bg-secondary/50">
+    <section id="services" className="py-24 bg-muted/40 dark:bg-secondary/60">
       <div className="container mx-auto px-4 lg:px-8">
         <SectionHeading
           title="Our Services"
@@ -65,7 +65,7 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="group rounded-xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:border-accent/30 hover:shadow-lg"
+              className="group rounded-xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:border-accent/30 hover:shadow-lg dark:shadow-md dark:shadow-black/20"
             >
               <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-accent/10 text-accent transition-all duration-300 group-hover:bg-accent group-hover:text-accent-foreground">
                 <service.icon className="h-7 w-7" />
