@@ -55,7 +55,7 @@ const Navbar = () => {
           </div>
           <span
             className={`font-heading text-lg font-bold transition-colors ${
-              scrolled ? "text-foreground" : "text-white"
+              scrolled ? "text-foreground" : "text-white drop-shadow-sm"
             }`}
           >
             E-Africa Services

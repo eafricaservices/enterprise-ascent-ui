@@ -67,7 +67,7 @@ const Training = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.15 }}
-                className="group flex gap-4 rounded-xl p-5 transition-colors duration-300 hover:bg-secondary/50"
+                className="group flex gap-4 rounded-xl p-5 transition-colors duration-300 hover:bg-muted/60 dark:hover:bg-secondary/60"
               >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent">
                   <program.icon className="h-6 w-6" />
