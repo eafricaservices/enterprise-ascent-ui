@@ -84,7 +84,7 @@ const TalentPool = () => {
           className="mt-12 text-center"
         >
           <Button
-            variant="gold"
+            variant="brand"
             size="lg"
             onClick={() => scrollTo("contact")}
             className="group"

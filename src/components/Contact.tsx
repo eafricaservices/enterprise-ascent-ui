@@ -172,7 +172,7 @@ const Contact = () => {
               </div>
               <Button
                 type="submit"
-                variant="gold"
+                variant="brand"
                 size="lg"
                 className="w-full sm:w-auto"
               >
