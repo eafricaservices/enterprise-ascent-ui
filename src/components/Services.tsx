@@ -1,83 +1,98 @@
 import { motion } from "framer-motion";
-import {
-  Briefcase,
-  Monitor,
-  Users,
-  TrendingUp,
-  Shield,
-  BarChart3,
-} from "lucide-react";
+import { CheckCircle2, Building2, User } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 
-const services = [
-  {
-    icon: Briefcase,
-    title: "Business Consulting",
-    description:
-      "Strategic guidance to optimize operations, reduce costs, and drive business transformation across African markets.",
-  },
-  {
-    icon: Monitor,
-    title: "IT & Digital Solutions",
-    description:
-      "Cutting-edge technology solutions including digital transformation, software development, and IT infrastructure.",
-  },
-  {
-    icon: Users,
-    title: "Human Capital",
-    description:
-      "Comprehensive HR solutions from recruitment and onboarding to performance management and employee development.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Strategic Advisory",
-    description:
-      "Expert advisory services for market entry, expansion strategies, and organizational restructuring.",
-  },
-  {
-    icon: Shield,
-    title: "Risk & Compliance",
-    description:
-      "Navigate regulatory landscapes with our risk assessment, compliance management, and governance frameworks.",
-  },
-  {
-    icon: BarChart3,
-    title: "Market Research",
-    description:
-      "Data-driven insights and comprehensive market analysis to inform strategic decision-making.",
-  },
+const companyServices = [
+  "Customer Success Training",
+  "AI Automation Implementation",
+  "CRM Integration & Optimization",
+  "Talent Acquisition Services",
+  "Workforce Development Programs",
+];
+
+const individualServices = [
+  "LinkedIn Optimization Training",
+  "CV Optimization & Branding",
+  "AI Automation Training",
+  "Personal Goal Setting & Mentorship",
+  "Job Opportunities & Talent Staffing",
 ];
 
 const Services = () => {
   return (
-    <section id="services" className="py-24 bg-muted/40 dark:bg-secondary/60">
+    <section id="services" className="py-24">
       <div className="container mx-auto px-4 lg:px-8">
         <SectionHeading
           title="Our Services"
-          subtitle="Comprehensive solutions tailored to drive growth and innovation across diverse industries."
+          subtitle="Tailored solutions for organizations and individuals across Africa."
         />
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, i) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="group rounded-xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:border-accent/30 hover:shadow-lg dark:shadow-md dark:shadow-black/20"
-            >
-              <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-accent/10 text-accent transition-all duration-300 group-hover:bg-accent group-hover:text-accent-foreground">
-                <service.icon className="h-7 w-7" />
+        <div className="grid gap-8 lg:grid-cols-2">
+          {/* For Companies */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="rounded-2xl border border-border bg-card p-8 shadow-sm dark:shadow-black/10"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <Building2 className="h-6 w-6" />
               </div>
-              <h3 className="mt-6 font-heading text-xl font-semibold text-card-foreground">
-                {service.title}
+              <h3 className="font-heading text-2xl font-bold text-card-foreground">
+                For Companies
               </h3>
-              <p className="mt-3 leading-relaxed text-muted-foreground">
-                {service.description}
-              </p>
-            </motion.div>
-          ))}
+            </div>
+            <ul className="space-y-4">
+              {companyServices.map((item, i) => (
+                <motion.li
+                  key={item}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: i * 0.08 }}
+                  className="flex items-center gap-3"
+                >
+                  <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />
+                  <span className="text-foreground">{item}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* For Individuals */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="rounded-2xl border border-border bg-card p-8 shadow-sm dark:shadow-black/10"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 text-accent">
+                <User className="h-6 w-6" />
+              </div>
+              <h3 className="font-heading text-2xl font-bold text-card-foreground">
+                For Individuals
+              </h3>
+            </div>
+            <ul className="space-y-4">
+              {individualServices.map((item, i) => (
+                <motion.li
+                  key={item}
+                  initial={{ opacity: 0, x: 10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: i * 0.08 }}
+                  className="flex items-center gap-3"
+                >
+                  <CheckCircle2 className="h-5 w-5 shrink-0 text-accent" />
+                  <span className="text-foreground">{item}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
         </div>
       </div>
     </section>
