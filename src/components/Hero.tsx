@@ -1,14 +1,7 @@
 import { motion } from "framer-motion";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
-
-const stats = [
-  { value: "15+", label: "Years Experience" },
-  { value: "500+", label: "Clients Served" },
-  { value: "30+", label: "Countries" },
-  { value: "98%", label: "Client Satisfaction" },
-];
 
 const Hero = () => {
   const scrollTo = (id: string) => {
@@ -33,14 +26,15 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 lg:px-8 pt-28 pb-16">
-        <div className="max-w-4xl">
+        <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="inline-block rounded-full border border-brand-green-light/30 bg-brand-green/10 px-4 py-1.5 text-sm font-medium text-brand-green-light">
-              Strategic Consulting &amp; Professional Solutions
+            <span className="inline-flex items-center gap-2 rounded-full border border-brand-green-light/30 bg-brand-green/10 px-4 py-1.5 text-sm font-medium text-brand-green-light backdrop-blur-sm">
+              <Sparkles className="h-4 w-4" />
+              Redefining Learning, Empowering Africa
             </span>
           </motion.div>
 
@@ -48,78 +42,47 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-6 font-heading text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+            className="mt-8 font-heading text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
           >
-            Empowering Africa's{" "}
-            <span className="text-brand-blue-light">Business</span> Landscape
+            Redefining Learning.{" "}
+            <span className="text-brand-blue-light">Empowering Africa.</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70 sm:text-xl"
+            className="mt-6 max-w-2xl mx-auto text-lg leading-relaxed text-white/70 sm:text-xl"
           >
-            Strategic consulting, professional training, and talent solutions
-            that drive sustainable growth across the African continent.
+            Transform your career or team with world-class training, consulting,
+            and talent placement services designed for Africa's future.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="mt-10 flex flex-wrap gap-4"
+            className="mt-10 flex flex-wrap justify-center gap-4"
           >
             <Button
               variant="brand"
               size="lg"
-              onClick={() => scrollTo("services")}
+              onClick={() => scrollTo("contact")}
               className="group"
             >
-              Explore Our Services
+              Get Started
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button
               variant="hero-outline"
               size="lg"
-              onClick={() => scrollTo("contact")}
+              onClick={() => scrollTo("expertise")}
             >
-              Get In Touch
+              Explore Programs
             </Button>
           </motion.div>
         </div>
-
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-          className="mt-20 grid grid-cols-2 gap-8 border-t border-white/10 pt-10 md:grid-cols-4"
-        >
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.2 + i * 0.1 }}
-            >
-              <div className="font-heading text-3xl font-bold text-brand-blue-light sm:text-4xl">
-                {stat.value}
-              </div>
-              <div className="mt-1 text-sm text-white/60">{stat.label}</div>
-            </motion.div>
-          ))}
-        </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
-      >
-        <ChevronDown className="h-6 w-6 text-white/40" />
-      </motion.div>
     </section>
   );
 };

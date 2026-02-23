@@ -1,10 +1,11 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import StatsBar from "@/components/StatsBar";
+import LogoCloud from "@/components/LogoCloud";
+import Expertise from "@/components/Expertise";
 import Services from "@/components/Services";
-import Training from "@/components/Training";
 import TalentPool from "@/components/TalentPool";
-import About from "@/components/About";
-import Team from "@/components/Team";
+import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -14,11 +15,12 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
+        <StatsBar />
+        <LogoCloud />
+        <Expertise />
         <Services />
-        <Training />
         <TalentPool />
-        <About />
-        <Team />
+        <Testimonials />
         <Contact />
       </main>
       <Footer />
