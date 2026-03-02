@@ -2,10 +2,14 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import StatsBar from "@/components/StatsBar";
 import LogoCloud from "@/components/LogoCloud";
-import Expertise from "@/components/Expertise";
-import Services from "@/components/Services";
+import WhoWeAre from "@/components/WhoWeAre";
+import WhatWeDo from "@/components/WhatWeDo";
+import HowItWorks from "@/components/HowItWorks";
+import Pricing from "@/components/Pricing";
 import TalentPool from "@/components/TalentPool";
 import Testimonials from "@/components/Testimonials";
+import FAQ from "@/components/FAQ";
+import Impact from "@/components/Impact";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -17,10 +21,14 @@ const Index = () => {
         <Hero />
         <StatsBar />
         <LogoCloud />
-        <Expertise />
-        <Services />
+        <WhoWeAre />
+        <WhatWeDo />
+        <HowItWorks />
+        <Pricing />
         <TalentPool />
         <Testimonials />
+        <FAQ />
+        <Impact />
         <Contact />
       </main>
       <Footer />

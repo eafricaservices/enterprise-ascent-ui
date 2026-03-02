@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,15 +10,15 @@ import { useToast } from "@/hooks/use-toast";
 const contactInfo = [
   {
     icon: MapPin,
-    label: "Our Office",
-    value: "Nairobi, Kenya — Pan-African Operations",
+    label: "Operations",
+    value: "Pan-African — Remote-first company",
   },
   { icon: Phone, label: "Phone", value: "+254 700 000 000" },
   { icon: Mail, label: "Email", value: "info@eafricaservices.com" },
   {
     icon: Clock,
-    label: "Business Hours",
-    value: "Mon – Fri: 8:00 AM – 6:00 PM EAT",
+    label: "Availability",
+    value: "US Hours — Mon–Fri",
   },
 ];
 
@@ -35,22 +35,20 @@ const Contact = () => {
     e.preventDefault();
     toast({
       title: "Message Sent!",
-      description:
-        "Thank you for reaching out. We'll get back to you shortly.",
+      description: "Thank you for reaching out. We'll get back to you shortly.",
     });
     setFormData({ name: "", email: "", subject: "", message: "" });
   };
 
   return (
-    <section id="contact" className="py-24 bg-muted/40 dark:bg-secondary/60">
+    <section id="contact" className="py-24 bg-muted/40 dark:bg-secondary/40">
       <div className="container mx-auto px-4 lg:px-8">
         <SectionHeading
           title="Get In Touch"
-          subtitle="Ready to transform your business? Let's start a conversation."
+          subtitle="Ready to hire elite remote talent? Let's start a conversation."
         />
 
         <div className="grid gap-12 lg:grid-cols-5">
-          {/* Contact info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -67,7 +65,7 @@ const Contact = () => {
                 transition={{ duration: 0.4, delay: i * 0.1 }}
                 className="flex gap-4"
               >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                   <item.icon className="h-5 w-5" />
                 </div>
                 <div>
@@ -82,7 +80,6 @@ const Contact = () => {
             ))}
           </motion.div>
 
-          {/* Contact form */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -92,32 +89,24 @@ const Contact = () => {
           >
             <form
               onSubmit={handleSubmit}
-              className="space-y-5 rounded-xl border border-border bg-card p-8 shadow-sm dark:shadow-md dark:shadow-black/20"
+              className="space-y-5 rounded-xl border border-border bg-card p-8 shadow-sm"
             >
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <label
-                    htmlFor="name"
-                    className="text-sm font-medium text-foreground"
-                  >
+                  <label htmlFor="name" className="text-sm font-medium text-foreground">
                     Full Name
                   </label>
                   <Input
                     id="name"
                     placeholder="John Doe"
                     value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
                     className="mt-1.5"
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="text-sm font-medium text-foreground"
-                  >
+                  <label htmlFor="email" className="text-sm font-medium text-foreground">
                     Email Address
                   </label>
                   <Input
@@ -125,58 +114,42 @@ const Contact = () => {
                     type="email"
                     placeholder="john@example.com"
                     value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
                     className="mt-1.5"
                   />
                 </div>
               </div>
               <div>
-                <label
-                  htmlFor="subject"
-                  className="text-sm font-medium text-foreground"
-                >
+                <label htmlFor="subject" className="text-sm font-medium text-foreground">
                   Subject
                 </label>
                 <Input
                   id="subject"
-                  placeholder="How can we help?"
+                  placeholder="I want to hire remote talent..."
                   value={formData.subject}
-                  onChange={(e) =>
-                    setFormData({ ...formData, subject: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   required
                   className="mt-1.5"
                 />
               </div>
               <div>
-                <label
-                  htmlFor="message"
-                  className="text-sm font-medium text-foreground"
-                >
+                <label htmlFor="message" className="text-sm font-medium text-foreground">
                   Message
                 </label>
                 <Textarea
                   id="message"
-                  placeholder="Tell us about your project or inquiry..."
+                  placeholder="Tell us about your hiring needs..."
                   rows={5}
                   value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   required
                   className="mt-1.5 resize-none"
                 />
               </div>
-              <Button
-                type="submit"
-                variant="brand"
-                size="lg"
-                className="w-full sm:w-auto"
-              >
+              <Button type="submit" variant="brand" size="lg" className="w-full sm:w-auto group">
                 Send Message
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </form>
           </motion.div>

@@ -61,10 +61,10 @@ export default {
           light: "hsl(var(--brand-green-light))",
           dark: "hsl(var(--brand-green-dark))",
         },
-        "brand-blue": {
-          DEFAULT: "hsl(var(--brand-blue))",
-          light: "hsl(var(--brand-blue-light))",
-          dark: "hsl(var(--brand-blue-dark))",
+        "brand-gold": {
+          DEFAULT: "hsl(var(--brand-gold))",
+          light: "hsl(var(--brand-gold-light))",
+          dark: "hsl(var(--brand-gold-dark))",
         },
         charcoal: "hsl(var(--charcoal))",
         sidebar: {
