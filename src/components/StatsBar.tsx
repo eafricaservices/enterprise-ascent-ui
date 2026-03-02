@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 
 const stats = [
-  { value: "500+", label: "Professionals Trained" },
+  { value: "500+", label: "Professionals Placed" },
   { value: "100+", label: "Companies Partnered" },
-  { value: "15+", label: "Countries Reached" },
+  { value: "25+", label: "African Countries" },
+  { value: "6", label: "Languages Supported" },
 ];
 
-const flags = ["🇳🇬", "🇰🇪", "🇬🇭", "🇿🇦", "🇪🇬"];
+const flags = ["🇳🇬", "🇰🇪", "🇬🇭", "🇿🇦", "🇪🇬", "🇨🇲", "🇸🇱", "🇩🇿"];
 
 const StatsBar = () => {
   return (
@@ -37,12 +38,11 @@ const StatsBar = () => {
             </motion.div>
           ))}
 
-          {/* Flags */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.4 }}
+            transition={{ duration: 0.4, delay: 0.5 }}
             className="flex items-center gap-2 text-3xl"
           >
             {flags.map((flag, i) => (
@@ -61,8 +61,8 @@ const StatsBar = () => {
           className="mt-10 max-w-3xl mx-auto text-center text-muted-foreground leading-relaxed"
         >
           We are a technology-backed company dedicated to transforming careers
-          and empowering organizations across Africa through innovative training,
-          strategic consulting, and talent placement solutions.
+          and empowering organizations across Africa through innovative remote work
+          infrastructure, strategic consulting, and talent placement solutions.
         </motion.p>
       </div>
     </section>

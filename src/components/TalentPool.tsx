@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { UserPlus, Cpu, Briefcase, ArrowRight } from "lucide-react";
+import { UserPlus, Video, ClipboardCheck, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "./SectionHeading";
 
@@ -7,20 +7,20 @@ const steps = [
   {
     icon: UserPlus,
     number: "1",
-    title: "Create Profile",
-    description: "Simple 2-minute setup",
+    title: "Apply Online",
+    description: "Fill out our progressive form, upload CV, and accept T&Cs.",
   },
   {
-    icon: Cpu,
+    icon: Video,
     number: "2",
-    title: "Get Matched",
-    description: "AI-driven role recommendations",
+    title: "Record Loom Video",
+    description: "Short face-only video introduction for our team to review.",
   },
   {
-    icon: Briefcase,
+    icon: ClipboardCheck,
     number: "3",
-    title: "Get Hired",
-    description: "Connect directly with top companies",
+    title: "Interview & Pool",
+    description: "Complete interviews and join our active talent pool.",
   },
 ];
 
@@ -32,19 +32,12 @@ const TalentPool = () => {
   return (
     <section
       id="talent-pool"
-      className="relative overflow-hidden bg-primary dark:bg-muted py-24 text-primary-foreground dark:text-foreground"
+      className="py-24 bg-muted/40 dark:bg-secondary/40"
     >
-      {/* Decorative blurs */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.07]">
-        <div className="absolute left-10 top-20 h-72 w-72 rounded-full bg-accent blur-3xl" />
-        <div className="absolute bottom-20 right-10 h-96 w-96 rounded-full bg-accent blur-3xl" />
-      </div>
-
-      <div className="container relative z-10 mx-auto px-4 lg:px-8">
+      <div className="container mx-auto px-4 lg:px-8">
         <SectionHeading
           title="Join Our Talent Pool"
-          subtitle="Showcase your skills and connect with top-tier opportunities across Africa. Our streamlined process gets you in front of employers faster."
-          light
+          subtitle="Fill out the application to be considered for remote work opportunities. Even if not placed immediately, you remain in our pool until matched."
         />
 
         <div className="grid gap-8 md:grid-cols-3 mt-4">
@@ -57,22 +50,21 @@ const TalentPool = () => {
               transition={{ duration: 0.5, delay: i * 0.15 }}
               className="relative text-center"
             >
-              {/* Connector line */}
               {i < steps.length - 1 && (
-                <div className="hidden md:block absolute top-12 left-[60%] w-[80%] border-t-2 border-dashed border-primary-foreground/20 dark:border-border" />
+                <div className="hidden md:block absolute top-12 left-[60%] w-[80%] border-t-2 border-dashed border-border" />
               )}
 
-              <div className="relative mx-auto flex h-24 w-24 items-center justify-center rounded-2xl bg-primary-foreground/10 dark:bg-card backdrop-blur-sm border border-primary-foreground/10 dark:border-border">
-                <step.icon className="h-10 w-10 text-accent" />
+              <div className="relative mx-auto flex h-24 w-24 items-center justify-center rounded-2xl bg-card border border-border shadow-sm">
+                <step.icon className="h-10 w-10 text-primary" />
                 <span className="absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full bg-accent text-accent-foreground font-heading text-sm font-bold">
                   {step.number}
                 </span>
               </div>
 
-              <h3 className="mt-6 font-heading text-xl font-bold">
+              <h3 className="mt-6 font-heading text-xl font-bold text-foreground">
                 {step.title}
               </h3>
-              <p className="mt-2 text-sm opacity-70">{step.description}</p>
+              <p className="mt-2 text-sm text-muted-foreground">{step.description}</p>
             </motion.div>
           ))}
         </div>
@@ -88,9 +80,9 @@ const TalentPool = () => {
             variant="brand"
             size="lg"
             onClick={() => scrollTo("contact")}
-            className="group bg-accent hover:bg-accent/90"
+            className="group"
           >
-            Next Step
+            Apply Now
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
         </motion.div>

@@ -6,9 +6,10 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const navLinks = [
   { label: "Home", href: "#home" },
-  { label: "Expertise", href: "#expertise" },
+  { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
-  { label: "Talent Pool", href: "#talent-pool" },
+  { label: "How It Works", href: "#how-it-works" },
+  { label: "Pricing", href: "#pricing" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
@@ -42,13 +43,12 @@ const Navbar = () => {
       }`}
     >
       <nav className="container mx-auto flex items-center justify-between px-4 py-4 lg:px-8">
-        {/* Logo */}
         <button
           onClick={() => scrollTo("#home")}
           className="flex items-center gap-2.5"
         >
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent">
-            <span className="font-heading text-lg font-bold text-accent-foreground">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
+            <span className="font-heading text-lg font-bold text-primary-foreground">
               EA
             </span>
           </div>
@@ -61,7 +61,6 @@ const Navbar = () => {
           </span>
         </button>
 
-        {/* Desktop nav links */}
         <div className="hidden lg:flex items-center gap-1">
           {navLinks.map((link) => (
             <button
@@ -69,7 +68,7 @@ const Navbar = () => {
               onClick={() => scrollTo(link.href)}
               className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 scrolled
-                  ? "text-foreground/70 hover:text-accent"
+                  ? "text-foreground/70 hover:text-primary"
                   : "text-white/80 hover:text-white"
               }`}
             >
@@ -78,7 +77,6 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Right actions */}
         <div className="flex items-center gap-2">
           {mounted && (
             <Button
@@ -89,8 +87,8 @@ const Navbar = () => {
               }
               className={
                 scrolled
-                  ? "text-foreground hover:text-accent"
-                  : "text-white hover:text-brand-green-light"
+                  ? "text-foreground hover:text-primary"
+                  : "text-white hover:text-brand-gold"
               }
               aria-label="Toggle theme"
             >
@@ -120,7 +118,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -135,7 +132,7 @@ const Navbar = () => {
                 <button
                   key={link.href}
                   onClick={() => scrollTo(link.href)}
-                  className="block w-full text-left px-4 py-3 rounded-md text-foreground hover:bg-accent/10 hover:text-accent transition-colors font-medium"
+                  className="block w-full text-left px-4 py-3 rounded-md text-foreground hover:bg-primary/10 hover:text-primary transition-colors font-medium"
                 >
                   {link.label}
                 </button>

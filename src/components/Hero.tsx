@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
 
@@ -13,7 +13,6 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen flex items-center overflow-hidden"
     >
-      {/* Background image + overlay */}
       <div className="absolute inset-0">
         <img
           src={heroBg}
@@ -24,7 +23,6 @@ const Hero = () => {
         <div className="absolute inset-0 hero-overlay" />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 container mx-auto px-4 lg:px-8 pt-28 pb-16">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
@@ -32,9 +30,9 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-brand-green-light/30 bg-brand-green/10 px-4 py-1.5 text-sm font-medium text-brand-green-light backdrop-blur-sm">
-              <Sparkles className="h-4 w-4" />
-              Redefining Learning, Empowering Africa
+            <span className="inline-flex items-center gap-2 rounded-full border border-brand-gold/30 bg-brand-gold/10 px-4 py-1.5 text-sm font-medium text-brand-gold-light backdrop-blur-sm">
+              <Users className="h-4 w-4" />
+              Africa's Remote Work Infrastructure
             </span>
           </motion.div>
 
@@ -44,8 +42,8 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-8 font-heading text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
           >
-            Redefining Learning.{" "}
-            <span className="text-brand-blue-light">Empowering Africa.</span>
+            Hire Elite African Remote Teams.{" "}
+            <span className="text-brand-gold">Without the Risk.</span>
           </motion.h1>
 
           <motion.p
@@ -54,8 +52,8 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mt-6 max-w-2xl mx-auto text-lg leading-relaxed text-white/70 sm:text-xl"
           >
-            Transform your career or team with world-class training, consulting,
-            and talent placement services designed for Africa's future.
+            E-Africa Services provides fully vetted, multilingual, degree-holding
+            remote professionals — managed, payroll-ready, and performance-backed.
           </motion.p>
 
           <motion.div
@@ -70,15 +68,15 @@ const Hero = () => {
               onClick={() => scrollTo("contact")}
               className="group"
             >
-              Get Started
+              Start Hiring
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button
               variant="hero-outline"
               size="lg"
-              onClick={() => scrollTo("expertise")}
+              onClick={() => scrollTo("talent-pool")}
             >
-              Explore Programs
+              Join Our Talent Pool
             </Button>
           </motion.div>
         </div>
