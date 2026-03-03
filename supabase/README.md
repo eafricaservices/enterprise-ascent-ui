@@ -57,12 +57,29 @@ Three SQL scripts to be executed **in order** against your Supabase project.
 | Submit talent application | ✅ INSERT | ✅ Full CRUD |
 | Read CMS content (active) | ✅ SELECT | ✅ SELECT all |
 | Manage CMS content | ❌ | ✅ Full CRUD |
-| Upload CV | ✅ INSERT | ✅ Full CRUD |
+| Upload CV | ⚠️ INSERT (UUID-path enforced — see note) | ✅ Full CRUD |
 | Read CV | ❌ | ✅ SELECT (signed URL) |
-| Upload intro video | ✅ INSERT | ✅ Full CRUD |
+| Upload intro video | ❌ | ✅ INSERT (authenticated only) |
 | Read intro video | ❌ | ✅ SELECT (signed URL) |
 | Upload media assets | ❌ | ✅ INSERT/UPDATE/DELETE |
 | Read media assets | ✅ SELECT | ✅ SELECT |
+
+> **⚠️ Anonymous CV upload — active mitigations:**
+> The `talent-cvs` bucket permits anonymous INSERT because CVs are submitted
+> as part of the unauthenticated application form flow (5 MB cap enforced by
+> the bucket). The following controls are in place or recommended:
+> - **Path enforcement** — the storage policy rejects any upload whose object
+>   name does not start with a UUID-shaped prefix (`<uuid>/filename`), making
+>   paths unpredictable and preventing root-level or collision uploads.
+> - **File-type allowlist** — bucket `allowed_mime_types` restricts to
+>   `application/pdf`, `application/msword`, and `.docx` only.
+> - **Size cap** — 5 MB hard limit on the bucket prevents bulk-storage abuse.
+> - **Recommended additions** (implement at the edge/middleware layer):
+>   rate-limit upload requests per IP, add CAPTCHA verification on the
+>   application form, enable Supabase Storage audit logs and alert on
+>   abnormal upload volume, and run server-side virus/malware scanning
+>   (e.g. ClamAV via a Supabase Edge Function) before linking the path
+>   to a `talent_applications` row.
 
 ---
 
@@ -73,10 +90,10 @@ prevent enumeration of other applicants' files:
 
 ```
 talent-cvs/
-  └── <uuid>/<original-filename.pdf>
+  └── <uuid>/<original-filename.pdf>     (anonymous upload, UUID path required by policy)
 
 talent-intro-videos/
-  └── <uuid>/<original-filename.mp4>
+  └── <uuid>/<original-filename.mp4>     (authenticated upload only — session token required)
 
 media-assets/
   ├── hero/

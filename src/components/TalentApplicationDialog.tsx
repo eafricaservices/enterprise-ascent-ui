@@ -66,7 +66,9 @@ const TalentApplicationDialog = ({
       city: form.city.trim() || null,
       role_applied_for: form.role_applied_for.trim(),
       years_experience: form.years_experience
-        ? parseInt(form.years_experience, 10)
+        ? (Number.isNaN(parseInt(form.years_experience, 10))
+            ? null
+            : parseInt(form.years_experience, 10))
         : null,
       skills: form.skills
         ? form.skills.split(",").map((s) => s.trim()).filter(Boolean)
@@ -131,10 +133,11 @@ const TalentApplicationDialog = ({
           {/* Row 1 — Name + Email */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="text-sm font-medium text-foreground">
+              <label htmlFor="full_name" className="text-sm font-medium text-foreground">
                 Full Name <span className="text-destructive">*</span>
               </label>
               <Input
+                id="full_name"
                 className="mt-1.5"
                 placeholder="Jane Doe"
                 value={form.full_name}

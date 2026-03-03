@@ -11,8 +11,9 @@
 --
 -- Storage policies are applied to storage.objects.
 -- For each bucket the principle of least-privilege is followed:
---   • Public bucket  → anonymous SELECT, authenticated INSERT/UPDATE/DELETE
---   • Private bucket → anonymous INSERT only, authenticated full access
+--   • Public bucket        → anonymous SELECT, authenticated INSERT/UPDATE/DELETE
+--   • talent-cvs           → anonymous INSERT (UUID path enforced), authenticated full access
+--   • talent-intro-videos  → authenticated INSERT only, authenticated full access
 --
 -- Run via: Supabase Dashboard → SQL Editor → paste & execute
 -- ============================================================
@@ -85,40 +86,55 @@ ON CONFLICT (id) DO NOTHING;
 -- ============================================================
 
 -- Public: anyone can view/download media assets
+DROP POLICY IF EXISTS "media-assets: public select" ON storage.objects;
 CREATE POLICY "media-assets: public select"
   ON storage.objects
   FOR SELECT
   USING (bucket_id = 'media-assets');
 
--- Authenticated: admins/staff can upload new media
+DROP POLICY IF EXISTS "media-assets: authenticated insert" ON storage.objects;
 CREATE POLICY "media-assets: authenticated insert"
   ON storage.objects
   FOR INSERT
   WITH CHECK (
     bucket_id = 'media-assets'
-    AND auth.role() = 'authenticated'
+    AND (
+      auth.jwt() ->> 'role' = 'admin'
+      OR auth.jwt() ->> 'role' = 'staff'
+    )
   );
 
 -- Authenticated: admins/staff can overwrite/update media
+DROP POLICY IF EXISTS "media-assets: authenticated update" ON storage.objects;
 CREATE POLICY "media-assets: authenticated update"
   ON storage.objects
   FOR UPDATE
   USING (
     bucket_id = 'media-assets'
-    AND auth.role() = 'authenticated'
+    AND (
+      auth.jwt() ->> 'role' = 'admin'
+      OR auth.jwt() ->> 'role' = 'staff'
+    )
   )
   WITH CHECK (
     bucket_id = 'media-assets'
-    AND auth.role() = 'authenticated'
+    AND (
+      auth.jwt() ->> 'role' = 'admin'
+      OR auth.jwt() ->> 'role' = 'staff'
+    )
   );
 
 -- Authenticated: admins/staff can delete media
+DROP POLICY IF EXISTS "media-assets: authenticated delete" ON storage.objects;
 CREATE POLICY "media-assets: authenticated delete"
   ON storage.objects
   FOR DELETE
   USING (
     bucket_id = 'media-assets'
-    AND auth.role() = 'authenticated'
+    AND (
+      auth.jwt() ->> 'role' = 'admin'
+      OR auth.jwt() ->> 'role' = 'staff'
+    )
   );
 
 
@@ -133,42 +149,52 @@ CREATE POLICY "media-assets: authenticated delete"
 -- Anonymous users CANNOT read other applicants' files.
 -- ============================================================
 
--- Anonymous: anyone can upload a CV (application form upload step)
--- Path convention enforced in app code: <uuid>/<original_filename>
+-- Anonymous: applicants can upload a CV during the application form flow.
+-- Path convention enforced here: name must be <uuid>/<filename> so each
+-- upload is isolated to a unique prefix and cannot overwrite other files.
+DROP POLICY IF EXISTS "talent-cvs: public insert" ON storage.objects;
 CREATE POLICY "talent-cvs: public insert"
   ON storage.objects
   FOR INSERT
-  WITH CHECK (bucket_id = 'talent-cvs');
+  WITH CHECK (
+    bucket_id = 'talent-cvs'
+    -- First path segment must be a valid UUID (e.g. "f47ac10b-.../resume.pdf")
+    AND (storage.foldername(name))[1] ~ '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+  );
 
--- Authenticated: recruiters can read/download CVs for review
+DROP POLICY IF EXISTS "talent-cvs: authenticated select" ON storage.objects;
 CREATE POLICY "talent-cvs: authenticated select"
   ON storage.objects
   FOR SELECT
   USING (
     bucket_id = 'talent-cvs'
-    AND auth.role() = 'authenticated'
+    AND (
+      auth.jwt() ->> 'role' IN ('admin', 'recruiter')
+    )
   );
 
 -- Authenticated: recruiters can replace/update a CV (e.g. new version)
+DROP POLICY IF EXISTS "talent-cvs: authenticated update" ON storage.objects;
 CREATE POLICY "talent-cvs: authenticated update"
   ON storage.objects
   FOR UPDATE
   USING (
     bucket_id = 'talent-cvs'
-    AND auth.role() = 'authenticated'
+    AND auth.jwt() ->> 'role' IN ('admin', 'recruiter')
   )
   WITH CHECK (
     bucket_id = 'talent-cvs'
-    AND auth.role() = 'authenticated'
+    AND auth.jwt() ->> 'role' IN ('admin', 'recruiter')
   );
 
 -- Authenticated: recruiters can delete CVs (e.g. GDPR erasure)
+DROP POLICY IF EXISTS "talent-cvs: authenticated delete" ON storage.objects;
 CREATE POLICY "talent-cvs: authenticated delete"
   ON storage.objects
   FOR DELETE
   USING (
     bucket_id = 'talent-cvs'
-    AND auth.role() = 'authenticated'
+    AND auth.jwt() ->> 'role' IN ('admin', 'recruiter')
   );
 
 
@@ -176,18 +202,25 @@ CREATE POLICY "talent-cvs: authenticated delete"
 -- SECTION 4: STORAGE POLICIES — talent-intro-videos (PRIVATE BUCKET)
 --
 -- Same security model as talent-cvs:
---   • Anonymous applicants can upload their intro video.
+--   • Authenticated users only can upload their intro video.
 --   • Authenticated recruiters/admin have full access.
---   • Anonymous users CANNOT view other applicants' videos.
+--   • Anonymous users CANNOT view or upload videos.
+-- Video files are up to 100 MB each; anonymous upload is not
+-- permitted to prevent quota exhaustion and abuse.
 -- ============================================================
 
--- Anonymous: anyone can upload an intro video during application
-CREATE POLICY "talent-intro-videos: public insert"
+-- Authenticated: applicants must be signed in to upload an intro video
+DROP POLICY IF EXISTS "talent-intro-videos: authenticated insert" ON storage.objects;
+CREATE POLICY "talent-intro-videos: authenticated insert"
   ON storage.objects
   FOR INSERT
-  WITH CHECK (bucket_id = 'talent-intro-videos');
+  WITH CHECK (
+    bucket_id = 'talent-intro-videos'
+    AND auth.role() = 'authenticated'
+  );
 
 -- Authenticated: recruiters can view/stream intro videos
+DROP POLICY IF EXISTS "talent-intro-videos: authenticated select" ON storage.objects;
 CREATE POLICY "talent-intro-videos: authenticated select"
   ON storage.objects
   FOR SELECT
@@ -197,6 +230,7 @@ CREATE POLICY "talent-intro-videos: authenticated select"
   );
 
 -- Authenticated: recruiters can update video objects
+DROP POLICY IF EXISTS "talent-intro-videos: authenticated update" ON storage.objects;
 CREATE POLICY "talent-intro-videos: authenticated update"
   ON storage.objects
   FOR UPDATE
@@ -210,6 +244,7 @@ CREATE POLICY "talent-intro-videos: authenticated update"
   );
 
 -- Authenticated: recruiters can delete videos (e.g. GDPR erasure)
+DROP POLICY IF EXISTS "talent-intro-videos: authenticated delete" ON storage.objects;
 CREATE POLICY "talent-intro-videos: authenticated delete"
   ON storage.objects
   FOR DELETE
