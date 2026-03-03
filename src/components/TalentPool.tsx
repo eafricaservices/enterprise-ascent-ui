@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { UserPlus, Video, ClipboardCheck, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "./SectionHeading";
+import TalentApplicationDialog from "./TalentApplicationDialog";
 
 const steps = [
   {
@@ -25,11 +27,11 @@ const steps = [
 ];
 
 const TalentPool = () => {
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
+    <>
+    <TalentApplicationDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     <section
       id="talent-pool"
       className="py-24 bg-muted/40 dark:bg-secondary/40"
@@ -79,7 +81,7 @@ const TalentPool = () => {
           <Button
             variant="brand"
             size="lg"
-            onClick={() => scrollTo("contact")}
+            onClick={() => setDialogOpen(true)}
             className="group"
           >
             Apply Now
@@ -88,6 +90,7 @@ const TalentPool = () => {
         </motion.div>
       </div>
     </section>
+    </>
   );
 };
 

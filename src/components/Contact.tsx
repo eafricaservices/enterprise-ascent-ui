@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import SectionHeading from "./SectionHeading";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase";
 
 const contactInfo = [
   {
@@ -24,6 +25,7 @@ const contactInfo = [
 
 const Contact = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,8 +33,28 @@ const Contact = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
+    const { error } = await supabase.from("contact_submissions").insert({
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+    });
+
+    setIsSubmitting(false);
+
+    if (error) {
+      toast({
+        title: "Something went wrong",
+        description: "Your message could not be sent. Please try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     toast({
       title: "Message Sent!",
       description: "Thank you for reaching out. We'll get back to you shortly.",
@@ -147,9 +169,9 @@ const Contact = () => {
                   className="mt-1.5 resize-none"
                 />
               </div>
-              <Button type="submit" variant="brand" size="lg" className="w-full sm:w-auto group">
-                Send Message
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <Button type="submit" variant="brand" size="lg" className="w-full sm:w-auto group" disabled={isSubmitting}>
+                {isSubmitting ? "Sending…" : "Send Message"}
+                {!isSubmitting && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
               </Button>
             </form>
           </motion.div>

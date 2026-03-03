@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   ClipboardList, Search, UserCheck, Handshake, ArrowRight,
@@ -5,6 +6,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "./SectionHeading";
+import TalentApplicationDialog from "./TalentApplicationDialog";
 
 const talentSteps = [
   {
@@ -55,11 +57,14 @@ const companySteps = [
 ];
 
 const HowItWorks = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
+    <>
+    <TalentApplicationDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     <section id="how-it-works" className="py-24 bg-muted/40 dark:bg-secondary/40">
       <div className="container mx-auto px-4 lg:px-8">
         <SectionHeading
@@ -172,7 +177,7 @@ const HowItWorks = () => {
             <Button
               variant="brand"
               size="lg"
-              onClick={() => scrollTo("talent-pool")}
+              onClick={() => setDialogOpen(true)}
               className="group"
             >
               Join Talent Pool
@@ -182,6 +187,7 @@ const HowItWorks = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
