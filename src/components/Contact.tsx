@@ -43,7 +43,7 @@ const Contact = () => {
         email: formData.email,
         subject: formData.subject,
         message: formData.message,
-      });
+      } as any);
 
       if (error) {
         toast({
@@ -68,28 +68,6 @@ const Contact = () => {
     } finally {
       setIsSubmitting(false);
     }
-  };
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for reaching out. We'll get back to you shortly.",
-      });
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    } catch {
-      toast({
-        title: "Something went wrong",
-        description: "Your message could not be sent. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. We'll get back to you shortly.",
-    });
-    setFormData({ name: "", email: "", subject: "", message: "" });
   };
 
   return (
