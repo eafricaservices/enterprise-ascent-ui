@@ -414,27 +414,30 @@ export interface Database {
 // ─────────────────────────────────────────────────────────────
 // Environment variable validation
 // ─────────────────────────────────────────────────────────────
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || "";
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || "";
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    "Missing Supabase environment variables.\n" +
-      "Copy .env.example to .env.local and fill in VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.\n" +
-      "Find your values at: Supabase Dashboard → Project Settings → API"
+const isMissingEnv = !supabaseUrl || !supabaseAnonKey;
+
+if (isMissingEnv) {
+  console.warn(
+    "Missing Supabase environment variables. Database features will be unavailable.\n" +
+      "To enable them, connect Lovable Cloud or set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY."
   );
 }
 
 // ─────────────────────────────────────────────────────────────
-// Singleton Supabase client
+// Singleton Supabase client (creates a no-op client if env is missing)
 // ─────────────────────────────────────────────────────────────
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-    detectSessionInUrl: true,
-  },
-});
+export const supabase = isMissingEnv
+  ? (null as unknown as ReturnType<typeof createClient<Database>>)
+  : createClient<Database>(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+      },
+    });
 
 // ─────────────────────────────────────────────────────────────
 // Convenience type helpers
