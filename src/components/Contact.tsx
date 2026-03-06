@@ -38,12 +38,20 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.from("contact_submissions").insert({
-        name: formData.name,
-        email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
-      });
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
+
+      const { error } = await supabase
+        .from("contact_submissions")
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        })
+        .abortSignal(controller.signal);
+
+      clearTimeout(timeoutId);
 
       if (error) {
         toast({
@@ -59,37 +67,18 @@ const Contact = () => {
         description: "Thank you for reaching out. We'll get back to you shortly.",
       });
       setFormData({ name: "", email: "", subject: "", message: "" });
-    } catch {
+    } catch (err) {
+      const isTimeout = err instanceof Error && err.name === "AbortError";
       toast({
-        title: "Something went wrong",
-        description: "Your message could not be sent. Please try again.",
+        title: isTimeout ? "Request timed out" : "Something went wrong",
+        description: isTimeout
+          ? "The server took too long to respond. Please try again."
+          : "Your message could not be sent. Please try again.",
         variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
     }
-  };
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for reaching out. We'll get back to you shortly.",
-      });
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    } catch {
-      toast({
-        title: "Something went wrong",
-        description: "Your message could not be sent. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. We'll get back to you shortly.",
-    });
-    setFormData({ name: "", email: "", subject: "", message: "" });
   };
 
   return (

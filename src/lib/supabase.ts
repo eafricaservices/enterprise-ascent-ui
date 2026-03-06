@@ -17,6 +17,7 @@ export type Json =
 
 export interface Database {
   public: {
+    PostgrestVersion: "12";
     Tables: {
       profiles: {
         Row: {
@@ -43,6 +44,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       contact_submissions: {
         Row: {
@@ -84,6 +86,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       talent_applications: {
         Row: {
@@ -161,6 +164,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       testimonials: {
         Row: {
@@ -199,6 +203,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       faqs: {
         Row: {
@@ -228,6 +233,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       pricing_plans: {
         Row: {
@@ -272,6 +278,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       pricing_plan_features: {
         Row: {
@@ -298,6 +305,7 @@ export interface Database {
           is_active?: boolean;
           created_at?: string;
         };
+        Relationships: [];
       };
       client_logos: {
         Row: {
@@ -330,6 +338,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       site_stats: {
         Row: {
@@ -359,6 +368,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       impact_items: {
         Row: {
@@ -391,6 +401,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
     };
     Views: Record<string, never>;

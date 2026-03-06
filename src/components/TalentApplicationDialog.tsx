@@ -41,6 +41,8 @@ const TalentApplicationDialog = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState(INITIAL_FORM);
 
+  const [cvFile, setCvFile] = useState<File | null>(null);
+
   const set = (field: keyof typeof INITIAL_FORM) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setForm((prev) => ({ ...prev, [field]: e.target.value }));
@@ -58,62 +60,100 @@ const TalentApplicationDialog = ({
 
     setIsSubmitting(true);
 
-    const payload: TablesInsert<"talent_applications"> = {
-      full_name: form.full_name.trim(),
-      email: form.email.trim(),
-      phone: form.phone.trim() || null,
-      country: form.country.trim(),
-      city: form.city.trim() || null,
-      role_applied_for: form.role_applied_for.trim(),
-      years_experience: form.years_experience
-        ? (Number.isNaN(parseInt(form.years_experience, 10))
-            ? null
-            : parseInt(form.years_experience, 10))
-        : null,
-      skills: form.skills
-        ? form.skills.split(",").map((s) => s.trim()).filter(Boolean)
-        : null,
-      languages: form.languages
-        ? form.languages.split(",").map((l) => l.trim()).filter(Boolean)
-        : null,
-      loom_video_url: form.loom_video_url.trim() || null,
-      terms_accepted: true,
-      terms_accepted_at: new Date().toISOString(),
-    };
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { error } = await (supabase as any)
-      .from("talent_applications")
-      .insert(payload);
-
-    setIsSubmitting(false);
-
-    if (error) {
-      // Duplicate email in submitted state
-      if (error.code === "23505") {
-        toast({
-          title: "Application already received",
-          description:
-            "We already have an active application for this email address.",
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Submission failed",
-          description: "Something went wrong. Please try again.",
-          variant: "destructive",
-        });
+    try {
+      // ── Upload CV if provided ──────────────────────────────────────────
+      let cv_storage_path: string | null = null;
+      if (cvFile) {
+        const path = `${crypto.randomUUID()}/${cvFile.name}`;
+        const { data: uploadData, error: uploadError } =
+          await supabase.storage
+            .from("talent-cvs")
+            .upload(path, cvFile, { upsert: false });
+        if (uploadError) {
+          toast({
+            title: "CV upload failed",
+            description: uploadError.message,
+            variant: "destructive",
+          });
+          return;
+        }
+        cv_storage_path = uploadData.path;
       }
-      return;
-    }
 
-    toast({
-      title: "Application submitted!",
-      description:
-        "Thank you for applying. We'll be in touch once we've reviewed your profile.",
-    });
-    setForm(INITIAL_FORM);
-    onOpenChange(false);
+      // ── Build insert payload ───────────────────────────────────────────
+      const payload: TablesInsert<"talent_applications"> = {
+        full_name: form.full_name.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim() || null,
+        country: form.country.trim(),
+        city: form.city.trim() || null,
+        role_applied_for: form.role_applied_for.trim(),
+        years_experience: form.years_experience
+          ? Number.isNaN(parseInt(form.years_experience, 10))
+            ? null
+            : parseInt(form.years_experience, 10)
+          : null,
+        skills: form.skills
+          ? form.skills.split(",").map((s) => s.trim()).filter(Boolean)
+          : null,
+        languages: form.languages
+          ? form.languages.split(",").map((l) => l.trim()).filter(Boolean)
+          : null,
+        loom_video_url: form.loom_video_url.trim() || null,
+        cv_storage_path,
+        terms_accepted: true,
+        terms_accepted_at: new Date().toISOString(),
+      };
+
+      // ── Insert with 20-second timeout ──────────────────────────────────
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 20000);
+
+      const { error } = await supabase
+        .from("talent_applications")
+        .insert(payload)
+        .abortSignal(controller.signal);
+
+      clearTimeout(timeoutId);
+
+      if (error) {
+        if (error.code === "23505") {
+          toast({
+            title: "Application already received",
+            description:
+              "We already have an active application for this email address.",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Submission failed",
+            description: error.message || "Something went wrong. Please try again.",
+            variant: "destructive",
+          });
+        }
+        return;
+      }
+
+      toast({
+        title: "Application submitted!",
+        description:
+          "Thank you for applying. We'll be in touch once we've reviewed your profile.",
+      });
+      setForm(INITIAL_FORM);
+      setCvFile(null);
+      onOpenChange(false);
+    } catch (err) {
+      const isTimeout = err instanceof Error && err.name === "AbortError";
+      toast({
+        title: isTimeout ? "Request timed out" : "Submission failed",
+        description: isTimeout
+          ? "The server took too long to respond. Please try again."
+          : "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -262,7 +302,27 @@ const TalentApplicationDialog = ({
             </p>
           </div>
 
-          {/* Row 6 — Loom Video */}
+          {/* Row 6 — CV Upload */}
+          <div>
+            <label htmlFor="cv_file" className="text-sm font-medium text-foreground">
+              Upload CV / Résumé
+            </label>
+            <input
+              id="cv_file"
+              type="file"
+              accept=".pdf,.doc,.docx"
+              className="mt-1.5 block w-full cursor-pointer text-sm text-muted-foreground
+                file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-4
+                file:py-2 file:text-sm file:font-medium file:text-primary-foreground
+                hover:file:bg-primary/90"
+              onChange={(e) => setCvFile(e.target.files?.[0] ?? null)}
+            />
+            <p className="mt-1 text-xs text-muted-foreground">
+              PDF, DOC, or DOCX — max 5 MB
+            </p>
+          </div>
+
+          {/* Row 7 — Loom Video */}
           <div>
             <label className="text-sm font-medium text-foreground">
               Loom Video Introduction URL
