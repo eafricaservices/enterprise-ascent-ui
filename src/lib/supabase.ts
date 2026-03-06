@@ -433,7 +433,7 @@ const isMissingEnv = !supabaseUrl || !supabaseAnonKey;
 if (isMissingEnv) {
   console.warn(
     "Missing Supabase environment variables. Database features will be unavailable.\n" +
-      "To enable them, connect Lovable Cloud or set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY."
+      "Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env.local file."
   );
 }
 
