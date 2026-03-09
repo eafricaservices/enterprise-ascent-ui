@@ -38,6 +38,14 @@ const impacts = [
 const Impact = () => {
   return (
     <section id="impact" className="relative overflow-hidden bg-primary dark:bg-muted py-24 text-primary-foreground dark:text-foreground">
+      {/* Logo watermark */}
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/4 pointer-events-none">
+        <img
+          src="/eafrica.png"
+          alt=""
+          className="w-[350px] h-auto opacity-[0.15] object-contain brightness-0 invert"
+        />
+      </div>
       <div className="pointer-events-none absolute inset-0 opacity-[0.07]">
         <div className="absolute left-10 top-20 h-72 w-72 rounded-full bg-accent blur-3xl" />
         <div className="absolute bottom-20 right-10 h-96 w-96 rounded-full bg-accent blur-3xl" />

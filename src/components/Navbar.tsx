@@ -60,15 +60,15 @@ const Navbar = () => {
       <nav className="container mx-auto flex items-center justify-between px-4 py-4 lg:px-8">
         <button
           onClick={() => handleNavClick("#home")}
-          className="flex items-center gap-2.5"
+          className="flex flex-col items-center gap-0.5"
         >
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
-            <span className="font-heading text-lg font-bold text-primary-foreground">
-              EA
-            </span>
-          </div>
+          <img 
+            src="/eafrica.png" 
+            alt="E-Africa Services Logo" 
+            className="h-10 w-auto object-contain"
+          />
           <span
-            className={`font-heading text-lg font-bold transition-colors ${
+            className={`font-heading text-xs font-bold transition-colors ${
               scrolled ? "text-foreground" : "text-white drop-shadow-sm"
             }`}
           >

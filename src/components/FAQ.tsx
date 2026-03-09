@@ -40,8 +40,16 @@ const faqs = [
 
 const FAQ = () => {
   return (
-    <section id="faq" className="py-24 bg-muted/40 dark:bg-secondary/40">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section id="faq" className="relative py-24 bg-muted/40 dark:bg-secondary/40 overflow-hidden">
+      {/* Logo watermark */}
+      <div className="absolute left-0 bottom-10 -translate-x-1/3 pointer-events-none">
+        <img
+          src="/eafrica.png"
+          alt=""
+          className="w-[300px] h-auto opacity-[0.05] object-contain"
+        />
+      </div>
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <SectionHeading
           title="Frequently Asked Questions"
           subtitle="Everything you need to know about working with E-Africa Services."

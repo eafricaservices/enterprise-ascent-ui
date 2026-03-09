@@ -30,13 +30,13 @@ const Footer = () => {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent">
-                <span className="font-heading text-lg font-bold text-accent-foreground">
-                  EA
-                </span>
-              </div>
-              <span className="font-heading text-lg font-bold">
+            <div className="flex flex-col items-start gap-1">
+              <img 
+                src="/eafrica.png" 
+                alt="E-Africa Services Logo" 
+                className="h-12 w-auto object-contain brightness-0 invert"
+              />
+              <span className="font-heading text-sm font-bold">
                 E-Africa Services
               </span>
             </div>

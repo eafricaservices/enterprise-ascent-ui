@@ -12,8 +12,16 @@ const painPoints = [
 
 const WhoWeAre = () => {
   return (
-    <section id="about" className="py-24 bg-muted/40 dark:bg-secondary/40">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section id="about" className="relative py-24 bg-muted/40 dark:bg-secondary/40 overflow-hidden">
+      {/* Logo watermark */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 pointer-events-none">
+        <img
+          src="/eafrica.png"
+          alt=""
+          className="w-[400px] h-auto opacity-[0.06] object-contain"
+        />
+      </div>
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <SectionHeading
           title="Who We Are"
           subtitle="The first Talent-as-a-Service company built to bridge the global trust gap in remote hiring."
