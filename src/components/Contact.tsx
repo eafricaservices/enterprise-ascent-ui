@@ -29,6 +29,8 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    company_name: "",
+    rc_number: "",
     subject: "",
     message: "",
   });
@@ -46,6 +48,8 @@ const Contact = () => {
         .insert({
           name: formData.name,
           email: formData.email,
+          company_name: formData.company_name || null,
+          rc_number: formData.rc_number || null,
           subject: formData.subject,
           message: formData.message,
         })
@@ -66,7 +70,7 @@ const Contact = () => {
         title: "Message Sent!",
         description: "Thank you for reaching out. We'll get back to you shortly.",
       });
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      setFormData({ name: "", email: "", company_name: "", rc_number: "", subject: "", message: "" });
     } catch (err) {
       const isTimeout = err instanceof Error && err.name === "AbortError";
       toast({
@@ -135,7 +139,7 @@ const Contact = () => {
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className="text-sm font-medium text-foreground">
-                    Full Name
+                    Full Name <span className="text-destructive">*</span>
                   </label>
                   <Input
                     id="name"
@@ -148,7 +152,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <label htmlFor="email" className="text-sm font-medium text-foreground">
-                    Email Address
+                    Email Address <span className="text-destructive">*</span>
                   </label>
                   <Input
                     id="email"
@@ -161,9 +165,38 @@ const Contact = () => {
                   />
                 </div>
               </div>
+              <div className="grid gap-5 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="company_name" className="text-sm font-medium text-foreground">
+                    Company Name
+                  </label>
+                  <Input
+                    id="company_name"
+                    placeholder="Acme Corporation"
+                    value={formData.company_name}
+                    onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
+                    className="mt-1.5"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="rc_number" className="text-sm font-medium text-foreground">
+                    RC Number
+                  </label>
+                  <Input
+                    id="rc_number"
+                    placeholder="RC123456"
+                    value={formData.rc_number}
+                    onChange={(e) => setFormData({ ...formData, rc_number: e.target.value })}
+                    className="mt-1.5"
+                  />
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Company registration number (if applicable)
+                  </p>
+                </div>
+              </div>
               <div>
                 <label htmlFor="subject" className="text-sm font-medium text-foreground">
-                  Subject
+                  Subject <span className="text-destructive">*</span>
                 </label>
                 <Input
                   id="subject"
@@ -176,7 +209,7 @@ const Contact = () => {
               </div>
               <div>
                 <label htmlFor="message" className="text-sm font-medium text-foreground">
-                  Message
+                  Message <span className="text-destructive">*</span>
                 </label>
                 <Textarea
                   id="message"

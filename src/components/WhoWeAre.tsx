@@ -30,13 +30,17 @@ const WhoWeAre = () => {
               Our Story
             </h3>
             <p className="mt-4 leading-relaxed text-muted-foreground">
-              E-Africa Services was built to solve one problem:{" "}
-              <strong className="text-foreground">
-                Companies want African talent — but they fear uncertainty.
-              </strong>
+              We started E-Africa Services because we saw something frustrating happening 
+              every day: talented African professionals struggling to break into the global 
+              market, while international companies desperately needed skilled remote workers 
+              but didn't know where to find reliable ones.
             </p>
 
-            <div className="mt-6 space-y-3">
+            <p className="mt-4 leading-relaxed text-muted-foreground">
+              The questions were always the same:
+            </p>
+
+            <div className="mt-4 space-y-3">
               {painPoints.map((point, i) => (
                 <motion.div
                   key={point}
@@ -53,18 +57,25 @@ const WhoWeAre = () => {
             </div>
 
             <p className="mt-6 leading-relaxed text-muted-foreground">
-              <strong className="text-primary">We remove all that friction.</strong>{" "}
-              We recruit, vet, interview, assess, train, structure, and manage
-              remote professionals so companies deal directly with us, while we
-              handle the contractors.
+              So we built something different. Instead of just connecting employers 
+              with freelancers and hoping for the best, we take responsibility for 
+              the entire journey. We find exceptional talent, put them through 
+              rigorous vetting and training, handle all the paperwork and payments, 
+              and stay involved to make sure everything runs smoothly.
+            </p>
+
+            <p className="mt-4 leading-relaxed text-muted-foreground">
+              <strong className="text-primary">Think of us as your remote workforce partner.</strong>{" "}
+              You tell us what you need, and we deliver professionals who are ready 
+              to hit the ground running — backed by our commitment to quality and 
+              our E-Amplify training framework.
             </p>
 
             <div className="mt-6 flex items-center gap-2 text-sm text-muted-foreground">
               <CheckCircle2 className="h-4 w-4 text-primary" />
               <span>
-                <strong className="text-foreground">Not just staffing.</strong> We are
-                Remote Work Infrastructure — Powered by{" "}
-                <span className="font-semibold text-accent">E-Amplify</span>.
+                <strong className="text-foreground">More than staffing.</strong> We're 
+                building Africa's remote work infrastructure — one great hire at a time.
               </span>
             </div>
           </motion.div>

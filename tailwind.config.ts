@@ -19,7 +19,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
+        sans: ["Montserrat", "system-ui", "sans-serif"],
         heading: ["Montserrat", "system-ui", "sans-serif"],
       },
       colors: {
@@ -61,11 +61,12 @@ export default {
           light: "hsl(var(--brand-green-light))",
           dark: "hsl(var(--brand-green-dark))",
         },
-        "brand-gold": {
-          DEFAULT: "hsl(var(--brand-gold))",
-          light: "hsl(var(--brand-gold-light))",
-          dark: "hsl(var(--brand-gold-dark))",
+        "brand-red": {
+          DEFAULT: "hsl(var(--brand-red))",
+          light: "hsl(var(--brand-red-light))",
+          dark: "hsl(var(--brand-red-dark))",
         },
+        "body-text": "hsl(var(--body-text))",
         charcoal: "hsl(var(--charcoal))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

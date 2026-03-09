@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, X } from "lucide-react";
+import { ArrowRight, X, Video, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,8 +11,30 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase, type TablesInsert } from "@/lib/supabase";
+
+const PROFESSIONS = [
+  "Customer Success Manager",
+  "Virtual Assistant",
+  "Data Entry Specialist",
+  "Bookkeeper / Accountant",
+  "Software Developer",
+  "Graphic Designer",
+  "Content Writer",
+  "Digital Marketing Specialist",
+  "Project Manager",
+  "HR / Recruiter",
+  "Sales Representative",
+  "Others",
+];
 
 interface TalentApplicationDialogProps {
   open: boolean;
@@ -25,7 +47,8 @@ const INITIAL_FORM = {
   phone: "",
   country: "",
   city: "",
-  role_applied_for: "",
+  profession: "",
+  profession_other: "",
   years_experience: "",
   skills: "",          // comma-separated → stored as array
   languages: "",       // comma-separated → stored as array
@@ -87,7 +110,9 @@ const TalentApplicationDialog = ({
         phone: form.phone.trim() || null,
         country: form.country.trim(),
         city: form.city.trim() || null,
-        role_applied_for: form.role_applied_for.trim(),
+        role_applied_for: form.profession === "Others" 
+          ? form.profession_other.trim() 
+          : form.profession,
         years_experience: form.years_experience
           ? Number.isNaN(parseInt(form.years_experience, 10))
             ? null
@@ -204,13 +229,14 @@ const TalentApplicationDialog = ({
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="text-sm font-medium text-foreground">
-                Phone Number
+                Phone Number (Preferably your WhatsApp number) <span className="text-destructive">*</span>
               </label>
               <Input
                 className="mt-1.5"
                 placeholder="+254 700 000 000"
                 value={form.phone}
                 onChange={set("phone")}
+                required
               />
             </div>
             <div>
@@ -227,7 +253,7 @@ const TalentApplicationDialog = ({
             </div>
           </div>
 
-          {/* Row 3 — City + Role */}
+          {/* Row 3 — City + Profession */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="text-sm font-medium text-foreground">
@@ -242,23 +268,48 @@ const TalentApplicationDialog = ({
             </div>
             <div>
               <label className="text-sm font-medium text-foreground">
-                Role Applying For <span className="text-destructive">*</span>
+                Profession <span className="text-destructive">*</span>
+              </label>
+              <Select
+                value={form.profession}
+                onValueChange={(value) => setForm((prev) => ({ ...prev, profession: value }))}
+                required
+              >
+                <SelectTrigger className="mt-1.5">
+                  <SelectValue placeholder="Select your profession" />
+                </SelectTrigger>
+                <SelectContent>
+                  {PROFESSIONS.map((prof) => (
+                    <SelectItem key={prof} value={prof}>
+                      {prof}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Profession Other - shown when Others is selected */}
+          {form.profession === "Others" && (
+            <div>
+              <label className="text-sm font-medium text-foreground">
+                Please specify your profession <span className="text-destructive">*</span>
               </label>
               <Input
                 className="mt-1.5"
-                placeholder="Customer Success Manager"
-                value={form.role_applied_for}
-                onChange={set("role_applied_for")}
+                placeholder="Enter your profession"
+                value={form.profession_other}
+                onChange={set("profession_other")}
                 required
               />
             </div>
-          </div>
+          )}
 
           {/* Row 4 — Experience + Languages */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="text-sm font-medium text-foreground">
-                Years of Experience
+                Years of Experience <span className="text-destructive">*</span>
               </label>
               <Input
                 className="mt-1.5"
@@ -268,17 +319,19 @@ const TalentApplicationDialog = ({
                 placeholder="3"
                 value={form.years_experience}
                 onChange={set("years_experience")}
+                required
               />
             </div>
             <div>
               <label className="text-sm font-medium text-foreground">
-                Languages Spoken
+                Languages Spoken <span className="text-destructive">*</span>
               </label>
               <Input
                 className="mt-1.5"
                 placeholder="English, French, Swahili"
                 value={form.languages}
                 onChange={set("languages")}
+                required
               />
               <p className="mt-1 text-xs text-muted-foreground">
                 Separate with commas
@@ -289,13 +342,14 @@ const TalentApplicationDialog = ({
           {/* Row 5 — Skills */}
           <div>
             <label className="text-sm font-medium text-foreground">
-              Key Skills
+              Key Skills <span className="text-destructive">*</span>
             </label>
             <Input
               className="mt-1.5"
               placeholder="CRM, Data Entry, Bookkeeping, Python"
               value={form.skills}
               onChange={set("skills")}
+              required
             />
             <p className="mt-1 text-xs text-muted-foreground">
               Separate with commas
@@ -323,29 +377,39 @@ const TalentApplicationDialog = ({
           </div>
 
           {/* Row 7 — Loom Video */}
-          <div>
+          <div className="space-y-3">
             <label className="text-sm font-medium text-foreground">
-              Loom Video Introduction URL
+              Loom Video Introduction URL <span className="text-destructive">*</span>
             </label>
+            
+            {/* Loom Instructions Card */}
+            <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
+              <div className="flex items-start gap-3">
+                <Video className="h-5 w-5 shrink-0 text-primary mt-0.5" />
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-foreground">How to record your Loom video:</p>
+                  <ol className="text-xs text-muted-foreground space-y-1.5 list-decimal list-inside">
+                    <li>Go to <a href="https://www.loom.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline inline-flex items-center gap-1">loom.com <ExternalLink className="h-3 w-3" /></a> and create a free account</li>
+                    <li>Click "New Video" → Select "Camera Only" (face-only recording)</li>
+                    <li>Record a 1-2 minute introduction about yourself, your experience, and why you want to join</li>
+                    <li>After recording, click "Share" and copy the link</li>
+                    <li>Paste the link in the field below</li>
+                  </ol>
+                  <p className="text-xs text-muted-foreground italic">
+                    Tip: Speak clearly, look at the camera, and keep it professional but friendly!
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <Input
               className="mt-1.5"
               type="url"
               placeholder="https://www.loom.com/share/..."
               value={form.loom_video_url}
               onChange={set("loom_video_url")}
+              required
             />
-            <p className="mt-1 text-xs text-muted-foreground">
-              Record a short face-only introduction at{" "}
-              <a
-                href="https://www.loom.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary underline-offset-2 hover:underline"
-              >
-                loom.com
-              </a>{" "}
-              and paste the share link here.
-            </p>
           </div>
 
           {/* T&Cs */}

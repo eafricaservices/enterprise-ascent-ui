@@ -2,105 +2,107 @@
 @tailwind components;
 @tailwind utilities;
 
-/* E-Africa Services — Earth Tones Design System
-   Deep green, warm gold, charcoal, white — all HSL */
+/* E-Africa Services — Brand Design System
+   Green #12672A, Red #BE3419, White, Charcoal — all HSL */
 
 @layer base {
   :root {
-    --background: 40 20% 98%;
-    --foreground: 200 15% 15%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 7%;
 
     --card: 0 0% 100%;
-    --card-foreground: 200 15% 15%;
+    --card-foreground: 0 0% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 200 15% 15%;
+    --popover-foreground: 0 0% 7%;
 
-    --primary: 152 45% 22%;
-    --primary-foreground: 40 20% 98%;
+    --primary: 137 64% 24%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 40 18% 94%;
-    --secondary-foreground: 200 15% 15%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 7%;
 
-    --muted: 40 12% 93%;
-    --muted-foreground: 200 8% 46%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 202 8% 46%;
 
-    --accent: 42 78% 52%;
-    --accent-foreground: 200 15% 10%;
+    --accent: 10 77% 42%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 40 12% 88%;
-    --input: 40 12% 88%;
-    --ring: 152 45% 22%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 137 64% 24%;
 
     --radius: 0.75rem;
 
-    /* Brand tokens */
-    --brand-green: 152 45% 22%;
-    --brand-green-light: 152 38% 38%;
-    --brand-green-dark: 152 50% 14%;
-    --brand-gold: 42 78% 52%;
-    --brand-gold-light: 42 70% 65%;
-    --brand-gold-dark: 42 85% 40%;
-    --charcoal: 200 10% 20%;
+    /* Brand tokens - #12672A Green, #BE3419 Red */
+    --brand-green: 137 64% 24%;
+    --brand-green-light: 137 50% 35%;
+    --brand-green-dark: 137 70% 16%;
+    --brand-red: 10 77% 42%;
+    --brand-red-light: 10 65% 55%;
+    --brand-red-dark: 10 85% 32%;
+    --charcoal: 0 0% 7%;
+    --body-text: 202 8% 46%;
 
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 200 10% 26%;
-    --sidebar-primary: 152 45% 22%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 40 18% 94%;
-    --sidebar-accent-foreground: 200 10% 20%;
-    --sidebar-border: 40 12% 88%;
-    --sidebar-ring: 152 45% 22%;
+    --sidebar-foreground: 0 0% 7%;
+    --sidebar-primary: 137 64% 24%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 10 77% 42%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 137 64% 24%;
   }
 
   .dark {
-    --background: 200 18% 7%;
-    --foreground: 40 15% 92%;
+    --background: 0 0% 5%;
+    --foreground: 0 0% 95%;
 
-    --card: 200 16% 11%;
-    --card-foreground: 40 15% 92%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 200 16% 11%;
-    --popover-foreground: 40 15% 92%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 152 40% 36%;
+    --primary: 137 55% 32%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 200 16% 13%;
-    --secondary-foreground: 40 15% 92%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 200 14% 16%;
-    --muted-foreground: 40 10% 55%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 202 6% 60%;
 
-    --accent: 42 72% 55%;
-    --accent-foreground: 200 15% 8%;
+    --accent: 10 70% 50%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 200 14% 20%;
-    --input: 200 14% 20%;
-    --ring: 152 40% 36%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 137 55% 32%;
 
-    --brand-green: 152 40% 36%;
-    --brand-green-light: 152 38% 50%;
-    --brand-green-dark: 152 45% 24%;
-    --brand-gold: 42 72% 55%;
-    --brand-gold-light: 42 65% 68%;
-    --brand-gold-dark: 42 80% 42%;
-    --charcoal: 200 12% 18%;
+    --brand-green: 137 55% 32%;
+    --brand-green-light: 137 45% 45%;
+    --brand-green-dark: 137 60% 22%;
+    --brand-red: 10 70% 50%;
+    --brand-red-light: 10 60% 62%;
+    --brand-red-dark: 10 78% 38%;
+    --charcoal: 0 0% 12%;
+    --body-text: 202 6% 60%;
 
-    --sidebar-background: 200 18% 7%;
-    --sidebar-foreground: 40 15% 92%;
-    --sidebar-primary: 152 40% 36%;
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 137 55% 32%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 200 16% 13%;
-    --sidebar-accent-foreground: 40 15% 92%;
-    --sidebar-border: 200 14% 20%;
-    --sidebar-ring: 152 40% 36%;
+    --sidebar-accent: 10 70% 50%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 137 55% 32%;
   }
 }
 
@@ -123,9 +125,9 @@
   .hero-overlay {
     background: linear-gradient(
       135deg,
-      hsl(152 45% 10% / 0.88),
-      hsl(200 30% 8% / 0.80),
-      hsl(200 20% 6% / 0.92)
+      hsl(137 64% 12% / 0.88),
+      hsl(0 0% 5% / 0.85),
+      hsl(0 0% 3% / 0.92)
     );
   }
 }

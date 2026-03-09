@@ -30,7 +30,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-brand-gold/30 bg-brand-gold/10 px-4 py-1.5 text-sm font-medium text-brand-gold-light backdrop-blur-sm">
+            <span className="inline-flex items-center gap-2 rounded-full border border-brand-red/30 bg-brand-red/10 px-4 py-1.5 text-sm font-medium text-brand-red-light backdrop-blur-sm">
               <Users className="h-4 w-4" />
               Africa's Remote Work Infrastructure
             </span>
@@ -43,7 +43,7 @@ const Hero = () => {
             className="mt-8 font-heading text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
           >
             Hire Elite African Remote Teams.{" "}
-            <span className="text-brand-gold">Without the Risk.</span>
+            <span className="text-brand-red">Without the Risk.</span>
           </motion.h1>
 
           <motion.p

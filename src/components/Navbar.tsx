@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
@@ -9,7 +10,7 @@ const navLinks = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "How It Works", href: "#how-it-works" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Pricing", href: "/pricing", isPage: true },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
@@ -19,6 +20,8 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     setMounted(true);
@@ -27,8 +30,20 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollTo = (href: string) => {
+  const handleNavClick = (href: string, isPage?: boolean) => {
     setMobileOpen(false);
+    
+    if (isPage) {
+      navigate(href);
+      return;
+    }
+    
+    // If we're not on the home page and need to scroll to a section
+    if (location.pathname !== "/" && href.startsWith("#")) {
+      navigate("/" + href);
+      return;
+    }
+    
     const id = href.replace("#", "");
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -44,7 +59,7 @@ const Navbar = () => {
     >
       <nav className="container mx-auto flex items-center justify-between px-4 py-4 lg:px-8">
         <button
-          onClick={() => scrollTo("#home")}
+          onClick={() => handleNavClick("#home")}
           className="flex items-center gap-2.5"
         >
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
@@ -65,7 +80,7 @@ const Navbar = () => {
           {navLinks.map((link) => (
             <button
               key={link.href}
-              onClick={() => scrollTo(link.href)}
+              onClick={() => handleNavClick(link.href, link.isPage)}
               className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 scrolled
                   ? "text-foreground/70 hover:text-primary"
@@ -88,7 +103,7 @@ const Navbar = () => {
               className={
                 scrolled
                   ? "text-foreground hover:text-primary"
-                  : "text-white hover:text-brand-gold"
+                  : "text-white hover:text-brand-red"
               }
               aria-label="Toggle theme"
             >
@@ -131,7 +146,7 @@ const Navbar = () => {
               {navLinks.map((link) => (
                 <button
                   key={link.href}
-                  onClick={() => scrollTo(link.href)}
+                  onClick={() => handleNavClick(link.href, link.isPage)}
                   className="block w-full text-left px-4 py-3 rounded-md text-foreground hover:bg-primary/10 hover:text-primary transition-colors font-medium"
                 >
                   {link.label}

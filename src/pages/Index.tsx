@@ -5,7 +5,6 @@ import LogoCloud from "@/components/LogoCloud";
 import WhoWeAre from "@/components/WhoWeAre";
 import WhatWeDo from "@/components/WhatWeDo";
 import HowItWorks from "@/components/HowItWorks";
-import Pricing from "@/components/Pricing";
 import TalentPool from "@/components/TalentPool";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
@@ -24,7 +23,6 @@ const Index = () => {
         <WhoWeAre />
         <WhatWeDo />
         <HowItWorks />
-        <Pricing />
         <TalentPool />
         <Testimonials />
         <FAQ />

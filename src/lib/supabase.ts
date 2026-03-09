@@ -51,6 +51,8 @@ export interface Database {
           id: string;
           name: string;
           email: string;
+          company_name: string | null;
+          rc_number: string | null;
           subject: string;
           message: string;
           status: Database["public"]["Enums"]["contact_status"];
@@ -64,6 +66,8 @@ export interface Database {
           id?: string;
           name: string;
           email: string;
+          company_name?: string | null;
+          rc_number?: string | null;
           subject: string;
           message: string;
           status?: Database["public"]["Enums"]["contact_status"];
@@ -77,6 +81,8 @@ export interface Database {
           id?: string;
           name?: string;
           email?: string;
+          company_name?: string | null;
+          rc_number?: string | null;
           subject?: string;
           message?: string;
           status?: Database["public"]["Enums"]["contact_status"];
