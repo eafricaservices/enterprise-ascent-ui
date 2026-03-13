@@ -117,6 +117,21 @@ export interface Database {
           placed_at: string | null;
           ip_address: string | null;
           user_agent: string | null;
+          cv_score_status:
+            | "pending"
+            | "processing"
+            | "completed"
+            | "failed"
+            | "no_cv";
+          cv_score: number | null;
+          cv_score_breakdown: {
+            skills_match: { score: number; rationale: string };
+            experience_fit: { score: number; rationale: string };
+            education_relevance: { score: number; rationale: string };
+            communication_quality: { score: number; rationale: string };
+          } | null;
+          cv_ai_summary: string | null;
+          cv_parsed_at: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -142,6 +157,21 @@ export interface Database {
           placed_at?: string | null;
           ip_address?: string | null;
           user_agent?: string | null;
+          cv_score_status?:
+            | "pending"
+            | "processing"
+            | "completed"
+            | "failed"
+            | "no_cv";
+          cv_score?: number | null;
+          cv_score_breakdown?: {
+            skills_match: { score: number; rationale: string };
+            experience_fit: { score: number; rationale: string };
+            education_relevance: { score: number; rationale: string };
+            communication_quality: { score: number; rationale: string };
+          } | null;
+          cv_ai_summary?: string | null;
+          cv_parsed_at?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -167,6 +197,21 @@ export interface Database {
           placed_at?: string | null;
           ip_address?: string | null;
           user_agent?: string | null;
+          cv_score_status?:
+            | "pending"
+            | "processing"
+            | "completed"
+            | "failed"
+            | "no_cv";
+          cv_score?: number | null;
+          cv_score_breakdown?: {
+            skills_match: { score: number; rationale: string };
+            experience_fit: { score: number; rationale: string };
+            education_relevance: { score: number; rationale: string };
+            communication_quality: { score: number; rationale: string };
+          } | null;
+          cv_ai_summary?: string | null;
+          cv_parsed_at?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -439,7 +484,7 @@ const isMissingEnv = !supabaseUrl || !supabaseAnonKey;
 if (isMissingEnv) {
   console.warn(
     "Missing Supabase environment variables. Database features will be unavailable.\n" +
-      "Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env.local file."
+      "Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env.local file.",
   );
 }
 
@@ -449,12 +494,12 @@ if (isMissingEnv) {
 export const supabase = isMissingEnv
   ? (null as unknown as ReturnType<typeof createClient<Database>>)
   : createClient<Database>(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true,
-      },
-    });
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true,
+    },
+  });
 
 // ─────────────────────────────────────────────────────────────
 // Convenience type helpers
@@ -467,4 +512,3 @@ export type TablesUpdate<T extends keyof Database["public"]["Tables"]> =
   Database["public"]["Tables"][T]["Update"];
 export type Enums<T extends keyof Database["public"]["Enums"]> =
   Database["public"]["Enums"][T];
-

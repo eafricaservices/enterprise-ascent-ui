@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "lib": ["deno.ns", "deno.unstable", "dom"],
+    "strict": true
+  },
+  "imports": {
+    "@supabase/supabase-js": "npm:@supabase/supabase-js@^2",
+    "mammoth": "npm:mammoth@^1.6.0",
+    "pdf-parse": "npm:pdf-parse@^1.1.1"
+  }
+}

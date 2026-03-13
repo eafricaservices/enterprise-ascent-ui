@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase, type TablesInsert } from "@/lib/supabase";
+import { triggerCvScoring } from "@/lib/cv-scoring";
 
 const PROFESSIONS = [
   "Customer Success Manager",
@@ -104,7 +105,11 @@ const TalentApplicationDialog = ({
       }
 
       // ── Build insert payload ───────────────────────────────────────────
+      // Generate the UUID client-side so we have the id without needing
+      // a SELECT round-trip (which would require a SELECT RLS policy for anon).
+      const newApplicationId = crypto.randomUUID();
       const payload: TablesInsert<"talent_applications"> = {
+        id: newApplicationId,
         full_name: form.full_name.trim(),
         email: form.email.trim(),
         phone: form.phone.trim() || null,
@@ -164,6 +169,11 @@ const TalentApplicationDialog = ({
         description:
           "Thank you for applying. We'll be in touch once we've reviewed your profile.",
       });
+
+      // Trigger AI CV scoring in the background (non-blocking).
+      // The score is stored in the DB and visible to admins.
+      // TODO: premium gate — reveal cv_score to applicant post-payment (Phase 2)
+      triggerCvScoring(newApplicationId);
       setForm(INITIAL_FORM);
       setCvFile(null);
       onOpenChange(false);
