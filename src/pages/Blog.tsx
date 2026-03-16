@@ -1,10 +1,11 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 
 type BlogPost = {
   id: number;
@@ -79,19 +80,49 @@ const blogPosts: BlogPost[] = [
   },
 ];
 
+const BLOG_UPLOADS_STORAGE_KEY = "blog_uploaded_posts_v1";
+
 const BlogPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [uploadedPosts, setUploadedPosts] = useState<BlogPost[]>([]);
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "",
+    tags: "",
+    excerpt: "",
+    readTime: "",
+  });
+
+  useEffect(() => {
+    const raw = localStorage.getItem(BLOG_UPLOADS_STORAGE_KEY);
+    if (!raw) {
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(raw) as BlogPost[];
+      if (Array.isArray(parsed)) {
+        setUploadedPosts(parsed);
+      }
+    } catch {
+      localStorage.removeItem(BLOG_UPLOADS_STORAGE_KEY);
+    }
+  }, []);
+
+  const allPosts = useMemo(() => {
+    return [...uploadedPosts, ...blogPosts];
+  }, [uploadedPosts]);
 
   const categories = useMemo(() => {
-    const uniqueCategories = Array.from(new Set(blogPosts.map((post) => post.category)));
+    const uniqueCategories = Array.from(new Set(allPosts.map((post) => post.category)));
     return ["All", ...uniqueCategories];
-  }, []);
+  }, [allPosts]);
 
   const filteredPosts = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
 
-    return blogPosts.filter((post) => {
+    return allPosts.filter((post) => {
       const matchesCategory =
         selectedCategory === "All" || post.category === selectedCategory;
 
@@ -105,7 +136,54 @@ const BlogPage = () => {
 
       return matchesCategory && searchableText.includes(normalizedQuery);
     });
-  }, [searchQuery, selectedCategory]);
+  }, [allPosts, searchQuery, selectedCategory]);
+
+  const handleUploadPost = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const title = formData.title.trim();
+    const category = formData.category.trim();
+    const excerpt = formData.excerpt.trim();
+
+    if (!title || !category || !excerpt) {
+      return;
+    }
+
+    const parsedTags = formData.tags
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter(Boolean);
+
+    const newPost: BlogPost = {
+      id: Date.now(),
+      title,
+      category,
+      tags: parsedTags,
+      excerpt,
+      date: new Date().toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      }),
+      readTime: formData.readTime.trim() || "5 min read",
+    };
+
+    const updatedUploadedPosts = [newPost, ...uploadedPosts];
+    setUploadedPosts(updatedUploadedPosts);
+    localStorage.setItem(
+      BLOG_UPLOADS_STORAGE_KEY,
+      JSON.stringify(updatedUploadedPosts),
+    );
+
+    setFormData({
+      title: "",
+      category: "",
+      tags: "",
+      excerpt: "",
+      readTime: "",
+    });
+    setSelectedCategory("All");
+  };
 
   return (
     <div className="min-h-screen">
@@ -133,6 +211,83 @@ const BlogPage = () => {
 
         <section className="py-12">
           <div className="container mx-auto px-4 lg:px-8">
+            <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 mb-8">
+              <h2 className="font-heading text-lg font-semibold text-card-foreground">
+                Upload Blog Post
+              </h2>
+              <form onSubmit={handleUploadPost} className="mt-4 space-y-4">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label className="text-sm font-medium text-foreground">Title</label>
+                    <Input
+                      required
+                      value={formData.title}
+                      onChange={(e) =>
+                        setFormData({ ...formData, title: e.target.value })
+                      }
+                      placeholder="Enter blog post title"
+                      className="mt-1.5"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-foreground">Category</label>
+                    <Input
+                      required
+                      value={formData.category}
+                      onChange={(e) =>
+                        setFormData({ ...formData, category: e.target.value })
+                      }
+                      placeholder="e.g. Hiring, Operations"
+                      className="mt-1.5"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label className="text-sm font-medium text-foreground">Tags</label>
+                    <Input
+                      value={formData.tags}
+                      onChange={(e) =>
+                        setFormData({ ...formData, tags: e.target.value })
+                      }
+                      placeholder="comma, separated, tags"
+                      className="mt-1.5"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-foreground">Read Time</label>
+                    <Input
+                      value={formData.readTime}
+                      onChange={(e) =>
+                        setFormData({ ...formData, readTime: e.target.value })
+                      }
+                      placeholder="e.g. 6 min read"
+                      className="mt-1.5"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-foreground">Excerpt</label>
+                  <Textarea
+                    required
+                    value={formData.excerpt}
+                    onChange={(e) =>
+                      setFormData({ ...formData, excerpt: e.target.value })
+                    }
+                    placeholder="Short summary of the post"
+                    rows={4}
+                    className="mt-1.5"
+                  />
+                </div>
+
+                <Button type="submit" variant="brand">
+                  Upload Post
+                </Button>
+              </form>
+            </div>
+
             <div className="rounded-2xl border border-border bg-card p-5 sm:p-6">
               <h2 className="font-heading text-lg font-semibold text-card-foreground">
                 Filter by Categories
