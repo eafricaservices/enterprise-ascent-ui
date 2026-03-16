@@ -43,7 +43,7 @@ const Impact = () => {
         <img
           src="/eafrica.png"
           alt=""
-          className="w-[350px] h-auto opacity-[0.15] object-contain brightness-0 invert"
+          className="w-[200px] sm:w-[280px] lg:w-[350px] h-auto opacity-[0.15] object-contain brightness-0 invert"
         />
       </div>
       <div className="pointer-events-none absolute inset-0 opacity-[0.07]">

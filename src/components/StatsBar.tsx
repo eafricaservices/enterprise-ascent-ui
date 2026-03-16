@@ -18,7 +18,7 @@ const StatsBar = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-wrap items-center justify-center gap-8 md:gap-16"
+          className="flex flex-wrap items-center justify-center gap-6 md:gap-16"
         >
           {stats.map((stat, i) => (
             <motion.div
@@ -43,7 +43,7 @@ const StatsBar = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.5 }}
-            className="flex items-center gap-2 text-3xl"
+            className="flex flex-wrap items-center justify-center gap-2 text-2xl sm:text-3xl"
           >
             {flags.map((flag, i) => (
               <span key={i} className="hover:scale-125 transition-transform cursor-default">

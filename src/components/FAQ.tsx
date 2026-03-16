@@ -46,7 +46,7 @@ const FAQ = () => {
         <img
           src="/eafrica.png"
           alt=""
-          className="w-[300px] h-auto opacity-[0.05] object-contain"
+          className="w-[180px] sm:w-[240px] lg:w-[300px] h-auto opacity-[0.05] object-contain"
         />
       </div>
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
@@ -67,7 +67,7 @@ const FAQ = () => {
               <AccordionItem
                 key={i}
                 value={`faq-${i}`}
-                className="rounded-xl border border-border bg-card px-6 data-[state=open]:shadow-md transition-shadow"
+                className="rounded-xl border border-border bg-card px-4 sm:px-6 data-[state=open]:shadow-md transition-shadow"
               >
                 <AccordionTrigger className="text-left font-heading font-semibold text-foreground hover:text-primary hover:no-underline">
                   {faq.q}

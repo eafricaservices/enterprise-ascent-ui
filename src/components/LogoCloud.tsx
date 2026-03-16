@@ -97,10 +97,10 @@ const LogoCloud = () => {
           <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-16 bg-gradient-to-r from-background to-transparent" />
           <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-16 bg-gradient-to-l from-background to-transparent" />
 
-          <div className="flex animate-marquee gap-12 py-4">
+          <div className="flex animate-marquee gap-8 sm:gap-12 py-4">
             {marqueeSponsors.map((sponsor, i) => {
               const card = (
-                <div className="flex min-w-[200px] shrink-0 flex-col items-center justify-center rounded-lg border border-border bg-card px-6 py-4 text-center shadow-sm transition-shadow hover:shadow-md dark:shadow-black/10">
+                <div className="flex min-w-[170px] sm:min-w-[200px] shrink-0 flex-col items-center justify-center rounded-lg border border-border bg-card px-4 sm:px-6 py-4 text-center shadow-sm transition-shadow hover:shadow-md dark:shadow-black/10">
                   {sponsor.logoPath ? (
                     <img
                       src={sponsor.logoPath}
@@ -109,7 +109,7 @@ const LogoCloud = () => {
                       loading="lazy"
                     />
                   ) : null}
-                  <span className="whitespace-nowrap font-heading text-sm font-semibold text-muted-foreground">
+                  <span className="font-heading text-sm font-semibold text-muted-foreground">
                     {sponsor.name}
                   </span>
                 </div>

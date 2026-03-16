@@ -19,10 +19,10 @@ const SectionHeading = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6 }}
-      className={`mb-14 ${centered ? "text-center" : ""}`}
+      className={`mb-10 sm:mb-14 ${centered ? "text-center" : ""}`}
     >
       <h2
-        className={`font-heading text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl ${
+        className={`font-heading text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl ${
           light ? "text-white" : "text-foreground"
         }`}
       >
@@ -35,7 +35,7 @@ const SectionHeading = ({
       />
       {subtitle && (
         <p
-          className={`mt-5 max-w-2xl text-lg leading-relaxed ${
+          className={`mt-4 max-w-2xl text-base leading-relaxed sm:mt-5 sm:text-lg ${
             centered ? "mx-auto" : ""
           } ${light ? "text-white/70" : "text-muted-foreground"}`}
         >

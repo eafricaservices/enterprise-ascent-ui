@@ -10,7 +10,9 @@ const navLinks = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "How It Works", href: "#how-it-works" },
+  { label: "Blog", href: "/blog", isPage: true },
   { label: "Pricing", href: "/pricing", isPage: true },
+  { label: "Sales", href: "#contact" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
@@ -29,6 +31,13 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const isDarkTheme = resolvedTheme === "dark";
+  const logoFrameClass = !scrolled
+    ? "bg-primary/20 border-white/30"
+    : isDarkTheme
+      ? "bg-white/95 border-white/30"
+      : "bg-primary/95 border-primary/80";
 
   const handleNavClick = (href: string, isPage?: boolean) => {
     setMobileOpen(false);
@@ -60,13 +69,17 @@ const Navbar = () => {
       <nav className="container mx-auto flex items-center justify-between px-4 py-4 lg:px-8">
         <button
           onClick={() => handleNavClick("#home")}
-          className="flex flex-col items-center gap-0.5"
+          className="flex flex-col items-center gap-1"
         >
-          <img 
-            src="/eafrica.png" 
-            alt="E-Africa Services Logo" 
-            className="h-10 w-auto object-contain"
-          />
+          <span
+            className={`inline-flex items-center justify-center rounded-md border px-2 py-1 transition-colors ${logoFrameClass}`}
+          >
+            <img
+              src="/eafrica-logo-transparent.png"
+              alt="E-Africa Services Logo"
+              className="h-9 w-auto object-contain"
+            />
+          </span>
           <span
             className={`font-heading text-xs font-bold transition-colors ${
               scrolled ? "text-foreground" : "text-white drop-shadow-sm"

@@ -134,7 +134,7 @@ const Contact = () => {
           >
             <form
               onSubmit={handleSubmit}
-              className="space-y-5 rounded-xl border border-border bg-card p-8 shadow-sm"
+              className="space-y-5 rounded-xl border border-border bg-card p-5 sm:p-8 shadow-sm"
             >
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>

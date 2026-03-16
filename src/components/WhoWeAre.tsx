@@ -18,7 +18,7 @@ const WhoWeAre = () => {
         <img
           src="/eafrica.png"
           alt=""
-          className="w-[400px] h-auto opacity-[0.06] object-contain"
+          className="w-[220px] sm:w-[320px] lg:w-[400px] h-auto opacity-[0.06] object-contain"
         />
       </div>
       <div className="container mx-auto px-4 lg:px-8 relative z-10">

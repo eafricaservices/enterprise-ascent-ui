@@ -107,10 +107,6 @@ const talentPlans = [
 ];
 
 const PricingPage = () => {
-  const scrollToContact = () => {
-    window.location.href = "/#contact";
-  };
-
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -204,10 +200,12 @@ const PricingPage = () => {
                     variant={plan.featured ? "brand" : "outline"}
                     size="lg"
                     className="mt-8 w-full group"
-                    onClick={scrollToContact}
+                    asChild
                   >
-                    {plan.cta}
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <Link to="/#contact">
+                      {plan.cta}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
                   </Button>
                 </motion.div>
               ))}
@@ -282,10 +280,12 @@ const PricingPage = () => {
                     variant={plan.featured ? "brand" : "outline"}
                     size="lg"
                     className="mt-8 w-full group"
-                    onClick={() => window.location.href = "/#talent"}
+                    asChild
                   >
-                    {plan.cta}
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <Link to="/#talent-pool">
+                      {plan.cta}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
                   </Button>
                 </motion.div>
               ))}

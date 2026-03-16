@@ -65,7 +65,7 @@ const TestimonialCard = ({
   name: string;
   title: string;
 }) => (
-  <div className="w-[360px] shrink-0 rounded-2xl border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-lg dark:shadow-black/10">
+  <div className="w-[85vw] max-w-[360px] shrink-0 rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-sm transition-shadow hover:shadow-lg dark:shadow-black/10">
     <Quote className="h-6 w-6 text-accent/40" />
     <p className="mt-3 text-sm leading-relaxed text-muted-foreground italic">
       &ldquo;{quote}&rdquo;
@@ -89,7 +89,7 @@ const Testimonials = () => {
   return (
     <section
       id="testimonials"
-      className="py-24 overflow-hidden"
+      className="py-20 sm:py-24 overflow-hidden"
     >
       <div className="container mx-auto px-4 lg:px-8">
         <SectionHeading
@@ -99,8 +99,8 @@ const Testimonials = () => {
       </div>
 
       <div className="relative mt-4">
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-20 bg-gradient-to-r from-background to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-20 bg-gradient-to-l from-background to-transparent" />
+        <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-10 sm:w-20 bg-gradient-to-r from-background to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-10 sm:w-20 bg-gradient-to-l from-background to-transparent" />
 
         <div className="group mb-6">
           <div className="flex gap-6 animate-marquee-left group-hover:[animation-play-state:paused]">
