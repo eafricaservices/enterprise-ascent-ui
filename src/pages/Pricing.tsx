@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Check, ArrowRight, Building2, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import Navbar from "@/components/Navbar";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const businessPlans = [
@@ -109,7 +109,7 @@ const talentPlans = [
 const PricingPage = () => {
   return (
     <div className="min-h-screen">
-      <Navbar />
+      <Header />
       <main className="pt-24">
         {/* Hero Section */}
         <section className="py-16 bg-gradient-to-b from-primary/5 to-background">

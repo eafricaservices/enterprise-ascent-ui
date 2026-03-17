@@ -4,6 +4,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
+import Logo from "@/components/Logo";
+import {
+  getHeaderLogoVariant,
+  getHeaderThemeWithContrast,
+  type BackgroundContrast,
+  type HeaderTheme,
+} from "@/lib/branding";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -16,27 +23,103 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
-const Navbar = () => {
+interface HeaderProps {
+  theme?: HeaderTheme;
+}
+
+const Header = ({ theme }: HeaderProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [backgroundContrast, setBackgroundContrast] =
+    useState<BackgroundContrast>("dark");
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
+  const getRgbValues = (color: string) => {
+    const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+    if (!match) return null;
+    return {
+      r: Number(match[1]),
+      g: Number(match[2]),
+      b: Number(match[3]),
+    };
+  };
+
+  const getRelativeLuminance = (r: number, g: number, b: number) => {
+    const toLinear = (channel: number) => {
+      const value = channel / 255;
+      return value <= 0.03928
+        ? value / 12.92
+        : ((value + 0.055) / 1.055) ** 2.4;
+    };
+
+    return 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+  };
+
+  const detectBackgroundContrast = () => {
+    const sampleX = Math.floor(window.innerWidth / 2);
+    const sampleY = 92;
+    const sampledElement = document.elementFromPoint(sampleX, sampleY) as
+      | HTMLElement
+      | null;
+
+    if (!sampledElement) {
+      return;
+    }
+
+    const contrastHint = sampledElement
+      .closest<HTMLElement>("[data-header-contrast]")
+      ?.dataset.headerContrast;
+
+    if (contrastHint === "light" || contrastHint === "dark") {
+      setBackgroundContrast(contrastHint);
+      return;
+    }
+
+    let currentElement: HTMLElement | null = sampledElement;
+    while (currentElement) {
+      const backgroundColor = window.getComputedStyle(currentElement).backgroundColor;
+      if (backgroundColor && backgroundColor !== "rgba(0, 0, 0, 0)") {
+        const rgb = getRgbValues(backgroundColor);
+        if (rgb) {
+          const luminance = getRelativeLuminance(rgb.r, rgb.g, rgb.b);
+          setBackgroundContrast(luminance > 0.5 ? "light" : "dark");
+          return;
+        }
+      }
+      currentElement = currentElement.parentElement;
+    }
+
+    setBackgroundContrast("light");
+  };
+
   useEffect(() => {
     setMounted(true);
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+      detectBackgroundContrast();
+    };
+
+    detectBackgroundContrast();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", detectBackgroundContrast);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", detectBackgroundContrast);
+    };
   }, []);
 
-  const isDarkTheme = resolvedTheme === "dark";
-  const logoFrameClass = !scrolled
-    ? "bg-primary/20 border-white/30"
-    : isDarkTheme
-      ? "bg-white/95 border-white/30"
-      : "bg-primary/95 border-primary/80";
+  const headerTheme =
+    theme ?? getHeaderThemeWithContrast(scrolled, resolvedTheme, backgroundContrast);
+  const logoVariant = getHeaderLogoVariant(headerTheme);
+  const logoFrameClass =
+    headerTheme === "transparent"
+      ? "bg-primary/20 border-white/30"
+      : headerTheme === "dark"
+        ? "bg-white/10 border-white/20"
+        : "bg-white/95 border-border";
 
   const handleNavClick = (href: string, isPage?: boolean) => {
     setMobileOpen(false);
@@ -60,7 +143,7 @@ const Navbar = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+        scrolled || headerTheme === "light"
           ? "bg-background/95 backdrop-blur-md shadow-md border-b border-border"
           : "bg-transparent"
       }`}
@@ -73,11 +156,7 @@ const Navbar = () => {
           <span
             className={`inline-flex items-center justify-center rounded-md border px-2 py-1 transition-colors ${logoFrameClass}`}
           >
-            <img
-              src="/eafrica-logo-transparent.png"
-              alt="E-Africa Services Logo"
-              className="h-9 w-auto object-contain"
-            />
+            <Logo variant={logoVariant} />
           </span>
           <span
             className={`font-heading text-xs font-bold transition-colors ${
@@ -94,7 +173,7 @@ const Navbar = () => {
               key={`${link.label}-${link.href}`}
               onClick={() => handleNavClick(link.href, link.isPage)}
               className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                scrolled
+                scrolled || headerTheme === "light"
                   ? "text-foreground/70 hover:text-primary"
                   : "text-white/80 hover:text-white"
               }`}
@@ -113,7 +192,7 @@ const Navbar = () => {
                 setTheme(resolvedTheme === "dark" ? "light" : "dark")
               }
               className={
-                scrolled
+                scrolled || headerTheme === "light"
                   ? "text-foreground hover:text-primary"
                   : "text-white hover:text-brand-red"
               }
@@ -131,7 +210,7 @@ const Navbar = () => {
             variant="ghost"
             size="icon"
             className={`lg:hidden ${
-              scrolled ? "text-foreground" : "text-white"
+              scrolled || headerTheme === "light" ? "text-foreground" : "text-white"
             }`}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
@@ -172,4 +251,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Header;

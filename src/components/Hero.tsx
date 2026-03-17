@@ -11,6 +11,7 @@ const Hero = () => {
   return (
     <section
       id="home"
+      data-header-contrast="dark"
       className="relative min-h-screen flex items-center overflow-hidden"
     >
       <div className="absolute inset-0">

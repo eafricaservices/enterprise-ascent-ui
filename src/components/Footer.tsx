@@ -1,4 +1,5 @@
 import { MapPin, Phone, Mail, Facebook, Instagram, Youtube, Music2 } from "lucide-react";
+import Logo from "@/components/Logo";
 
 const quickLinks = [
   { label: "Home", href: "#home" },
@@ -64,12 +65,8 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <div className="flex flex-col items-start gap-1">
-              <span className="inline-flex items-center justify-center rounded-md bg-white/95 px-2 py-1">
-                <img
-                  src="/eafrica-logo-transparent.png"
-                  alt="E-Africa Services Logo"
-                  className="h-10 w-auto object-contain"
-                />
+              <span className="inline-flex items-center justify-center rounded-md border border-primary-foreground/20 bg-white/10 px-2 py-1">
+                <Logo variant="light" className="h-10" />
               </span>
               <span className="font-heading text-sm font-bold">
                 E-Africa Services
@@ -137,32 +134,6 @@ const Footer = () => {
                 <span>info@eafricaservices.com</span>
               </div>
             </div>
-
-            <h4 className="mt-6 mb-3 font-heading text-base font-semibold">
-              Follow Us
-            </h4>
-            <ul className="space-y-2">
-              {socialLinks.map((social) => (
-                <li key={social.name}>
-                  <a
-                    href={social.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`${social.name} ${social.username}`}
-                    className="inline-flex items-center gap-3 text-sm opacity-70 transition-all hover:text-accent hover:opacity-100"
-                  >
-                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-primary-foreground/20 dark:border-border">
-                      {social.icon ? (
-                        <social.icon className="h-4 w-4" />
-                      ) : (
-                        <span className="text-xs font-bold">X</span>
-                      )}
-                    </span>
-                    <span>{social.username}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </div>

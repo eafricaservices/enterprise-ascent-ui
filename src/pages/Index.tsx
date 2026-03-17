@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import StatsBar from "@/components/StatsBar";
 import LogoCloud from "@/components/LogoCloud";
@@ -15,7 +15,7 @@ import Footer from "@/components/Footer";
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <Navbar />
+      <Header />
       <main>
         <Hero />
         <StatsBar />
