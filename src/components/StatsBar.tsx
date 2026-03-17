@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 
 const stats = [
-  { value: "500+", label: "Professionals Placed" },
-  { value: "100+", label: "Companies Partnered" },
-  { value: "25+", label: "African Countries" },
-  { value: "6", label: "Languages Supported" },
+  { value: "500+", label: "Remote Professionals Placed" },
+  { value: "100+", label: "Global Companies Supported" },
+  { value: "25+", label: "African Talent Markets" },
+  { value: "6", label: "Business Languages Covered" },
 ];
 
 const flags = ["🇳🇬", "🇰🇪", "🇬🇭", "🇿🇦", "🇪🇬", "🇨🇲", "🇸🇱", "🇩🇿"];
@@ -60,9 +60,9 @@ const StatsBar = () => {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="mt-10 max-w-3xl mx-auto text-center text-muted-foreground leading-relaxed"
         >
-          We are a technology-backed company dedicated to transforming careers
-          and empowering organizations across Africa through innovative remote work
-          infrastructure, strategic consulting, and talent placement solutions.
+          E-Africa Services enables reliable remote hiring through vetted talent,
+          multilingual workforce readiness, and structured delivery support for
+          startups, SMEs, and enterprise teams.
         </motion.p>
       </div>
     </section>

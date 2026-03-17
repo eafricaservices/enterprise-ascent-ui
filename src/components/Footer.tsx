@@ -3,19 +3,19 @@ import { MapPin, Phone, Mail, Facebook, Instagram, Youtube, Music2 } from "lucid
 const quickLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
+  { label: "Talent Solutions", href: "#services" },
   { label: "Pricing", href: "#pricing" },
   { label: "Talent Pool", href: "#talent-pool" },
-  { label: "Contact", href: "#contact" },
+  { label: "Talk to Hiring Team", href: "#contact" },
 ];
 
 const servicesList = [
-  "Customer Service Teams",
-  "Virtual Assistants",
-  "IT & AI Automation",
-  "Sales & Customer Success",
-  "Bookkeeping & Legal",
-  "Design & Animation",
+  "Global Talent Solutions",
+  "Multilingual Professionals",
+  "Remote Team Buildout",
+  "Training & Talent Development",
+  "Corporate Training Programs",
+  "Remote-Ready Workforce Verification",
 ];
 
 const socialLinks = [
@@ -76,8 +76,9 @@ const Footer = () => {
               </span>
             </div>
             <p className="mt-4 text-sm leading-relaxed opacity-70">
-              The first Talent-as-a-Service company built to bridge the global trust
-              gap in remote hiring. Remote Work Infrastructure for Africa.
+              E-Africa Services helps global companies build remote teams with
+              vetted, multilingual professionals across Africa through structured
+              talent infrastructure.
             </p>
             <p className="mt-4 text-xs opacity-50">
               Powered by <span className="font-semibold text-accent">E-Amplify</span>

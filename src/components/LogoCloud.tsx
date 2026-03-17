@@ -90,7 +90,10 @@ const LogoCloud = () => {
   return (
     <section className="py-16">
       <div className="container mx-auto px-4 lg:px-8">
-        <SectionHeading title="Trusted by Our Sponsors" />
+        <SectionHeading
+          title="Trusted by Global Partners"
+          subtitle="E-Africa collaborates with ecosystem partners, platforms, and employers building distributed teams with African talent."
+        />
 
         {/* Scrolling logos */}
         <div className="relative overflow-hidden">

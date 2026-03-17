@@ -8,11 +8,11 @@ import { AnimatePresence, motion } from "framer-motion";
 const navLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
+  { label: "Talent Solutions", href: "#services" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "Blog", href: "/blog", isPage: true },
   { label: "Pricing", href: "/pricing", isPage: true },
-  { label: "Sales", href: "#contact" },
+  { label: "Hiring Team", href: "#contact" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
@@ -92,7 +92,7 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center gap-1">
           {navLinks.map((link) => (
             <button
-              key={link.href}
+              key={`${link.label}-${link.href}`}
               onClick={() => handleNavClick(link.href, link.isPage)}
               className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 scrolled
@@ -158,7 +158,7 @@ const Navbar = () => {
             <div className="container mx-auto px-4 py-4 space-y-1">
               {navLinks.map((link) => (
                 <button
-                  key={link.href}
+                  key={`mobile-${link.label}-${link.href}`}
                   onClick={() => handleNavClick(link.href, link.isPage)}
                   className="block w-full text-left px-4 py-3 rounded-md text-foreground hover:bg-primary/10 hover:text-primary transition-colors font-medium"
                 >

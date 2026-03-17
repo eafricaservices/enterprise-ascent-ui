@@ -24,7 +24,7 @@ const WhoWeAre = () => {
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <SectionHeading
           title="Who We Are"
-          subtitle="The first Talent-as-a-Service company built to bridge the global trust gap in remote hiring."
+          subtitle="A Talent-as-a-Service company building reliable global workforce infrastructure across Africa."
         />
 
         <div className="grid items-center gap-12 lg:grid-cols-2">
@@ -35,17 +35,16 @@ const WhoWeAre = () => {
             transition={{ duration: 0.6 }}
           >
             <h3 className="font-heading text-2xl font-bold text-foreground">
-              Our Story
+              Our Mission
             </h3>
             <p className="mt-4 leading-relaxed text-muted-foreground">
-              We started E-Africa Services because we saw something frustrating happening 
-              every day: talented African professionals struggling to break into the global 
-              market, while international companies desperately needed skilled remote workers 
-              but didn't know where to find reliable ones.
+              E-Africa Services exists to connect international companies with Africa's
+              growing pool of highly skilled professionals through a structured, enterprise-ready
+              hiring model.
             </p>
 
             <p className="mt-4 leading-relaxed text-muted-foreground">
-              The questions were always the same:
+              We solve the core concerns global employers face in remote hiring:
             </p>
 
             <div className="mt-4 space-y-3">
@@ -65,25 +64,22 @@ const WhoWeAre = () => {
             </div>
 
             <p className="mt-6 leading-relaxed text-muted-foreground">
-              So we built something different. Instead of just connecting employers 
-              with freelancers and hoping for the best, we take responsibility for 
-              the entire journey. We find exceptional talent, put them through 
-              rigorous vetting and training, handle all the paperwork and payments, 
-              and stay involved to make sure everything runs smoothly.
+              Instead of operating like a freelancer marketplace, we provide end-to-end
+              workforce infrastructure: sourcing, vetting, training, onboarding support,
+              and operational continuity for distributed teams.
             </p>
 
             <p className="mt-4 leading-relaxed text-muted-foreground">
-              <strong className="text-primary">Think of us as your remote workforce partner.</strong>{" "}
-              You tell us what you need, and we deliver professionals who are ready 
-              to hit the ground running — backed by our commitment to quality and 
-              our E-Amplify training framework.
+              <strong className="text-primary">Think of us as your global talent partner.</strong>{" "}
+              You define the outcomes, and we deliver remote-ready professionals prepared
+              for international teams through our quality standards and E-Amplify training framework.
             </p>
 
             <div className="mt-6 flex items-center gap-2 text-sm text-muted-foreground">
               <CheckCircle2 className="h-4 w-4 text-primary" />
               <span>
-                <strong className="text-foreground">More than staffing.</strong> We're 
-                building Africa's remote work infrastructure — one great hire at a time.
+                <strong className="text-foreground">More than staffing.</strong> We are
+                building Africa's global talent infrastructure for scalable remote hiring.
               </span>
             </div>
           </motion.div>

@@ -39,20 +39,20 @@ const companySteps = [
   {
     icon: FileText,
     number: "1",
-    title: "Submit Hiring Request",
-    description: "Fill form, select service type, describe role needs, and book a meeting.",
+    title: "Discovery & Role Blueprint",
+    description: "Define role outcomes, team structure, language needs, and performance expectations with our hiring specialists.",
   },
   {
     icon: Calendar,
     number: "2",
-    title: "We Source & Vet",
-    description: "Screening, interviews, assessments, payroll setup, and contracts — handled.",
+    title: "Vetting, Shortlisting & Onboarding",
+    description: "We manage sourcing, assessments, shortlist quality, onboarding readiness, contracts, and payroll setup.",
   },
   {
     icon: Rocket,
     number: "3",
-    title: "You Scale",
-    description: "You manage outcomes. We manage structure, payroll, and compliance.",
+    title: "Delivery, Governance & Scale",
+    description: "Track performance with structured check-ins while we support retention, compliance, and team expansion.",
   },
 ];
 
@@ -69,7 +69,7 @@ const HowItWorks = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <SectionHeading
           title="How It Works"
-          subtitle="Simple processes for talent and companies alike."
+          subtitle="A structured model for global hiring, onboarding, and long-term remote team success."
         />
 
         {/* For Companies */}
@@ -80,7 +80,7 @@ const HowItWorks = () => {
             viewport={{ once: true }}
             className="text-center font-heading text-2xl font-bold text-foreground mb-10"
           >
-            For Companies
+            For Companies: From Hiring to Team Performance
           </motion.h3>
           <div className="grid gap-8 md:grid-cols-3">
             {companySteps.map((step, i) => (
@@ -123,7 +123,7 @@ const HowItWorks = () => {
               onClick={() => scrollTo("contact")}
               className="group"
             >
-              Start Hiring
+              Talk to Hiring Team
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </motion.div>
@@ -137,7 +137,7 @@ const HowItWorks = () => {
             viewport={{ once: true }}
             className="text-center font-heading text-2xl font-bold text-foreground mb-10"
           >
-            For Talent
+            For Talent: Vetting to Global Placement
           </motion.h3>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {talentSteps.map((step, i) => (

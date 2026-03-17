@@ -11,15 +11,15 @@ import { supabase } from "@/lib/supabase";
 const contactInfo = [
   {
     icon: MapPin,
-    label: "Operations",
-    value: "Pan-African — Remote-first company",
+    label: "Operations Footprint",
+    value: "Pan-African talent network — Remote-first delivery",
   },
   { icon: Phone, label: "Phone", value: "+254 700 000 000" },
   { icon: Mail, label: "Email", value: "info@eafricaservices.com" },
   {
     icon: Clock,
-    label: "Availability",
-    value: "US Hours — Mon–Fri",
+    label: "Engagement Hours",
+    value: "Mon–Fri with global timezone coordination",
   },
 ];
 
@@ -67,8 +67,8 @@ const Contact = () => {
       }
 
       toast({
-        title: "Message Sent!",
-        description: "Thank you for reaching out. We'll get back to you shortly.",
+        title: "Request Submitted",
+        description: "Thank you. Our team will contact you shortly to discuss your hiring needs.",
       });
       setFormData({ name: "", email: "", company_name: "", rc_number: "", subject: "", message: "" });
     } catch (err) {
@@ -89,8 +89,8 @@ const Contact = () => {
     <section id="contact" className="py-24 bg-muted/40 dark:bg-secondary/40">
       <div className="container mx-auto px-4 lg:px-8">
         <SectionHeading
-          title="Get In Touch"
-          subtitle="Ready to hire elite remote talent? Let's start a conversation."
+          title="Talk to Our Hiring Team"
+          subtitle="Share your hiring goals and we will design a talent solution for your remote team."
         />
 
         <div className="grid gap-12 lg:grid-cols-5">
@@ -180,17 +180,17 @@ const Contact = () => {
                 </div>
                 <div>
                   <label htmlFor="rc_number" className="text-sm font-medium text-foreground">
-                    RC Number
+                    Registration Number
                   </label>
                   <Input
                     id="rc_number"
-                    placeholder="RC123456"
+                    placeholder="Company registration ID"
                     value={formData.rc_number}
                     onChange={(e) => setFormData({ ...formData, rc_number: e.target.value })}
                     className="mt-1.5"
                   />
                   <p className="mt-1 text-xs text-muted-foreground">
-                    Company registration number (if applicable)
+                    Optional legal entity identifier (if applicable)
                   </p>
                 </div>
               </div>
@@ -200,7 +200,7 @@ const Contact = () => {
                 </label>
                 <Input
                   id="subject"
-                  placeholder="I want to hire remote talent..."
+                  placeholder="Hiring request for remote roles"
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   required
@@ -213,7 +213,7 @@ const Contact = () => {
                 </label>
                 <Textarea
                   id="message"
-                  placeholder="Tell us about your hiring needs..."
+                  placeholder="Tell us which roles you need, expected timeline, and preferred language or timezone coverage."
                   rows={5}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -222,7 +222,7 @@ const Contact = () => {
                 />
               </div>
               <Button type="submit" variant="brand" size="lg" className="w-full sm:w-auto group" disabled={isSubmitting}>
-                {isSubmitting ? "Sending…" : "Send Message"}
+                {isSubmitting ? "Submitting…" : "Book Hiring Consultation"}
                 {!isSubmitting && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
               </Button>
             </form>

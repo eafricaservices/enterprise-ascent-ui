@@ -7,10 +7,10 @@ import Footer from "@/components/Footer";
 
 const businessPlans = [
   {
-    name: "Pay-As-You-Go",
+    name: "Flexible Team Access",
     price: "$13",
     unit: "per team member / hour",
-    description: "Ideal for companies needing flexible, on-demand remote talent.",
+    description: "For companies that need flexible, on-demand remote talent across core business functions.",
     features: [
       "Customer Service & Virtual Assistants",
       "Data Entry, Coding & Bookkeeping",
@@ -20,14 +20,14 @@ const businessPlans = [
       "Payroll & Compliance Management",
       "English Assessment & Interview Screening",
     ],
-    cta: "Start Hiring",
+    cta: "Talk to Hiring Team",
     featured: false,
   },
   {
-    name: "Build My Team",
+    name: "Dedicated Team Buildout",
     price: "Custom",
     unit: "tailored pricing",
-    description: "Custom-built remote teams with tailored skill combinations and structured departments.",
+    description: "Custom-built remote teams with structured onboarding, role alignment, and managed delivery support.",
     features: [
       "Custom team structure design",
       "Assigned dashboards & workflows",
@@ -36,14 +36,14 @@ const businessPlans = [
       "Skill-matched professionals",
       "Ongoing performance tracking",
     ],
-    cta: "Get a Quote",
+    cta: "Request Team Proposal",
     featured: true,
   },
   {
-    name: "Scale Large Team",
+    name: "Enterprise Workforce Scale",
     price: "Enterprise",
     unit: "100–1000+ members",
-    description: "For companies hiring at scale with full infrastructure deployment.",
+    description: "For organizations scaling distributed operations with full workforce infrastructure and strategic oversight.",
     features: [
       "Infrastructure deployment",
       "Management layer setup",
@@ -52,7 +52,7 @@ const businessPlans = [
       "Strategic account oversight",
       "Dedicated scaling partner",
     ],
-    cta: "Schedule Strategic Call",
+    cta: "Schedule Workforce Strategy Call",
     featured: false,
   },
 ];
@@ -119,7 +119,7 @@ const PricingPage = () => {
               animate={{ opacity: 1, y: 0 }}
               className="font-heading text-4xl font-bold text-foreground sm:text-5xl"
             >
-              Transparent Pricing
+              Workforce Pricing
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -127,8 +127,8 @@ const PricingPage = () => {
               transition={{ delay: 0.1 }}
               className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto"
             >
-              Whether you're a business looking to hire remote talent or a professional 
-              seeking global opportunities, we have a plan that fits your needs.
+              Structured plans for global companies hiring remote African talent,
+              plus development options for professionals joining our talent network.
             </motion.p>
           </div>
         </section>
@@ -147,10 +147,10 @@ const PricingPage = () => {
               </div>
               <div>
                 <h2 className="font-heading text-2xl font-bold text-foreground">
-                  For Businesses
+                  For Companies
                 </h2>
                 <p className="text-muted-foreground">
-                  Hire vetted African remote professionals for your team
+                  Build reliable remote teams with vetted, multilingual professionals
                 </p>
               </div>
             </motion.div>
@@ -227,10 +227,10 @@ const PricingPage = () => {
               </div>
               <div>
                 <h2 className="font-heading text-2xl font-bold text-foreground">
-                  For Talent / Job Seekers
+                  For Talent Professionals
                 </h2>
                 <p className="text-muted-foreground">
-                  Join our talent pool and access global remote opportunities
+                  Join the network and prepare for global remote opportunities
                 </p>
               </div>
             </motion.div>
@@ -305,13 +305,13 @@ const PricingPage = () => {
                 Have Questions About Pricing?
               </h2>
               <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-                Every business is unique. Contact us for custom quotes, volume discounts, 
-                or to discuss your specific requirements.
+                Every hiring roadmap is different. Talk to our team for custom proposals,
+                volume structures, or role-specific planning.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <Button variant="brand" size="lg" asChild>
                   <Link to="/#contact">
-                    Contact Sales
+                    Talk to Hiring Team
                     <ArrowRight className="h-4 w-4 ml-2" />
                   </Link>
                 </Button>

@@ -5,10 +5,10 @@ import SectionHeading from "./SectionHeading";
 
 const plans = [
   {
-    name: "Pay-As-You-Go",
+    name: "Flexible Team Access",
     price: "$13",
     unit: "per team member / hour",
-    description: "Ideal for companies needing flexible, on-demand remote talent.",
+    description: "For companies that need flexible, on-demand remote talent across core business functions.",
     features: [
       "Customer Service & Virtual Assistants",
       "Data Entry, Coding & Bookkeeping",
@@ -18,14 +18,14 @@ const plans = [
       "Payroll & Compliance Management",
       "English Assessment & Interview Screening",
     ],
-    cta: "Start Hiring",
+    cta: "Talk to Hiring Team",
     featured: false,
   },
   {
-    name: "Build My Team",
+    name: "Dedicated Team Buildout",
     price: "Custom",
     unit: "tailored pricing",
-    description: "Custom-built remote teams with tailored skill combinations and structured departments.",
+    description: "Custom-built remote teams with structured onboarding, role alignment, and managed delivery support.",
     features: [
       "Custom team structure design",
       "Assigned dashboards & workflows",
@@ -34,14 +34,14 @@ const plans = [
       "Skill-matched professionals",
       "Ongoing performance tracking",
     ],
-    cta: "Get a Quote",
+    cta: "Request Team Proposal",
     featured: true,
   },
   {
-    name: "Scale Large Team",
+    name: "Enterprise Workforce Scale",
     price: "Enterprise",
     unit: "100–1000+ members",
-    description: "For companies hiring at scale with full infrastructure deployment.",
+    description: "For organizations scaling distributed operations with full workforce infrastructure and strategic oversight.",
     features: [
       "Infrastructure deployment",
       "Management layer setup",
@@ -50,7 +50,7 @@ const plans = [
       "Strategic account oversight",
       "Dedicated scaling partner",
     ],
-    cta: "Schedule Strategic Call",
+    cta: "Schedule Workforce Strategy Call",
     featured: false,
   },
 ];
@@ -65,7 +65,7 @@ const Pricing = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <SectionHeading
           title="Pricing"
-          subtitle="Transparent pricing that scales with your needs."
+          subtitle="Workforce pricing models designed for flexible hiring, dedicated team buildout, and enterprise scale."
         />
 
         <div className="grid gap-8 lg:grid-cols-3">
