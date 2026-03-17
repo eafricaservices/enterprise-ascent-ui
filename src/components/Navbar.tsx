@@ -12,7 +12,6 @@ const navLinks = [
   { label: "How It Works", href: "#how-it-works" },
   { label: "Blog", href: "/blog", isPage: true },
   { label: "Pricing", href: "/pricing", isPage: true },
-  { label: "Hiring Team", href: "#contact" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
