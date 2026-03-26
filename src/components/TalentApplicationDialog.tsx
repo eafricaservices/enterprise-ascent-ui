@@ -53,6 +53,7 @@ const INITIAL_FORM = {
   years_experience: "",
   skills: "",          // comma-separated → stored as array
   languages: "",       // comma-separated → stored as array
+  portfolio_url: "",
   loom_video_url: "",
   terms_accepted: false,
 };
@@ -129,6 +130,7 @@ const TalentApplicationDialog = ({
         languages: form.languages
           ? form.languages.split(",").map((l) => l.trim()).filter(Boolean)
           : null,
+        portfolio_url: form.portfolio_url.trim() || null,
         loom_video_url: form.loom_video_url.trim() || null,
         cv_storage_path,
         terms_accepted: true,
@@ -386,7 +388,24 @@ const TalentApplicationDialog = ({
             </p>
           </div>
 
-          {/* Row 7 — Loom Video */}
+          {/* Row 7 — Portfolio Link */}
+          <div>
+            <label className="text-sm font-medium text-foreground">
+              Portfolio Link (optional)
+            </label>
+            <Input
+              className="mt-1.5"
+              placeholder="https://yourportfolio.com"
+              value={form.portfolio_url}
+              onChange={set("portfolio_url")}
+              type="url"
+            />
+            <p className="mt-1 text-xs text-muted-foreground">
+              Add a link to your portfolio, GitHub, Behance, LinkedIn, or personal website (optional but recommended).
+            </p>
+          </div>
+
+          {/* Row 8 — Loom Video */}
           <div className="space-y-3">
             <label className="text-sm font-medium text-foreground">
               Loom Video Introduction URL <span className="text-destructive">*</span>

@@ -43,8 +43,8 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-8 font-heading text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
           >
-            Build Global Teams With Africa's
-            <span className="text-brand-red"> Remote-Ready Talent.</span>
+            We provide globally competitive African talent
+            <span className="text-brand-red"> to companies in the US, UK, and Europe.</span>
           </motion.h1>
 
           <motion.p
@@ -53,9 +53,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mt-6 max-w-2xl mx-auto text-lg leading-relaxed text-white/70 sm:text-xl"
           >
-            E-Africa Services helps startups, SMEs, and global companies hire vetted,
-            multilingual professionals across Africa with structured onboarding,
-            payroll support, and ongoing performance governance.
+            Our professionals are trained to work with international teams and clients. We handle sourcing, vetting, training, and payroll—making it easy for you to build high-performing global teams.
           </motion.p>
 
           <motion.div
