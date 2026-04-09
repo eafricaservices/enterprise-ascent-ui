@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Menu, X, Moon, Sun } from "lucide-react";
+import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import Logo from "@/components/Logo";
@@ -14,13 +14,32 @@ import {
 
 const navLinks = [
   { label: "Home", href: "#home" },
+  {
+    label: "For Employers",
+    children: [
+      { label: "Talent Solutions", href: "#employers-core-services" },
+      { label: "How It Works (Hiring)", href: "#employers-how-it-works" },
+      { label: "Pricing", href: "/pricing", isPage: true },
+    ],
+  },
+  {
+    label: "For Job Seekers",
+    children: [
+      { label: "Talent Pool", href: "#job-seekers-talent-pool" },
+      { label: "How It Works (Applying)", href: "#how-to-join" },
+      { label: "Job Listings", href: "/jobs", isPage: true },
+    ],
+  },
   { label: "About", href: "#about" },
-  { label: "Talent Solutions", href: "#services" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Blog", href: "/blog", isPage: true },
-  { label: "Pricing", href: "/pricing", isPage: true },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Contact", href: "#contact" },
+  {
+    label: "Resources",
+    children: [
+      { label: "Blog", href: "/blog", isPage: true },
+      { label: "Testimonials", href: "#testimonials" },
+      { label: "FAQ", href: "#faq" },
+    ],
+  },
+  { label: "Contact", href: "/contact", isPage: true },
 ];
 
 interface HeaderProps {
@@ -32,6 +51,7 @@ const Header = ({ theme }: HeaderProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [backgroundContrast, setBackgroundContrast] =
     useState<BackgroundContrast>("dark");
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const navigate = useNavigate();
@@ -123,6 +143,7 @@ const Header = ({ theme }: HeaderProps) => {
 
   const handleNavClick = (href: string, isPage?: boolean) => {
     setMobileOpen(false);
+    setOpenDropdown(null);
     
     if (isPage) {
       navigate(href);
@@ -168,19 +189,59 @@ const Header = ({ theme }: HeaderProps) => {
         </button>
 
         <div className="hidden lg:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <button
-              key={`${link.label}-${link.href}`}
-              onClick={() => handleNavClick(link.href, link.isPage)}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                scrolled || headerTheme === "light"
-                  ? "text-foreground/70 hover:text-primary"
-                  : "text-white/80 hover:text-white"
-              }`}
-            >
-              {link.label}
-            </button>
-          ))}
+          {navLinks.map((link) => {
+            if (link.children) {
+              return (
+                <div
+                  key={link.label}
+                  className="relative"
+                  onMouseEnter={() => setOpenDropdown(link.label)}
+                  onMouseLeave={() => setOpenDropdown(null)}
+                >
+                  <button
+                    type="button"
+                    className={`inline-flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                      scrolled || headerTheme === "light"
+                        ? "text-foreground/70 hover:text-primary"
+                        : "text-white/80 hover:text-white"
+                    }`}
+                  >
+                    {link.label}
+                    <ChevronDown className="h-4 w-4" />
+                  </button>
+                  {openDropdown === link.label && (
+                    <div className="absolute left-0 mt-2 w-56 rounded-lg border border-border bg-background shadow-lg">
+                      <div className="py-2">
+                        {link.children.map((child) => (
+                          <button
+                            key={`${link.label}-${child.label}`}
+                            onClick={() => handleNavClick(child.href, child.isPage)}
+                            className="block w-full px-4 py-2 text-left text-sm text-foreground hover:bg-muted"
+                          >
+                            {child.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
+            return (
+              <button
+                key={`${link.label}-${link.href}`}
+                onClick={() => handleNavClick(link.href, link.isPage)}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  scrolled || headerTheme === "light"
+                    ? "text-foreground/70 hover:text-primary"
+                    : "text-white/80 hover:text-white"
+                }`}
+              >
+                {link.label}
+              </button>
+            );
+          })}
         </div>
 
         <div className="flex items-center gap-2">
@@ -233,16 +294,40 @@ const Header = ({ theme }: HeaderProps) => {
             transition={{ duration: 0.25 }}
             className="lg:hidden overflow-hidden border-t border-border bg-background/95 backdrop-blur-md"
           >
-            <div className="container mx-auto px-4 py-4 space-y-1">
-              {navLinks.map((link) => (
-                <button
-                  key={`mobile-${link.label}-${link.href}`}
-                  onClick={() => handleNavClick(link.href, link.isPage)}
-                  className="block w-full text-left px-4 py-3 rounded-md text-foreground hover:bg-primary/10 hover:text-primary transition-colors font-medium"
-                >
-                  {link.label}
-                </button>
-              ))}
+            <div className="container mx-auto px-4 py-4 space-y-2">
+              {navLinks.map((link) => {
+                if (link.children) {
+                  return (
+                    <details key={`mobile-${link.label}`} className="rounded-md border border-border">
+                      <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 font-medium text-foreground">
+                        <span>{link.label}</span>
+                        <ChevronDown className="h-4 w-4" />
+                      </summary>
+                      <div className="border-t border-border px-2 py-2">
+                        {link.children.map((child) => (
+                          <button
+                            key={`mobile-${link.label}-${child.label}`}
+                            onClick={() => handleNavClick(child.href, child.isPage)}
+                            className="block w-full text-left px-3 py-2 rounded-md text-sm text-foreground hover:bg-primary/10 hover:text-primary"
+                          >
+                            {child.label}
+                          </button>
+                        ))}
+                      </div>
+                    </details>
+                  );
+                }
+
+                return (
+                  <button
+                    key={`mobile-${link.label}-${link.href}`}
+                    onClick={() => handleNavClick(link.href, link.isPage)}
+                    className="block w-full text-left px-4 py-3 rounded-md text-foreground hover:bg-primary/10 hover:text-primary transition-colors font-medium"
+                  >
+                    {link.label}
+                  </button>
+                );
+              })}
             </div>
           </motion.div>
         )}

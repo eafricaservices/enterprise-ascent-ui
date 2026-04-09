@@ -1,19 +1,18 @@
-import SectionHeading from "./SectionHeading";
-
 type Sponsor = {
   name: string;
   website?: string;
-  logoPath?: string;
+  logoPath: string;
 };
 
 const sponsors: Sponsor[] = [
   {
-    name: "BYU-Pathway Worldwide",
+    name: "BYU-Pathway",
     website: "https://www.byupathway.edu/",
     logoPath: "/sponsors/byu-pathway.png",
   },
   {
     name: "E-Amplify",
+    logoPath: "/sponsors/e-amplify.svg",
   },
   {
     name: "AWS",
@@ -22,12 +21,11 @@ const sponsors: Sponsor[] = [
   },
   {
     name: "Balance of Nature",
-    website:
-      "https://balanceofnature.com/?srsltid=AfmBOop36LNlHtT9pG5zZ2V_SaDL4SCCNwwoVgyAnaSjATqDTVLjCejr",
+    website: "https://balanceofnature.com/",
     logoPath: "/sponsors/balance-of-nature.png",
   },
   {
-    name: "Cadana pay",
+    name: "Cadana",
     website: "https://cadanapay.com/",
     logoPath: "/sponsors/cadana-pay.png",
   },
@@ -48,7 +46,7 @@ const sponsors: Sponsor[] = [
   },
   {
     name: "Moniepoint",
-    website: "https://moniepoint.com/ng/business",
+    website: "https://moniepoint.com/",
     logoPath: "/sponsors/moniepoint.png",
   },
   {
@@ -57,12 +55,12 @@ const sponsors: Sponsor[] = [
     logoPath: "/sponsors/kuda-bank.png",
   },
   {
-    name: "MaxMigold Limited",
+    name: "MaxMigold",
     website: "https://maxmigold.com/",
     logoPath: "/sponsors/maxmigold.png",
   },
   {
-    name: "BaoBab Bank",
+    name: "Baobab Bank",
     website: "https://baobab.com/ng/",
     logoPath: "/sponsors/baobab-bank.png",
   },
@@ -73,8 +71,7 @@ const sponsors: Sponsor[] = [
   },
   {
     name: "Zendesk",
-    website:
-      "https://www.zoho.com/desk/lp/zendesk-alternative.html?network=g&device=c&keyword=zendesk&campaignid=15070956197&adgroup=146429310691&matchtype=e&placement=&adid=688529073765&gad_source=1&gad_campaignid=15070956197&gbraid=0AAAAACgMnEsJn_gRoxYv25Xfz1DGGqvOo&gclid=CjwKCAjwyMnNBhBNEiwA-Kcgu9zj2gUptHkML2b0tt0z_CKaV_3g-qPISY9M-PB7JF7WGEkj3ElxMBoCPkQQAvD_BwE",
+    website: "https://www.zendesk.com/",
     logoPath: "/sponsors/zendesk.png",
   },
   {
@@ -85,55 +82,38 @@ const sponsors: Sponsor[] = [
 ];
 
 const LogoCloud = () => {
-  const marqueeSponsors = [...sponsors, ...sponsors];
-
   return (
-    <section className="py-16">
+    <section className="py-12 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
-        <SectionHeading
-          title="Trusted by Global Partners"
-          subtitle="E-Africa collaborates with ecosystem partners, platforms, and employers building distributed teams with African talent."
-        />
+        <h4 className="text-center font-heading text-lg font-semibold text-muted-foreground">
+          Trusted by Global Partners
+        </h4>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-6 sm:gap-8">
+          {sponsors.map((sponsor) => {
+            const logo = (
+              <img
+                src={sponsor.logoPath}
+                alt={`${sponsor.name} logo`}
+                className="h-8 w-auto max-w-[140px] object-contain opacity-70 transition-opacity hover:opacity-100"
+                loading="lazy"
+              />
+            );
 
-        {/* Scrolling logos */}
-        <div className="relative overflow-hidden">
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-16 bg-gradient-to-r from-background to-transparent" />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-16 bg-gradient-to-l from-background to-transparent" />
-
-          <div className="flex animate-marquee gap-8 sm:gap-12 py-4">
-            {marqueeSponsors.map((sponsor, i) => {
-              const card = (
-                <div className="flex min-w-[170px] sm:min-w-[200px] shrink-0 flex-col items-center justify-center rounded-lg border border-border bg-card px-4 sm:px-6 py-4 text-center shadow-sm transition-shadow hover:shadow-md dark:shadow-black/10">
-                  {sponsor.logoPath ? (
-                    <img
-                      src={sponsor.logoPath}
-                      alt={`${sponsor.name} logo`}
-                      className="mb-2 h-10 w-auto max-w-[140px] object-contain"
-                      loading="lazy"
-                    />
-                  ) : null}
-                  <span className="font-heading text-sm font-semibold text-muted-foreground">
-                    {sponsor.name}
-                  </span>
-                </div>
-              );
-
-              return sponsor.website ? (
-                <a
-                  key={`${sponsor.name}-${i}`}
-                  href={sponsor.website}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`${sponsor.name} website`}
-                  className="focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
-                >
-                  {card}
-                </a>
-              ) : (
-                <div key={`${sponsor.name}-${i}`}>{card}</div>
-              );
-            })}
-          </div>
+            return sponsor.website ? (
+              <a
+                key={sponsor.name}
+                href={sponsor.website}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`${sponsor.name} website`}
+                className="focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+              >
+                {logo}
+              </a>
+            ) : (
+              <div key={sponsor.name}>{logo}</div>
+            );
+          })}
         </div>
       </div>
     </section>

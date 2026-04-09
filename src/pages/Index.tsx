@@ -18,8 +18,8 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
-        <StatsBar />
         <LogoCloud />
+        <StatsBar />
         <WhoWeAre />
         <WhatWeDo />
         <HowItWorks />
