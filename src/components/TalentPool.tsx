@@ -81,9 +81,9 @@ const TalentPool = () => {
             How to join (3 steps)
           </h3>
           <ol className="mt-4 space-y-2 text-sm text-muted-foreground">
-            <li>1. Apply online + upload CV</li>
-            <li>2. Record a short Loom video introduction</li>
-            <li>3. Complete interviews and get matched (or join our waitlist)</li>
+            <li>Apply online + upload CV</li>
+            <li>Record a short Loom video introduction</li>
+            <li>Complete interviews and get matched (or join our waitlist)</li>
           </ol>
         </div>
 

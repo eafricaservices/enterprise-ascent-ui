@@ -210,19 +210,23 @@ const Header = ({ theme }: HeaderProps) => {
                     <ChevronDown className="h-4 w-4" />
                   </button>
                   {openDropdown === link.label && (
-                    <div className="absolute left-0 mt-2 w-56 rounded-lg border border-border bg-background shadow-lg">
-                      <div className="py-2">
-                        {link.children.map((child) => (
-                          <button
-                            key={`${link.label}-${child.label}`}
-                            onClick={() => handleNavClick(child.href, child.isPage)}
-                            className="block w-full px-4 py-2 text-left text-sm text-foreground hover:bg-muted"
-                          >
-                            {child.label}
-                          </button>
-                        ))}
+                    <div className="absolute left-0 top-full pt-2 w-56">
+                      <div className="rounded-lg border border-border bg-background shadow-lg">
+                        <div className="py-2">
+                          {link.children.map((child) => (
+                            <button
+                              key={`${link.label}-${child.label}`}
+                              onClick={() => handleNavClick(child.href, child.isPage)}
+                              className="block w-full px-4 py-2 text-left text-sm text-foreground hover:bg-muted"
+                            >
+                              {child.label}
+                            </button>
+                          ))}
+                        </div>
                       </div>
                     </div>
+                  )}
+                </div>
                   )}
                 </div>
               );

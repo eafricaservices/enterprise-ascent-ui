@@ -56,9 +56,9 @@ const StatsBar = () => {
           >
             <h2 className="font-heading text-2xl font-bold text-foreground">
               Find Global Remote Jobs That Pay in USD - Including{" "}
-              <strong className="font-semibold text-foreground">
+              <span className="text-primary">
                 stay at home jobs in africa
-              </strong>
+              </span>
             </h2>
             <div className="mt-4 space-y-3 text-sm text-muted-foreground">
               <p>
