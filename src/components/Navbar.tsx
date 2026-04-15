@@ -227,8 +227,6 @@ const Header = ({ theme }: HeaderProps) => {
                     </div>
                   )}
                 </div>
-                  )}
-                </div>
               );
             }
 
