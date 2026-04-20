@@ -1,83 +1,124 @@
 import { motion } from "framer-motion";
-import SectionHeading from "./SectionHeading";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const faqs = [
+const employerFaqs = [
   {
-    q: "How do you handle payments?",
-    a: "We manage cross-border payroll through secure global payment systems. Clients pay E-Africa. We pay contractors.",
+    q: "How do payments work?",
+    a: "Clients pay E-Africa. We handle cross-border payroll.",
   },
   {
     q: "Who handles taxes and legal compliance?",
-    a: "Contractors manage their own tax obligations. We handle structured contracts and compliance alignment.",
+    a: "Contractors manage their own taxes. We provide structured contracts and compliance alignment.",
   },
   {
     q: "Can I interview the talent myself?",
-    a: "Yes. You may join final interviews and select from shortlisted candidates.",
+    a: "Yes. You join final interviews and select from shortlisted candidates.",
   },
   {
     q: "How do I know your talent is qualified?",
-    a: "We use a multi-stage vetting system including English testing, structured interviews, and senior partner evaluation.",
-  },
-  {
-    q: "What about power and internet reliability?",
-    a: "We prioritize professionals with stable internet and backup power systems.",
+    a: (
+      <>
+        Multi-stage vetting includes English testing, role-specific assessments, and communication checks -
+        especially for{" "}
+        <strong className="font-semibold text-foreground">
+          bilingual remote customer service jobs
+        </strong>
+        .
+      </>
+    ),
   },
   {
     q: "What if I need to scale quickly?",
-    a: "Our infrastructure supports rapid deployment of structured teams — from 10 to 1,000+ members.",
+    a: (
+      <>
+        Our infrastructure supports rapid deployment - from 10 to 1,000+ team members. We are a{" "}
+        <strong className="font-semibold text-foreground">staffing agency for startups</strong> that
+        grows with you.
+      </>
+    ),
+  },
+];
+
+const talentFaqs = [
+  {
+    q: "Do I need previous experience?",
+    a: "No. We have work-from-home English-speaking roles for graduates and entry-level candidates, plus free training.",
   },
   {
-    q: "What makes you different from LinkedIn hiring?",
-    a: "LinkedIn gives you profiles. We give you performance-ready professionals with structure, payroll, and management systems included.",
+    q: "How do I get paid?",
+    a: "Monthly USD payments via secure global transfer options.",
+  },
+  {
+    q: "Is there a fee to join?",
+    a: "No. Joining our talent pool is completely free.",
+  },
+  {
+    q: "What equipment do I need?",
+    a: (
+      <>
+        A laptop, stable internet, and backup power - standard for{" "}
+        <strong className="font-semibold text-foreground">stay at home jobs in africa</strong>.
+      </>
+    ),
+  },
+  {
+    q: "How long until I get placed?",
+    a: "It varies, but most candidates receive their first match within 4-6 weeks.",
   },
 ];
 
 const FAQ = () => {
   return (
     <section id="faq" className="relative py-24 bg-muted/40 dark:bg-secondary/40 overflow-hidden">
-      {/* Logo watermark */}
-      <div className="absolute left-0 bottom-10 -translate-x-1/3 pointer-events-none">
-        <img
-          src="/eafrica.png"
-          alt=""
-          className="w-[180px] sm:w-[240px] lg:w-[300px] h-auto opacity-[0.05] object-contain"
-        />
-      </div>
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <SectionHeading
-          title="Frequently Asked Questions"
-          subtitle="Everything you need to know about working with E-Africa Services."
-        />
+        <div className="text-center">
+          <h2 className="font-heading text-2xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+            Frequently Asked Questions
+          </h2>
+          <div className="mt-4 h-1 w-16 rounded-full bg-accent mx-auto" />
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="max-w-3xl mx-auto"
+          className="mt-10 max-w-3xl mx-auto"
         >
-          <Accordion type="single" collapsible className="space-y-3">
-            {faqs.map((faq, i) => (
-              <AccordionItem
-                key={i}
-                value={`faq-${i}`}
-                className="rounded-xl border border-border bg-card px-4 sm:px-6 data-[state=open]:shadow-md transition-shadow"
-              >
-                <AccordionTrigger className="text-left font-heading font-semibold text-foreground hover:text-primary hover:no-underline">
-                  {faq.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
-                  {faq.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <Tabs defaultValue="employers">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="employers">For Employers</TabsTrigger>
+              <TabsTrigger value="job-seekers">For Job Seekers</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="employers" className="mt-6 space-y-4">
+              {employerFaqs.map((faq) => (
+                <div
+                  key={faq.q}
+                  className="rounded-xl border border-border bg-card p-5"
+                >
+                  <p className="font-heading font-semibold text-foreground">
+                    <strong>{faq.q}</strong>
+                  </p>
+                  <p className="mt-2 text-sm text-muted-foreground">{faq.a}</p>
+                </div>
+              ))}
+            </TabsContent>
+
+            <TabsContent value="job-seekers" className="mt-6 space-y-4">
+              {talentFaqs.map((faq) => (
+                <div
+                  key={faq.q}
+                  className="rounded-xl border border-border bg-card p-5"
+                >
+                  <p className="font-heading font-semibold text-foreground">
+                    <strong>{faq.q}</strong>
+                  </p>
+                  <p className="mt-2 text-sm text-muted-foreground">{faq.a}</p>
+                </div>
+              ))}
+            </TabsContent>
+          </Tabs>
         </motion.div>
       </div>
     </section>

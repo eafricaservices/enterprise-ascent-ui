@@ -1,96 +1,111 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { UserPlus, Video, ClipboardCheck, ArrowRight } from "lucide-react";
+import { BadgeDollarSign, Home, Briefcase, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import SectionHeading from "./SectionHeading";
-import TalentApplicationDialog from "./TalentApplicationDialog";
 
-const steps = [
+const benefits = [
   {
-    icon: UserPlus,
-    number: "1",
-    title: "Apply Online",
-    description: "Fill out our progressive form, upload CV, and accept T&Cs.",
+    icon: BadgeDollarSign,
+    text: (
+      <>
+        Paid in USD - Earn stable income through{" "}
+        <strong className="font-semibold text-foreground">
+          remote customer service rep jobs
+        </strong>
+      </>
+    ),
   },
   {
-    icon: Video,
-    number: "2",
-    title: "Record Loom Video",
-    description: "Short face-only video introduction for our team to review.",
+    icon: Home,
+    text: "Work from home - Anywhere in Africa with reliable internet",
   },
   {
-    icon: ClipboardCheck,
-    number: "3",
-    title: "Interview & Pool",
-    description: "Complete interviews and join our active talent pool.",
+    icon: Briefcase,
+    text: (
+      <>
+        Variety of roles - Including{" "}
+        <strong className="font-semibold text-foreground">
+          remote virtual assistant work
+        </strong>
+        , sales, tech, and more
+      </>
+    ),
+  },
+  {
+    icon: GraduationCap,
+    text: "Free training - Communication, accent softening, remote work skills",
   },
 ];
 
 const TalentPool = () => {
-  const [dialogOpen, setDialogOpen] = useState(false);
-
   return (
-    <>
-    <TalentApplicationDialog open={dialogOpen} onOpenChange={setDialogOpen} />
-    <section
-      id="talent-pool"
-      className="py-24 bg-muted/40 dark:bg-secondary/40"
-    >
+    <section id="job-seekers-talent-pool" className="py-24 bg-muted/40 dark:bg-secondary/40">
       <div className="container mx-auto px-4 lg:px-8">
-        <SectionHeading
-          title="Join Our Talent Pool"
-          subtitle="Fill out the application to be considered for remote work opportunities. Even if not placed immediately, you remain in our pool until matched."
-        />
+        <div className="text-center">
+          <h2 className="font-heading text-2xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+            Join Africa's Fastest-Growing Remote Talent Pool - Find{" "}
+            <strong className="font-semibold text-foreground">
+              remote customer service rep jobs
+            </strong>{" "}
+            and{" "}
+            <strong className="font-semibold text-foreground">
+              remote virtual assistant work
+            </strong>
+          </h2>
+          <div className="mt-4 h-1 w-16 rounded-full bg-accent mx-auto" />
+          <p className="mt-4 max-w-2xl mx-auto text-base leading-relaxed text-muted-foreground sm:text-lg">
+            Get matched with global companies that pay in USD - and grow your career from home.
+          </p>
+        </div>
 
-        <div className="grid gap-8 md:grid-cols-3 mt-4">
-          {steps.map((step, i) => (
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {benefits.map((benefit, i) => (
             <motion.div
-              key={step.title}
-              initial={{ opacity: 0, y: 30 }}
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.15 }}
-              className="relative text-center"
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              className="rounded-2xl border border-border bg-card p-5"
             >
-              {i < steps.length - 1 && (
-                <div className="hidden md:block absolute top-12 left-[60%] w-[80%] border-t-2 border-dashed border-border" />
-              )}
-
-              <div className="relative mx-auto flex h-24 w-24 items-center justify-center rounded-2xl bg-card border border-border shadow-sm">
-                <step.icon className="h-10 w-10 text-primary" />
-                <span className="absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full bg-accent text-accent-foreground font-heading text-sm font-bold">
-                  {step.number}
-                </span>
-              </div>
-
-              <h3 className="mt-6 font-heading text-xl font-bold text-foreground">
-                {step.title}
-              </h3>
-              <p className="mt-2 text-sm text-muted-foreground">{step.description}</p>
+              <benefit.icon className="h-6 w-6 text-accent" />
+              <p className="mt-3 text-sm text-muted-foreground">{benefit.text}</p>
             </motion.div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-12 text-center"
-        >
+        <div className="mt-12 rounded-2xl border border-border bg-card p-6">
+          <h3
+            id="how-to-join"
+            className="font-heading text-xl font-bold text-foreground"
+          >
+            How to join (3 steps)
+          </h3>
+          <ol className="mt-4 space-y-2 text-sm text-muted-foreground">
+            <li>Apply online + upload CV</li>
+            <li>Record a short Loom video introduction</li>
+            <li>Complete interviews and get matched (or join our waitlist)</li>
+          </ol>
+        </div>
+
+        <p className="mt-6 text-sm text-muted-foreground">
+          1000+ professionals already in our pool - many have found remote customer service roles
+          through us.
+        </p>
+
+        <div className="mt-8 text-center">
           <Button
+            asChild
             variant="brand"
             size="lg"
-            onClick={() => setDialogOpen(true)}
             className="group"
           >
-            Apply Now
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <a href="https://forms.gle/your-application-form" target="_blank" rel="noreferrer">
+              Apply Now
+            </a>
           </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
-    </>
   );
 };
 

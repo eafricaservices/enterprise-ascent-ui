@@ -1,69 +1,86 @@
 import { motion } from "framer-motion";
-
-const stats = [
-  { value: "500+", label: "Remote Professionals Placed" },
-  { value: "100+", label: "Global Companies Supported" },
-  { value: "25+", label: "African Talent Markets" },
-  { value: "6", label: "Business Languages Covered" },
-];
-
-const flags = ["🇳🇬", "🇰🇪", "🇬🇭", "🇿🇦", "🇪🇬", "🇨🇲", "🇸🇱", "🇩🇿"];
+import { Button } from "@/components/ui/button";
 
 const StatsBar = () => {
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="py-16 bg-muted/50 dark:bg-secondary/40">
       <div className="container mx-auto px-4 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-wrap items-center justify-center gap-6 md:gap-16"
-        >
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="text-center"
+        <div className="grid gap-6 md:grid-cols-2">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="rounded-2xl border border-border bg-card p-8"
+          >
+            <h2 className="font-heading text-2xl font-bold text-foreground">
+              Hire Top African Talent - Risk-Free
+            </h2>
+            <div className="mt-4 space-y-3 text-sm text-muted-foreground">
+              <p>
+                - Pre-vetted professionals ready for global teams -{" "}
+                <strong className="font-semibold text-foreground">
+                  outsource customer support
+                </strong>{" "}
+                and more
+              </p>
+              <p>
+                -{" "}
+                <strong className="font-semibold text-foreground">
+                  hire a remote assistant
+                </strong>{" "}
+                or full teams with multilingual, accent-neutral communication
+              </p>
+              <p>- Payroll, compliance, and onboarding handled by us</p>
+            </div>
+            <Button
+              variant="brand"
+              size="lg"
+              className="mt-6"
+              onClick={() => scrollTo("employers-core-services")}
             >
-              <div className="font-heading text-4xl font-bold text-primary sm:text-5xl">
-                {stat.value}
-              </div>
-              <div className="mt-1 text-sm text-muted-foreground font-medium">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
+              View Hiring Plans
+            </Button>
+          </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.5 }}
-            className="flex flex-wrap items-center justify-center gap-2 text-2xl sm:text-3xl"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="rounded-2xl border border-border bg-card p-8"
           >
-            {flags.map((flag, i) => (
-              <span key={i} className="hover:scale-125 transition-transform cursor-default">
-                {flag}
+            <h2 className="font-heading text-2xl font-bold text-foreground">
+              Find Global Remote Jobs That Pay in USD - Including{" "}
+              <span className="text-primary">
+                stay at home jobs in africa
               </span>
-            ))}
+            </h2>
+            <div className="mt-4 space-y-3 text-sm text-muted-foreground">
+              <p>
+                -{" "}
+                <strong className="font-semibold text-foreground">
+                  work from home english speaking jobs
+                </strong>{" "}
+                - entry-level to expert roles
+              </p>
+              <p>- Customer support, VA, sales, tech, creative, finance</p>
+              <p>- No upfront fees - get matched with vetted international companies</p>
+            </div>
+            <Button
+              variant="outline"
+              size="lg"
+              className="mt-6"
+              onClick={() => scrollTo("job-seekers-talent-pool")}
+            >
+              Join Talent Pool
+            </Button>
           </motion.div>
-        </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-10 max-w-3xl mx-auto text-center text-muted-foreground leading-relaxed"
-        >
-          E-Africa Services enables reliable remote hiring through vetted talent,
-          multilingual workforce readiness, and structured delivery support for
-          startups, SMEs, and enterprise teams.
-        </motion.p>
+        </div>
       </div>
     </section>
   );

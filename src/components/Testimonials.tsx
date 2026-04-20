@@ -1,131 +1,105 @@
 import { motion } from "framer-motion";
-import { Quote } from "lucide-react";
-import SectionHeading from "./SectionHeading";
 
-const rowOne = [
+const employerTestimonials = [
   {
     quote:
       "We tried hiring independently through LinkedIn and Upwork. It was inconsistent. E-Africa delivered structured, reliable professionals who integrated seamlessly.",
-    name: "Sarah Mitchell",
-    title: "VP of Operations, TechScale Inc.",
-  },
-  {
-    quote:
-      "We planned to scale slowly. With E-Africa, we scaled twice as fast with better performance.",
-    name: "James Okonkwo",
-    title: "CEO, AfriGrowth Partners",
-  },
-  {
-    quote:
-      "The difference wasn't just talent — it was infrastructure. Payroll, compliance, management — all handled.",
-    name: "Linda Chen",
-    title: "HR Director, GlobalReach",
-  },
-  {
-    quote:
-      "E-Africa's vetting process is thorough. Every candidate we received was interview-ready and exceeded expectations.",
-    name: "David Mensah",
-    title: "Founder, NovaStack",
-  },
-];
-
-const rowTwo = [
-  {
-    quote:
-      "Within two weeks of submitting our hiring request, we had a full customer success team operational. The speed was remarkable.",
-    name: "Patricia Adeyemi",
-    title: "COO, FinBridge Africa",
+    author: "Sarah Mitchell, VP of Operations, TechScale Inc.",
   },
   {
     quote:
       "As a startup, we couldn't afford hiring mistakes. E-Africa eliminated the risk entirely. Our remote team feels like an in-house extension.",
-    name: "Michael Torres",
-    title: "CTO, Launchpad Digital",
+    author: "Michael Torres, CTO, Launchpad Digital",
   },
   {
     quote:
-      "The multilingual capabilities were a game-changer. We needed French and English speakers — E-Africa delivered perfectly.",
-    name: "Isabelle Dubois",
-    title: "Expansion Lead, EuroConnect",
-  },
-  {
-    quote:
-      "I joined E-Africa's talent pool and within a month was placed at a US company. The process was professional from start to finish.",
-    name: "Chidinma Okafor",
-    title: "Remote Customer Success Manager",
+      "The multilingual capabilities were a game-changer. We needed French and English speakers - E-Africa delivered perfectly.",
+    author: "Isabelle Dubois, Expansion Lead, EuroConnect",
   },
 ];
 
-const TestimonialCard = ({
-  quote,
-  name,
-  title,
-}: {
-  quote: string;
-  name: string;
-  title: string;
-}) => (
-  <div className="w-[85vw] max-w-[360px] shrink-0 rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-sm transition-shadow hover:shadow-lg dark:shadow-black/10">
-    <Quote className="h-6 w-6 text-accent/40" />
-    <p className="mt-3 text-sm leading-relaxed text-muted-foreground italic">
-      &ldquo;{quote}&rdquo;
-    </p>
-    <div className="mt-5 flex items-center gap-3">
-      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-heading text-sm font-bold">
-        {name
-          .split(" ")
-          .map((n) => n[0])
-          .join("")}
-      </div>
-      <div>
-        <p className="text-sm font-semibold text-card-foreground">{name}</p>
-        <p className="text-xs text-muted-foreground">{title}</p>
-      </div>
-    </div>
-  </div>
-);
+const talentTestimonial =
+  "I joined E-Africa's talent pool and within a month was placed at a US company. The process was professional from start to finish.";
 
 const Testimonials = () => {
   return (
-    <section
-      id="testimonials"
-      className="py-20 sm:py-24 overflow-hidden"
-    >
+    <section id="testimonials" className="py-24">
       <div className="container mx-auto px-4 lg:px-8">
-        <SectionHeading
-          title="Testimonials"
-          subtitle="Real stories from companies and professionals who trust E-Africa."
-        />
-      </div>
+        <div className="text-center">
+          <h2 className="font-heading text-2xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+            Making African Excellence the Global First Choice
+          </h2>
+          <div className="mt-4 h-1 w-16 rounded-full bg-accent mx-auto" />
+        </div>
 
-      <div className="relative mt-4">
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-10 sm:w-20 bg-gradient-to-r from-background to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-10 sm:w-20 bg-gradient-to-l from-background to-transparent" />
+        <div className="mt-10 grid gap-4 grid-cols-2 lg:grid-cols-4">
+          <div className="rounded-2xl border border-border bg-card p-5">
+            <h4 className="font-heading text-lg font-bold text-foreground">
+              500+ professionals placed - including remote customer support roles
+            </h4>
+          </div>
+          <div className="rounded-2xl border border-border bg-card p-5">
+            <h4 className="font-heading text-lg font-bold text-foreground">
+              100+ companies supported
+            </h4>
+          </div>
+          <div className="rounded-2xl border border-border bg-card p-5">
+            <h4 className="font-heading text-lg font-bold text-foreground">
+              25+ African talent markets
+            </h4>
+          </div>
+          <div className="rounded-2xl border border-border bg-card p-5">
+            <h4 className="font-heading text-lg font-bold text-foreground">
+              6 business languages covered
+            </h4>
+          </div>
+        </div>
 
-        <div className="group mb-6">
-          <div className="flex gap-6 animate-marquee-left group-hover:[animation-play-state:paused]">
-            {[...rowOne, ...rowOne].map((t, i) => (
-              <TestimonialCard key={`r1-${i}`} {...t} />
+        <div className="mt-12">
+          <h3 className="font-heading text-xl font-bold text-foreground">
+            Customer Service Operations
+          </h3>
+          <h4 className="mt-4 font-heading text-lg font-semibold text-foreground">
+            What Employers Say
+          </h4>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Hear from companies that trust E-Africa for their remote hiring needs.
+          </p>
+
+          <div className="mt-6 grid gap-6 lg:grid-cols-3">
+            {employerTestimonials.map((item) => (
+              <motion.div
+                key={item.author}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                className="rounded-2xl border border-border bg-card p-6"
+              >
+                <p className="text-sm text-muted-foreground">"{item.quote}"</p>
+                <p className="mt-4 text-sm font-semibold text-foreground">{item.author}</p>
+              </motion.div>
             ))}
           </div>
         </div>
 
-        <div className="group">
-          <div className="flex gap-6 animate-marquee-right group-hover:[animation-play-state:paused]">
-            {[...rowTwo, ...rowTwo].map((t, i) => (
-              <TestimonialCard key={`r2-${i}`} {...t} />
-            ))}
+        <div className="mt-12">
+          <h3 className="font-heading text-xl font-bold text-foreground">
+            Remote Customer Service Roles
+          </h3>
+          <h4 className="mt-4 font-heading text-lg font-semibold text-foreground">
+            What Talent Says
+          </h4>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Professionals who found their roles through our talent pool share their experience.
+          </p>
+          <div className="mt-6 rounded-2xl border border-border bg-card p-6">
+            <p className="text-sm text-muted-foreground">"{talentTestimonial}"</p>
+            <p className="mt-4 text-sm font-semibold text-foreground">
+              Chidinma Okafor, Remote Customer Success Manager
+            </p>
           </div>
         </div>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-8 text-center text-sm text-muted-foreground"
-        >
-          Hover to explore all testimonials
-        </motion.p>
       </div>
     </section>
   );
