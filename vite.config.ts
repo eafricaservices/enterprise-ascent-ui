@@ -12,7 +12,7 @@ export default defineConfig({
     },
   },
   plugins: [react()],
-  base: process.env.BASE_URL || "/enterprise-ascent-ui",
+  base: process.env.BASE_URL || "/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
