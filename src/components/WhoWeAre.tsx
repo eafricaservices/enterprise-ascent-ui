@@ -26,7 +26,7 @@ const WhoWeAre = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+      transition: { duration: 0.6 },
     },
   };
 
@@ -143,37 +143,6 @@ const WhoWeAre = () => {
             </motion.div>
           </motion.div>
         </motion.div>
-      </div>
-    </section>
-  );
-};
-
-export default WhoWeAre;
-                <strong className="text-foreground">More than staffing.</strong> We are
-                building Africa's global talent infrastructure for scalable remote hiring.
-              </span>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative"
-          >
-            <div className="overflow-hidden rounded-2xl shadow-xl">
-              <img
-                src={aboutImg}
-                alt="E-Africa Services diverse team"
-                className="h-auto w-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div className="absolute -bottom-6 -left-6 -z-10 h-32 w-32 rounded-2xl bg-accent/20" />
-            <div className="absolute -top-6 -right-6 -z-10 h-24 w-24 rounded-2xl bg-primary/20" />
-          </motion.div>
-        </div>
       </div>
     </section>
   );

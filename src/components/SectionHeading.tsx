@@ -20,7 +20,7 @@ const SectionHeading = ({
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+      transition: { duration: 0.7 },
     },
   };
 
@@ -28,7 +28,7 @@ const SectionHeading = ({
     hidden: { width: 0 },
     visible: {
       width: "100%",
-      transition: { duration: 0.8, delay: 0.2, ease: "easeOut" },
+      transition: { duration: 0.8, delay: 0.2 },
     },
   };
 
@@ -37,7 +37,7 @@ const SectionHeading = ({
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+      transition: { duration: 0.7, delay: 0.3 },
     },
   };
 
