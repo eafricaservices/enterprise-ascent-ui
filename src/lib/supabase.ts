@@ -108,6 +108,7 @@ export interface Database {
           languages: string[] | null;
           cv_storage_path: string | null;
           loom_video_url: string | null;
+          speed_test_url: string | null;
           intro_video_path: string | null;
           terms_accepted: boolean;
           terms_accepted_at: string | null;
@@ -148,6 +149,7 @@ export interface Database {
           languages?: string[] | null;
           cv_storage_path?: string | null;
           loom_video_url?: string | null;
+          speed_test_url?: string | null;
           intro_video_path?: string | null;
           terms_accepted?: boolean;
           terms_accepted_at?: string | null;
@@ -188,6 +190,7 @@ export interface Database {
           languages?: string[] | null;
           cv_storage_path?: string | null;
           loom_video_url?: string | null;
+          speed_test_url?: string | null;
           intro_video_path?: string | null;
           terms_accepted?: boolean;
           terms_accepted_at?: string | null;

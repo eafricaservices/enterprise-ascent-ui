@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { BadgeDollarSign, Home, Briefcase, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import TalentApplicationDialog from "@/components/TalentApplicationDialog";
 
 const benefits = [
   {
@@ -37,6 +39,8 @@ const benefits = [
 ];
 
 const TalentPool = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   return (
     <section id="job-seekers-talent-pool" className="py-24 bg-muted/40 dark:bg-secondary/40">
       <div className="container mx-auto px-4 lg:px-8">
@@ -94,17 +98,16 @@ const TalentPool = () => {
 
         <div className="mt-8 text-center">
           <Button
-            asChild
             variant="brand"
             size="lg"
             className="group"
+            onClick={() => setDialogOpen(true)}
           >
-            <a href="https://forms.gle/your-application-form" target="_blank" rel="noreferrer">
-              Apply Now
-            </a>
+            Apply Now
           </Button>
         </div>
       </div>
+      <TalentApplicationDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     </section>
   );
 };

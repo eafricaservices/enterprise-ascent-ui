@@ -194,6 +194,7 @@ CREATE TABLE IF NOT EXISTS public.talent_applications (
   -- Supporting documents (storage object paths)
   cv_storage_path  TEXT,              -- Path to CV in talent-cvs bucket
   loom_video_url   TEXT,              -- URL to the Loom intro video (external URL)
+  speed_test_url   TEXT,              -- URL to the Speedtest.net results (external URL)
   intro_video_path TEXT,              -- Path to uploaded video in talent-intro-videos bucket
 
   -- Process & compliance
@@ -220,6 +221,8 @@ COMMENT ON COLUMN public.talent_applications.cv_storage_path IS
   'Storage object path inside the talent-cvs Supabase Storage bucket.';
 COMMENT ON COLUMN public.talent_applications.loom_video_url IS
   'External Loom video URL recorded by the applicant.';
+COMMENT ON COLUMN public.talent_applications.speed_test_url IS
+  'External Speedtest.net results URL showing internet connection speed.';
 COMMENT ON COLUMN public.talent_applications.intro_video_path IS
   'Storage object path inside the talent-intro-videos Supabase Storage bucket.';
 COMMENT ON COLUMN public.talent_applications.skills IS

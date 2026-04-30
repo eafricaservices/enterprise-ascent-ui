@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, X, Video, ExternalLink } from "lucide-react";
+import { ArrowRight, X, Video, ExternalLink, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -55,6 +55,7 @@ const INITIAL_FORM = {
   languages: "",       // comma-separated → stored as array
   portfolio_url: "",
   loom_video_url: "",
+  speed_test_url: "",
   terms_accepted: false,
 };
 
@@ -132,6 +133,7 @@ const TalentApplicationDialog = ({
           : null,
         portfolio_url: form.portfolio_url.trim() || null,
         loom_video_url: form.loom_video_url.trim() || null,
+        speed_test_url: form.speed_test_url.trim() || null,
         cv_storage_path,
         terms_accepted: true,
         terms_accepted_at: new Date().toISOString(),
@@ -437,6 +439,42 @@ const TalentApplicationDialog = ({
               placeholder="https://www.loom.com/share/..."
               value={form.loom_video_url}
               onChange={set("loom_video_url")}
+              required
+            />
+          </div>
+
+          {/* Row 9 — Speed Test */}
+          <div className="space-y-3">
+            <label className="text-sm font-medium text-foreground">
+              Internet Speed Test Results URL <span className="text-destructive">*</span>
+            </label>
+            
+            {/* Speed Test Instructions Card */}
+            <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
+              <div className="flex items-start gap-3">
+                <Zap className="h-5 w-5 shrink-0 text-primary mt-0.5" />
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-foreground">How to run your speed test:</p>
+                  <ol className="text-xs text-muted-foreground space-y-1.5 list-decimal list-inside">
+                    <li>Go to <a href="https://www.speedtest.net" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline inline-flex items-center gap-1">speedtest.net <ExternalLink className="h-3 w-3" /></a></li>
+                    <li>Click "GO" to start the speed test</li>
+                    <li>Wait for the test to complete (shows download/upload speeds and ping)</li>
+                    <li>Click "Share" and copy the results link</li>
+                    <li>Paste the link in the field below</li>
+                  </ol>
+                  <p className="text-xs text-muted-foreground italic">
+                    Tip: Ensure you're on a stable internet connection for accurate results!
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <Input
+              className="mt-1.5"
+              type="url"
+              placeholder="https://www.speedtest.net/result/..."
+              value={form.speed_test_url}
+              onChange={set("speed_test_url")}
               required
             />
           </div>
