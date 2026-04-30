@@ -1,46 +1,131 @@
+import { motion } from "framer-motion";
+import { Heart } from "lucide-react";
 import Logo from "@/components/Logo";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 },
+    },
+  };
+
   return (
-    <footer className="bg-primary dark:bg-card text-primary-foreground dark:text-foreground">
-      <div className="container mx-auto px-4 py-16 lg:px-8">
-        <div className="grid gap-10 md:grid-cols-3">
-          <div>
+    <footer className="bg-gradient-to-b from-primary to-primary/95 dark:from-card dark:to-card text-primary-foreground dark:text-foreground relative overflow-hidden">
+      {/* Background gradient accent */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:50px_50px] opacity-10" />
+
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={containerVariants}
+        className="container mx-auto px-4 py-16 lg:px-8 relative z-10"
+      >
+        <div className="grid gap-12 md:grid-cols-3">
+          {/* Brand section */}
+          <motion.div variants={itemVariants} className="space-y-4">
             <div className="flex flex-col items-start gap-1">
-              <span className="inline-flex items-center justify-center rounded-md border border-primary-foreground/20 bg-white/10 px-2 py-1">
-                <Logo variant="light" className="h-10" />
+              <div className="inline-flex items-center justify-center rounded-lg border border-primary-foreground/20 bg-white/10 backdrop-blur-sm px-3 py-2">
+                <Logo variant="light" className="h-8" />
+              </div>
+              <span className="font-heading text-sm font-bold leading-tight">
+                E-Africa Services
               </span>
-              <span className="font-heading text-sm font-bold">E-Africa Services</span>
             </div>
-            <p className="mt-4 text-sm leading-relaxed opacity-80">
-              Helping global companies outsource support, hire virtual assistant talent, and
+            <p className="text-sm leading-relaxed opacity-90 max-w-xs font-light">
+              Helping global companies outsource customer support, hire remote virtual assistant talent, and
               find stay-at-home roles across Africa for professionals.
             </p>
-          </div>
+            <div className="flex items-center gap-2 pt-2 text-xs opacity-75">
+              <Heart className="h-3.5 w-3.5 fill-accent text-accent" />
+              <span>Building Africa's future of work</span>
+            </div>
+          </motion.div>
 
-          <div>
-            <h4 className="mb-4 font-heading text-lg font-semibold">Quick Links</h4>
-            <p className="text-sm opacity-80">
-              For Employers | For Job Seekers | About Us | Talent Solutions | FAQ | Contact
-            </p>
-          </div>
+          {/* Quick links */}
+          <motion.div variants={itemVariants}>
+            <h4 className="mb-5 font-heading text-base font-semibold">Quick Links</h4>
+            <div className="space-y-3 text-sm">
+              {[
+                "For Employers",
+                "For Job Seekers",
+                "About Us",
+                "Talent Solutions",
+                "FAQ",
+                "Contact",
+              ].map((link, i) => (
+                <motion.a
+                  key={i}
+                  href="#"
+                  whileHover={{ x: 4 }}
+                  className="block opacity-90 hover:opacity-100 transition-opacity"
+                >
+                  {link}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
 
-          <div>
-            <h4 className="mb-4 font-heading text-lg font-semibold">Contact</h4>
-            <p className="text-sm opacity-80">
-              Pan-African Operations • +254 700 000 000 • info@eafricaservices.com
-            </p>
-          </div>
+          {/* Contact */}
+          <motion.div variants={itemVariants}>
+            <h4 className="mb-5 font-heading text-base font-semibold">Contact Info</h4>
+            <div className="space-y-4 text-sm opacity-90">
+              <div>
+                <p className="text-xs uppercase tracking-widest opacity-75 mb-1">Location</p>
+                <p className="font-light">Pan-African Operations</p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-widest opacity-75 mb-1">Phone</p>
+                <a href="tel:+254700000000" className="font-light hover:opacity-100 transition-opacity">
+                  +254 700 000 000
+                </a>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-widest opacity-75 mb-1">Email</p>
+                <a href="mailto:info@eafricaservices.com" className="font-light hover:opacity-100 transition-opacity">
+                  info@eafricaservices.com
+                </a>
+              </div>
+            </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="border-t border-primary-foreground/10 dark:border-border">
-        <div className="container mx-auto px-4 py-6 lg:px-8">
-          <p className="text-sm opacity-70">
-            © 2026 E-Africa Services. All rights reserved. Powered by E-Amplify.
+      {/* Divider */}
+      <div className="border-t border-primary-foreground/10 dark:border-border" />
+
+      {/* Bottom section */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        className="container mx-auto px-4 py-8 lg:px-8 relative z-10"
+      >
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-xs opacity-75 font-light">
+          <p>
+            © {currentYear} E-Africa Services. All rights reserved.
+          </p>
+          <p>
+            Powered by <span className="font-semibold">E-Amplify</span>
           </p>
         </div>
-      </div>
+      </motion.div>
     </footer>
   );
 };

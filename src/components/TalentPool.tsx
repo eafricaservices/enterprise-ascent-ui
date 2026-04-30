@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { BadgeDollarSign, Home, Briefcase, GraduationCap } from "lucide-react";
+import { BadgeDollarSign, Home, Briefcase, GraduationCap, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import TalentApplicationDialog from "@/components/TalentApplicationDialog";
+import SectionHeading from "./SectionHeading";
 
 const benefits = [
   {
@@ -41,72 +42,131 @@ const benefits = [
 const TalentPool = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  return (
-    <section id="job-seekers-talent-pool" className="py-24 bg-muted/40 dark:bg-secondary/40">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center">
-          <h2 className="font-heading text-2xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-            Join Africa's Fastest-Growing Remote Talent Pool - Find{" "}
-            <strong className="font-semibold text-foreground">
-              remote customer service rep jobs
-            </strong>{" "}
-            and{" "}
-            <strong className="font-semibold text-foreground">
-              remote virtual assistant work
-            </strong>
-          </h2>
-          <div className="mt-4 h-1 w-16 rounded-full bg-accent mx-auto" />
-          <p className="mt-4 max-w-2xl mx-auto text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Get matched with global companies that pay in USD - and grow your career from home.
-          </p>
-        </div>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+  };
+
+  return (
+    <section id="job-seekers-talent-pool" className="relative py-24 sm:py-32 overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-background pointer-events-none" />
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+        <SectionHeading
+          title="Join Africa's Fastest-Growing Remote Talent Pool - Find remote customer service rep jobs and remote virtual assistant work"
+          subtitle="Get matched with global companies that pay in USD - and grow your career from home."
+        />
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        >
           {benefits.map((benefit, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="rounded-2xl border border-border bg-card p-5"
+              variants={itemVariants}
+              whileHover={{ y: -6 }}
+              className="group rounded-2xl border border-border bg-card p-6 shadow-sm hover:shadow-lg hover:border-accent/30 transition-all duration-300"
             >
-              <benefit.icon className="h-6 w-6 text-accent" />
-              <p className="mt-3 text-sm text-muted-foreground">{benefit.text}</p>
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-accent/20 to-primary/20 group-hover:from-accent/30 group-hover:to-primary/30 transition-all duration-300">
+                <benefit.icon className="h-6 w-6 text-accent" />
+              </div>
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground font-light">
+                {benefit.text}
+              </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="mt-12 rounded-2xl border border-border bg-card p-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-12 rounded-2xl border border-border bg-card p-8 shadow-sm"
+        >
           <h3
             id="how-to-join"
-            className="font-heading text-xl font-bold text-foreground"
+            className="font-heading text-2xl font-bold text-foreground"
           >
-            How to join (3 steps)
+            How to Join (3 Simple Steps)
           </h3>
-          <ol className="mt-4 space-y-2 text-sm text-muted-foreground">
-            <li>Apply online + upload CV</li>
-            <li>Record a short Loom video introduction</li>
-            <li>Complete interviews and get matched (or join our waitlist)</li>
+          <ol className="mt-6 space-y-4">
+            {[
+              { num: "01", text: "Apply online + upload CV", desc: "Submit your details and upload your resume" },
+              { num: "02", text: "Record a short Loom video introduction", desc: "Show us your personality and communication skills" },
+              { num: "03", text: "Complete interviews and get matched", desc: "Interview with companies or join our waitlist" },
+            ].map((step, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="flex gap-4"
+              >
+                <div className="flex-shrink-0">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-accent/70">
+                    <span className="font-bold text-white text-sm">{step.num}</span>
+                  </div>
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground">{step.text}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{step.desc}</p>
+                </div>
+              </motion.div>
+            ))}
           </ol>
-        </div>
+        </motion.div>
 
-        <p className="mt-6 text-sm text-muted-foreground">
-          1000+ professionals already in our pool - many have found remote customer service roles
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-8 text-base text-muted-foreground font-light"
+        >
+          <strong className="text-foreground">1000+ professionals</strong> already in our pool - many have found remote customer service roles
           through us.
-        </p>
+        </motion.p>
 
-        <div className="mt-8 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-10"
+        >
           <Button
             variant="brand"
             size="lg"
-            className="group"
             onClick={() => setDialogOpen(true)}
+            className="bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent shadow-lg hover:shadow-xl transition-all duration-300 group"
           >
-            Apply Now
+            Apply Now to Join the Pool
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
-        </div>
+        </motion.div>
       </div>
+
       <TalentApplicationDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     </section>
   );
