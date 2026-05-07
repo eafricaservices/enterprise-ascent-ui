@@ -32,41 +32,42 @@ const Testimonials = () => {
           <div className="mt-4 h-1 w-16 rounded-full bg-accent mx-auto" />
         </div>
 
-        <div className="mt-10 grid gap-4 grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-2xl border border-border bg-card p-5">
+        <div className="mt-16 grid gap-4 grid-cols-2 lg:grid-cols-4">
+          <div className="rounded-2xl border border-border bg-card p-6">
             <h4 className="font-heading text-lg font-bold text-foreground">
-              500+ professionals placed - including remote customer support roles
+              500+ professionals placed — including remote customer service rep jobs
             </h4>
           </div>
-          <div className="rounded-2xl border border-border bg-card p-5">
+          <div className="rounded-2xl border border-border bg-card p-6">
             <h4 className="font-heading text-lg font-bold text-foreground">
               100+ companies supported
             </h4>
           </div>
-          <div className="rounded-2xl border border-border bg-card p-5">
+          <div className="rounded-2xl border border-border bg-card p-6">
             <h4 className="font-heading text-lg font-bold text-foreground">
               25+ African talent markets
             </h4>
           </div>
-          <div className="rounded-2xl border border-border bg-card p-5">
+          <div className="rounded-2xl border border-border bg-card p-6">
             <h4 className="font-heading text-lg font-bold text-foreground">
               6 business languages covered
             </h4>
           </div>
         </div>
 
-        <div className="mt-12">
-          <h3 className="font-heading text-xl font-bold text-foreground">
-            Customer Service Operations
+        {/* Customer Service and Outsourcing Section */}
+        <div className="mt-16">
+          <h3 className="font-heading text-2xl font-bold text-foreground">
+            Customer Service and Outsourcing
           </h3>
-          <h4 className="mt-4 font-heading text-lg font-semibold text-foreground">
+          <h4 className="mt-6 font-heading text-lg font-semibold text-foreground">
             What Employers Say
           </h4>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Hear from companies that trust E-Africa for their remote hiring needs.
+          <p className="mt-2 text-base text-muted-foreground">
+            Hear from companies that trust E‑Africa for their remote hiring needs.
           </p>
 
-          <div className="mt-6 grid gap-6 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 lg:grid-cols-3">
             {employerTestimonials.map((item) => (
               <motion.div
                 key={item.author}
@@ -76,28 +77,27 @@ const Testimonials = () => {
                 transition={{ duration: 0.4 }}
                 className="rounded-2xl border border-border bg-card p-6"
               >
-                <p className="text-sm text-muted-foreground">"{item.quote}"</p>
-                <p className="mt-4 text-sm font-semibold text-foreground">{item.author}</p>
+                <p className="text-base text-muted-foreground italic">"{item.quote}"</p>
+                <p className="mt-4 text-sm font-semibold text-foreground">— {item.author}</p>
               </motion.div>
             ))}
           </div>
         </div>
 
-        <div className="mt-12">
-          <h3 className="font-heading text-xl font-bold text-foreground">
-            Remote Customer Service Roles
+        {/* Remote Customer Service Rep Jobs Section */}
+        <div className="mt-16">
+          <h3 className="font-heading text-2xl font-bold text-foreground">
+            Remote Customer Service Rep Jobs
           </h3>
-          <h4 className="mt-4 font-heading text-lg font-semibold text-foreground">
+          <h4 className="mt-6 font-heading text-lg font-semibold text-foreground">
             What Talent Says
           </h4>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-2 text-base text-muted-foreground">
             Professionals who found their roles through our talent pool share their experience.
           </p>
-          <div className="mt-6 rounded-2xl border border-border bg-card p-6">
-            <p className="text-sm text-muted-foreground">"{talentTestimonial}"</p>
-            <p className="mt-4 text-sm font-semibold text-foreground">
-              Chidinma Okafor, Remote Customer Success Manager
-            </p>
+          <div className="mt-8 rounded-2xl border border-border bg-card p-6">
+            <p className="text-base text-muted-foreground italic">"{talentTestimonial}"</p>
+            <p className="mt-4 text-sm font-semibold text-foreground">— Chidinma Okafor, Remote Customer Success Manager</p>
           </div>
         </div>
       </div>

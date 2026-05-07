@@ -33,12 +33,12 @@ const Hero = () => {
       data-header-contrast="dark"
       className="relative min-h-screen flex items-center overflow-hidden pt-20"
     >
-      {/* Enhanced gradient background with brand colors */}
+      {/* Enhanced gradient background with brand colors. Deepen in light mode for readability; keep dark mode as-is. */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-primary/20 to-accent/10" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full filter blur-3xl opacity-40" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl opacity-40" />
-        <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-primary/5 rounded-full filter blur-3xl opacity-30 -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-800/80 via-primary/30 to-accent/20 dark:from-slate-900/80 dark:via-primary/20 dark:to-accent/10" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/12 rounded-full filter blur-3xl opacity-48" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/12 rounded-full filter blur-3xl opacity-48" />
+        <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-primary/6 rounded-full filter blur-3xl opacity-36 -translate-x-1/2 -translate-y-1/2" />
       </div>
 
       {/* Grid pattern overlay */}
@@ -55,37 +55,30 @@ const Hero = () => {
           <motion.div variants={itemVariants} className="mb-8">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-2 backdrop-blur-sm">
               <Sparkles className="h-4 w-4 text-accent" />
-              <span className="text-sm font-medium text-white">
+              <span className="text-sm font-medium text-black dark:text-white">
                 Africa's Fastest-Growing Talent Platform
               </span>
             </div>
           </motion.div>
 
           {/* Main Heading with gradient text */}
-          <motion.h1 variants={itemVariants} className="font-heading text-4xl font-bold leading-[1.15] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+          <motion.h1 variants={itemVariants} className="font-heading text-4xl font-bold leading-[1.15] text-black dark:text-white sm:text-5xl md:text-6xl lg:text-7xl">
             Africa's Global Talent Infrastructure for{" "}
-            <span className="relative inline-block">
-              <span className="absolute inset-0 bg-gradient-to-r from-accent via-red-400 to-accent blur-lg opacity-75" />
-              <span className="relative bg-gradient-to-r from-accent via-red-400 to-accent bg-clip-text text-transparent">
-                Customer Service and Outsourcing
-              </span>
+            <span className="text-black dark:text-white">
+              Customer Service and Outsourcing
             </span>
           </motion.h1>
 
           {/* Subheading */}
           <motion.p
             variants={itemVariants}
-            className="mt-8 max-w-3xl mx-auto text-lg leading-relaxed text-white/80 sm:text-xl font-light"
+            className="mt-10 max-w-5xl mx-auto text-xl md:text-2xl lg:text-3xl leading-snug text-black dark:text-white font-normal"
           >
-            We connect global companies with vetted, multilingual African professionals for{" "}
-            <span className="font-semibold text-white bg-gradient-to-r from-accent/20 to-primary/20 px-2 py-1 rounded">
-              stay at home jobs in africa
-            </span>{" "}
-            and{" "}
-            <span className="font-semibold text-white bg-gradient-to-r from-primary/20 to-accent/20 px-2 py-1 rounded">
-              work from home english speaking jobs
-            </span>{" "}
-            - while helping Africans build international careers.
+            We connect global companies with vetted, multilingual African professionals for{' '}
+            <span className="font-semibold text-accent dark:text-accent"></span>{' '}
+            and{' '}
+            <span className="font-semibold text-primary dark:text-primary">work from home English speaking jobs</span>{' '}
+            <span className="text-black/90 dark:text-white/90">— while helping Africans build international careers.</span>
           </motion.p>
 
           {/* CTA Buttons */}
@@ -99,50 +92,27 @@ const Hero = () => {
               onClick={() => scrollTo("employers-core-services")}
               className="group bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              Hire Talent Now
+              Hire Talent
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button
-              variant="hero-outline"
+              variant="brand"
               size="lg"
               onClick={() => scrollTo("job-seekers-talent-pool")}
-              className="group border-2 border-accent/50 hover:border-accent hover:bg-accent/10 text-white font-semibold transition-all duration-300"
+              className="group bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent shadow-lg hover:shadow-xl transition-all duration-300 text-white"
             >
-              Find a Remote Job
+              Find a Job
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </motion.div>
 
-          {/* Trust badges */}
-          <motion.div
+          {/* Trust bar */}
+          <motion.p
             variants={itemVariants}
-            className="mt-12 pt-12 border-t border-white/10"
+            className="mt-12 pt-12 border-t border-white/10 text-center text-sm text-white/70 font-light"
           >
-            <p className="text-sm uppercase tracking-widest text-white/60 mb-6">
-              Trusted by industry leaders
-            </p>
-            <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 text-center">
-              {[
-                { number: "500+", label: "Professionals Placed" },
-                { number: "100+", label: "Companies Partnered" },
-                { number: "25+", label: "African Countries" },
-                { number: "6", label: "Languages Supported" },
-              ].map((stat, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.05 }}
-                  className="transition-transform"
-                >
-                  <div className="text-2xl sm:text-3xl font-bold text-transparent bg-gradient-to-r from-accent to-accent/70 bg-clip-text">
-                    {stat.number}
-                  </div>
-                  <p className="text-xs sm:text-sm text-white/60 mt-1">
-                    {stat.label}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+            Trusted by 100+ companies • 500+ professionals placed • 25+ African countries • <strong className="text-white">A trusted staffing agency for startups</strong>
+          </motion.p>
         </motion.div>
       </div>
 

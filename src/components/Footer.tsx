@@ -48,8 +48,7 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-sm leading-relaxed opacity-90 max-w-xs font-light">
-              Helping global companies outsource customer support, hire remote virtual assistant talent, and
-              find stay-at-home roles across Africa for professionals.
+              Helping global companies <strong>outsource customer support</strong>, <strong>hire remote virtual assistant talent</strong>, and find <strong>stay at home jobs in africa</strong> for professionals.
             </p>
             <div className="flex items-center gap-2 pt-2 text-xs opacity-75">
               <Heart className="h-3.5 w-3.5 fill-accent text-accent" />

@@ -104,10 +104,10 @@ const TalentPool = () => {
           className="mt-12 rounded-2xl border border-border bg-card p-8 shadow-sm"
         >
           <h3
-            id="how-to-join"
+            id="job-seekers-how-it-works"
             className="font-heading text-2xl font-bold text-foreground"
           >
-            How to Join (3 Simple Steps)
+            How to join (3 steps)
           </h3>
           <ol className="mt-6 space-y-4">
             {[
@@ -144,8 +144,7 @@ const TalentPool = () => {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-8 text-base text-muted-foreground font-light"
         >
-          <strong className="text-foreground">1000+ professionals</strong> already in our pool - many have found remote customer service roles
-          through us.
+          1000+ professionals already in our pool — many have found <strong className="text-foreground">remote customer service rep jobs</strong> through us.
         </motion.p>
 
         <motion.div
@@ -161,7 +160,7 @@ const TalentPool = () => {
             onClick={() => setDialogOpen(true)}
             className="bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent shadow-lg hover:shadow-xl transition-all duration-300 group"
           >
-            Apply Now to Join the Pool
+            Apply Now
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
         </motion.div>

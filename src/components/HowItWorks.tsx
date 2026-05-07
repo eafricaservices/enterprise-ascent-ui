@@ -29,7 +29,7 @@ const HowItWorks = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center">
           <h2 className="font-heading text-2xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-            How It Works for Employers
+            How Companies Hire With E‑Africa
           </h2>
           <div className="mt-4 h-1 w-16 rounded-full bg-accent mx-auto" />
         </div>

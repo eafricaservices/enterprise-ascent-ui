@@ -1,8 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import StatsBar from "@/components/StatsBar";
 import LogoCloud from "@/components/LogoCloud";
-import WhoWeAre from "@/components/WhoWeAre";
+import TwoPathways from "@/components/TwoPathways";
 import WhatWeDo from "@/components/WhatWeDo";
 import HowItWorks from "@/components/HowItWorks";
 import TalentPool from "@/components/TalentPool";
@@ -19,8 +18,7 @@ const Index = () => {
       <main>
         <Hero />
         <LogoCloud />
-        <StatsBar />
-        <WhoWeAre />
+        <TwoPathways />
         <WhatWeDo />
         <HowItWorks />
         <TalentPool />
