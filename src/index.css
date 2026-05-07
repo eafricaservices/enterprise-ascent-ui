@@ -7,57 +7,6 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 7%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 7%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 7%;
-
-    --primary: 137 64% 24%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 7%;
-
-    --muted: 0 0% 96%;
-    --muted-foreground: 202 8% 46%;
-
-    --accent: 10 77% 42%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 137 64% 24%;
-
-    --radius: 0.75rem;
-
-    /* Brand tokens - #12672A Green, #BE3419 Red */
-    --brand-green: 137 64% 24%;
-    --brand-green-light: 137 50% 35%;
-    --brand-green-dark: 137 70% 16%;
-    --brand-red: 10 77% 42%;
-    --brand-red-light: 10 65% 55%;
-    --brand-red-dark: 10 85% 32%;
-    --charcoal: 0 0% 7%;
-    --body-text: 202 8% 46%;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 0 0% 7%;
-    --sidebar-primary: 137 64% 24%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 10 77% 42%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 0 0% 90%;
-    --sidebar-ring: 137 64% 24%;
-  }
-
-  .dark {
     --background: 0 0% 5%;
     --foreground: 0 0% 95%;
 
@@ -86,6 +35,9 @@
     --input: 0 0% 18%;
     --ring: 137 55% 32%;
 
+    --radius: 0.75rem;
+
+    /* Brand tokens - #12672A Green, #BE3419 Red */
     --brand-green: 137 55% 32%;
     --brand-green-light: 137 45% 45%;
     --brand-green-dark: 137 60% 22%;

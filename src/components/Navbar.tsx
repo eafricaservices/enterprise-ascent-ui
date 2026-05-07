@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import Logo from "@/components/Logo";
@@ -52,8 +51,6 @@ const Header = ({ theme }: HeaderProps) => {
   const [backgroundContrast, setBackgroundContrast] =
     useState<BackgroundContrast>("dark");
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const { setTheme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -116,7 +113,6 @@ const Header = ({ theme }: HeaderProps) => {
   };
 
   useEffect(() => {
-    setMounted(true);
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
       detectBackgroundContrast();
@@ -132,7 +128,7 @@ const Header = ({ theme }: HeaderProps) => {
   }, []);
 
   const headerTheme =
-    theme ?? getHeaderThemeWithContrast(scrolled, resolvedTheme, backgroundContrast);
+    theme ?? getHeaderThemeWithContrast(scrolled, "dark", backgroundContrast);
   const logoVariant = getHeaderLogoVariant(headerTheme);
   const logoFrameClass =
     headerTheme === "transparent"
@@ -247,28 +243,6 @@ const Header = ({ theme }: HeaderProps) => {
         </div>
 
         <div className="flex items-center gap-2">
-          {mounted && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() =>
-                setTheme(resolvedTheme === "dark" ? "light" : "dark")
-              }
-              className={
-                scrolled || headerTheme === "light"
-                  ? "text-foreground hover:text-primary"
-                  : "text-white hover:text-brand-red"
-              }
-              aria-label="Toggle theme"
-            >
-              {resolvedTheme === "dark" ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
-          )}
-
           <Button
             variant="ghost"
             size="icon"
