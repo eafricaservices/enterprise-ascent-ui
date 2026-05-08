@@ -131,14 +131,14 @@ const Footer = () => {
               </div>
               <div>
                 <p className="text-xs uppercase tracking-widest opacity-75 mb-1">Phone</p>
-                <a href="tel:+254700000000" className="font-light hover:opacity-100 transition-opacity">
-                  +254 700 000 000
+                <a href="tel:+2349076628205" className="font-light hover:opacity-100 transition-opacity">
+                  +2349076628205
                 </a>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-widest opacity-75 mb-1">Email</p>
-                <a href="mailto:info@eafricaservices.com" className="font-light hover:opacity-100 transition-opacity">
-                  info@eafricaservices.com
+                <a href="mailto:eafrica.ng@gmail.com" className="font-light hover:opacity-100 transition-opacity">
+                  eafrica.ng@gmail.com
                 </a>
               </div>
             </div>
