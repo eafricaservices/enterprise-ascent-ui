@@ -9,7 +9,7 @@ const Impact = () => {
         </h2>
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Button asChild variant="secondary" size="lg">
-            <a href="/contact">Talk to Hiring Team</a>
+            <a href="#contact-form">Talk to Hiring Team</a>
           </Button>
           <Button
             variant="outline"

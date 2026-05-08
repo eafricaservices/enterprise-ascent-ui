@@ -1,6 +1,47 @@
 import { motion } from "framer-motion";
-import { Heart } from "lucide-react";
+import {
+  Facebook,
+  Heart,
+  Instagram,
+  MessageCircleMore,
+  Music2,
+  Twitter,
+  Youtube,
+} from "lucide-react";
 import Logo from "@/components/Logo";
+
+const socialLinks = [
+  {
+    label: "Facebook",
+    href: "https://web.facebook.com/profile.php?id=61562074914381",
+    icon: Facebook,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/e.africa1?igsh=MWhuanR1ODh4NGZmcA%3D%3D&utm_source=qr",
+    icon: Instagram,
+  },
+  {
+    label: "X / Twitter",
+    href: "https://x.com/empower__africa?s=21",
+    icon: Twitter,
+  },
+  {
+    label: "TikTok",
+    href: "https://www.tiktok.com/@e_africa01?_t=ZS-8zrl8nXXinB&_r=1",
+    icon: Music2,
+  },
+  {
+    label: "YouTube",
+    href: "https://youtube.com/@e-africaserices?si=CbConmy1ptbJny3Z",
+    icon: Youtube,
+  },
+  {
+    label: "WhatsApp Channel",
+    href: "https://whatsapp.com/channel/0029VbCQYKC42DcYzssykX2z/1648",
+    icon: MessageCircleMore,
+  },
+];
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -80,7 +121,7 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Contact */}
+          {/* Contact and socials */}
           <motion.div variants={itemVariants}>
             <h4 className="mb-5 font-heading text-base font-semibold">Contact Info</h4>
             <div className="space-y-4 text-sm opacity-90">
@@ -100,6 +141,22 @@ const Footer = () => {
                   info@eafricaservices.com
                 </a>
               </div>
+            </div>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={social.label}
+                  title={social.label}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary-foreground/15 bg-white/5 text-primary-foreground transition-colors hover:bg-white/10 hover:text-white"
+                >
+                  <social.icon className="h-4 w-4" />
+                </a>
+              ))}
             </div>
           </motion.div>
         </div>

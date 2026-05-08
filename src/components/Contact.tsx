@@ -133,6 +133,7 @@ const Contact = () => {
             className="lg:col-span-3"
           >
             <form
+              id="contact-form"
               onSubmit={handleSubmit}
               className="space-y-5 rounded-xl border border-border bg-card p-5 sm:p-8 shadow-sm"
             >
