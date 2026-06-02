@@ -40,11 +40,13 @@ const WhoWeAre = () => {
         <img
           src="/eafrica.png"
           alt=""
+          aria-hidden="true"
+          loading="lazy"
           className="w-[220px] sm:w-[320px] lg:w-[400px] h-auto opacity-[0.04] object-contain"
         />
       </div>
 
-      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeading
           title="Who We Are"
           subtitle="A Talent-as-a-Service company building reliable global workforce infrastructure across Africa."
@@ -122,7 +124,8 @@ const WhoWeAre = () => {
           >
             <img
               src={aboutImg}
-              alt="About team"
+              alt="E-Africa team collaborating"
+              loading="lazy"
               className="h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent" />

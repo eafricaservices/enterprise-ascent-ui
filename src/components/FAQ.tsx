@@ -70,12 +70,12 @@ const talentFaqs = [
 const FAQ = () => {
   return (
     <section id="faq" className="relative py-24 bg-muted/40 dark:bg-secondary/40 overflow-hidden">
-      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center">
           <h2 className="font-heading text-2xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
             Frequently Asked Questions
           </h2>
-          <div className="mt-4 h-1 w-16 rounded-full bg-accent mx-auto" />
+          <div className="mt-4 h-1 w-16 rounded-full bg-accent mx-auto" aria-hidden="true" />
         </div>
 
         <motion.div

@@ -87,7 +87,7 @@ const Contact = () => {
 
   return (
     <section id="contact" className="py-24 bg-muted/40 dark:bg-secondary/40">
-      <div className="container mx-auto px-4 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           title="Talk to Our Hiring Team"
           subtitle="Share your hiring goals and we will design a talent solution for your remote team."
@@ -148,7 +148,8 @@ const Contact = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
-                    className="mt-1.5"
+                    aria-required="true"
+                    className="mt-1.5 text-base sm:text-sm"
                   />
                 </div>
                 <div>
@@ -162,7 +163,8 @@ const Contact = () => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
-                    className="mt-1.5"
+                    aria-required="true"
+                    className="mt-1.5 text-base sm:text-sm"
                   />
                 </div>
               </div>
@@ -205,7 +207,8 @@ const Contact = () => {
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   required
-                  className="mt-1.5"
+                  aria-required="true"
+                  className="mt-1.5 text-base sm:text-sm"
                 />
               </div>
               <div>
@@ -219,7 +222,7 @@ const Contact = () => {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   required
-                  className="mt-1.5 resize-none"
+                  className="mt-1.5 resize-none text-base sm:text-sm"
                 />
               </div>
               <Button type="submit" variant="brand" size="lg" className="w-full sm:w-auto group" disabled={isSubmitting}>

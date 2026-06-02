@@ -61,7 +61,7 @@ const WhatWeDo = () => {
       {/* Gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-muted/20 pointer-events-none" />
 
-      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeading
           title="Global Talent Solutions - Built for Remote Teams"
           subtitle="We provide remote-ready professionals across key business functions. Whether you need to outsource customer support, hire remote virtual assistant roles, or scale your sales team, we deliver."
@@ -82,7 +82,7 @@ const WhatWeDo = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-8 grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
         >
           {services.map((service, i) => (
             <motion.div

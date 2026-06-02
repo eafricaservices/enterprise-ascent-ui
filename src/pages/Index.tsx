@@ -10,6 +10,7 @@ import FAQ from "@/components/FAQ";
 import Impact from "@/components/Impact";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import StarterPackPricing from "@/components/StarterPackPricing";
 
 const Index = () => {
   return (
@@ -22,6 +23,7 @@ const Index = () => {
         <WhatWeDo />
         <HowItWorks />
         <TalentPool />
+        <StarterPackPricing />
         <Testimonials />
         <FAQ />
         <Impact />

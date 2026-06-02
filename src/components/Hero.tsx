@@ -1,8 +1,10 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Hero = () => {
+  const prefersReducedMotion = useReducedMotion();
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -44,7 +46,7 @@ const Hero = () => {
       {/* Grid pattern overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:50px_50px] opacity-20" />
 
-      <div className="relative z-10 container mx-auto px-4 lg:px-8 py-20">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -117,22 +119,24 @@ const Hero = () => {
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-xs text-white/50 uppercase tracking-widest">Scroll to explore</span>
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-center justify-center">
-            <motion.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-1 h-2 bg-accent rounded-full"
-            />
+      {!prefersReducedMotion && (
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-xs text-white/50 uppercase tracking-widest">Scroll to explore</span>
+            <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-center justify-center">
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="w-1 h-2 bg-accent rounded-full"
+              />
+            </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      )}
     </section>
   );
 };

@@ -75,7 +75,7 @@ const Footer = () => {
         whileInView="visible"
         viewport={{ once: true }}
         variants={containerVariants}
-        className="container mx-auto px-4 py-16 lg:px-8 relative z-10"
+        className="container mx-auto px-4 sm:px-6 py-16 lg:px-8 relative z-10"
       >
         <div className="grid gap-12 md:grid-cols-3">
           {/* Brand section */}
@@ -171,7 +171,7 @@ const Footer = () => {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="container mx-auto px-4 py-8 lg:px-8 relative z-10"
+        className="container mx-auto px-4 sm:px-6 py-8 lg:px-8 relative z-10"
       >
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-xs opacity-75 font-light">
           <p>

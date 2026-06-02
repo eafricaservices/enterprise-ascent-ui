@@ -66,7 +66,7 @@ const TalentPool = () => {
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-background pointer-events-none" />
 
-      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeading
           title="Join Africa's Fastest-Growing Remote Talent Pool - Find remote customer service rep jobs and remote virtual assistant work"
           subtitle="Get matched with global companies that pay in USD - and grow your career from home."
@@ -77,7 +77,7 @@ const TalentPool = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-12 grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
         >
           {benefits.map((benefit, i) => (
             <motion.div

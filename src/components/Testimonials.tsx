@@ -24,12 +24,12 @@ const talentTestimonial =
 const Testimonials = () => {
   return (
     <section id="testimonials" className="py-24">
-      <div className="container mx-auto px-4 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="font-heading text-2xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
             Making African Excellence the Global First Choice
           </h2>
-          <div className="mt-4 h-1 w-16 rounded-full bg-accent mx-auto" />
+          <div className="mt-4 h-1 w-16 rounded-full bg-accent mx-auto" aria-hidden="true" />
         </div>
 
         <div className="mt-16 grid gap-4 grid-cols-2 lg:grid-cols-4">

@@ -80,10 +80,9 @@ const SectionHeading = ({
 
       <motion.div
         variants={underlineVariants}
-        className={`mt-4 h-1.5 rounded-full bg-gradient-to-r from-accent via-primary to-accent ${
+        className={`mt-4 h-1.5 max-w-[80px] rounded-full bg-gradient-to-r from-accent via-primary to-accent ${
           centered ? "mx-auto" : "ml-0"
         }`}
-        style={{ maxWidth: "80px" }}
       />
 
       {subtitle && (

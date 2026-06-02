@@ -113,14 +113,21 @@ const Header = ({ theme }: HeaderProps) => {
   };
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-      detectBackgroundContrast();
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 50);
+          detectBackgroundContrast();
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     detectBackgroundContrast();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", detectBackgroundContrast);
+    window.addEventListener("resize", detectBackgroundContrast, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", detectBackgroundContrast);
@@ -165,7 +172,7 @@ const Header = ({ theme }: HeaderProps) => {
           : "bg-transparent"
       }`}
     >
-      <nav className="container mx-auto flex items-center justify-between px-4 py-4 lg:px-8">
+      <nav className="container mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
         <button
           onClick={() => handleNavClick("#home")}
           className="flex flex-col items-center gap-1"
@@ -196,7 +203,7 @@ const Header = ({ theme }: HeaderProps) => {
                 >
                   <button
                     type="button"
-                    className={`inline-flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    className={`inline-flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                       scrolled || headerTheme === "light"
                         ? "text-foreground/70 hover:text-primary"
                         : "text-white/80 hover:text-white"
@@ -230,7 +237,7 @@ const Header = ({ theme }: HeaderProps) => {
               <button
                 key={`${link.label}-${link.href}`}
                 onClick={() => handleNavClick(link.href, link.isPage)}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                   scrolled || headerTheme === "light"
                     ? "text-foreground/70 hover:text-primary"
                     : "text-white/80 hover:text-white"
@@ -246,11 +253,12 @@ const Header = ({ theme }: HeaderProps) => {
           <Button
             variant="ghost"
             size="icon"
-            className={`lg:hidden ${
+            className={`lg:hidden h-12 w-12 focus-visible:ring-2 focus-visible:ring-primary ${
               scrolled || headerTheme === "light" ? "text-foreground" : "text-white"
             }`}
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
+            aria-label="Toggle navigation menu"
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? (
               <X className="h-6 w-6" />
@@ -270,7 +278,7 @@ const Header = ({ theme }: HeaderProps) => {
             transition={{ duration: 0.25 }}
             className="lg:hidden overflow-hidden border-t border-border bg-background/95 backdrop-blur-md"
           >
-            <div className="container mx-auto px-4 py-4 space-y-2">
+            <div className="container mx-auto px-4 sm:px-6 py-4 space-y-2">
               {navLinks.map((link) => {
                 if (link.children) {
                   return (

@@ -24,7 +24,7 @@ const ScrollToTopButton = () => {
     <Button
       variant="brand"
       size="icon"
-      className="fixed bottom-5 right-5 z-50 rounded-full shadow-md"
+      className="fixed bottom-5 right-5 z-50 rounded-full shadow-md h-12 w-12"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Scroll to top"
     >
