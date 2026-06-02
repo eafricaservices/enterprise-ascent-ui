@@ -32,9 +32,9 @@ const packs = [
     emoji: "🥈",
     name: "Professional Pack",
     tagline: "Everything in Foundation, plus hands-on support.",
-    originalPrice: "₦40,000",
-    launchPrice: "₦35,000",
-    hasLaunchPrice: true,
+    originalPrice: "₦35,000",
+    launchPrice: null,
+    hasLaunchPrice: false,
     features: [
       "Everything in Foundation Pack",
       "Resume Review",
