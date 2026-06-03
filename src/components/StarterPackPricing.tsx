@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Check, ArrowRight, Clock, Users } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 // ── LAUNCH CONFIG ─────────────────────────────────────────────────────────────
 // Structure 2: Single Urgency  +  Tactic C: Hybrid (Quantity First, Time Finish)
@@ -14,7 +15,7 @@ import { Button } from "@/components/ui/button";
 //    → Hard 48-hour countdown. No extensions. No exceptions.
 //    → After deadline, price resets to ₦35,000. Unsold slots are voided.
 // ─────────────────────────────────────────────────────────────────────────────
-const LAUNCH_PHASE: 1 | 2 = 1;
+const LAUNCH_PHASE = 1 as 1 | 2;
 const TOTAL_SLOTS = 20;
 const SLOTS_REMAINING = 14; // ← update this daily
 const PHASE_2_DEADLINE = new Date("2026-06-18T23:59:00+01:00"); // WAT (UTC+1)
@@ -165,12 +166,15 @@ const StarterPackPricing = () => {
               </div>
             </div>
 
-            <Button variant="outline" size="lg" className="w-full group" asChild>
-              <a href={PAYSTACK_FOUNDATION_URL} target="_blank" rel="noopener noreferrer">
-                Get Foundation Pack
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </a>
-            </Button>
+            <a
+              href={PAYSTACK_FOUNDATION_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full group touch-manipulation")}
+            >
+              Get Foundation Pack
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </a>
           </motion.div>
 
           {/* ── Professional (urgency) ── */}
@@ -292,12 +296,15 @@ const StarterPackPricing = () => {
                 Offer Closed
               </Button>
             ) : (
-              <Button variant="brand" size="lg" className="w-full group" asChild>
-                <a href={PAYSTACK_PROFESSIONAL_URL} target="_blank" rel="noopener noreferrer">
-                  Claim Founding Slot — ₦20,000
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </a>
-              </Button>
+              <a
+                href={PAYSTACK_PROFESSIONAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(buttonVariants({ variant: "brand", size: "lg" }), "w-full group touch-manipulation")}
+              >
+                Claim Founding Slot — ₦20,000
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </a>
             )}
           </motion.div>
 
@@ -347,12 +354,15 @@ const StarterPackPricing = () => {
               </div>
             </div>
 
-            <Button variant="outline" size="lg" className="w-full group" asChild>
-              <a href={PAYSTACK_EXECUTIVE_URL} target="_blank" rel="noopener noreferrer">
-                Get Executive Pack
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </a>
-            </Button>
+            <a
+              href={PAYSTACK_EXECUTIVE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full group touch-manipulation")}
+            >
+              Get Executive Pack
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </a>
           </motion.div>
 
         </div>
