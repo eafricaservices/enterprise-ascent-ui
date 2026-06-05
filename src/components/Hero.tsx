@@ -86,7 +86,7 @@ const Hero = () => {
           {/* CTA Buttons */}
           <motion.div
             variants={itemVariants}
-            className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap"
           >
             <Button
               variant="brand"
@@ -104,6 +104,15 @@ const Hero = () => {
               className="group bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent shadow-lg hover:shadow-xl transition-all duration-300 text-white"
             >
               Find a Job
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+            <Button
+              variant="hero-outline"
+              size="lg"
+              onClick={() => scrollTo("starter-pack")}
+              className="group"
+            >
+              Get the Starter Pack
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </motion.div>

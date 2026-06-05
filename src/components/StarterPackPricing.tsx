@@ -1,29 +1,21 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Check, ArrowRight, Clock, Users } from "lucide-react";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/lib/supabase";
 
-// ── LAUNCH CONFIG ─────────────────────────────────────────────────────────────
-// Structure 2: Single Urgency  +  Tactic C: Hybrid (Quantity First, Time Finish)
-//
-//  PHASE 1 (Days 1–10) — Quantity scarcity on Professional only
-//    → Update SLOTS_REMAINING each day as Paystack payments come in.
-//    → Never sell more than TOTAL_SLOTS at the ₦20,000 launch price.
-//
-//  PHASE 2 (Days 11–12) — Switch LAUNCH_PHASE to 2 and set PHASE_2_DEADLINE.
-//    → Hard 48-hour countdown. No extensions. No exceptions.
-//    → After deadline, price resets to ₦35,000. Unsold slots are voided.
-// ─────────────────────────────────────────────────────────────────────────────
-const LAUNCH_PHASE = 1 as 1 | 2;
+// ── LAUNCH CONFIG ──────────────────────────────────────────────────────────────
+// Set LAUNCH_DATE to the day you officially started the campaign.
+// Everything else is automatic:
+//   Days 1–10  → Phase 1: live slot counter (counts down from DB)
+//   Days 11–12 → Phase 2: 48-hour countdown timer (auto-activates)
+//   After day 12 or 0 slots → Offer closed
+// ──────────────────────────────────────────────────────────────────────────────
 const TOTAL_SLOTS = 20;
-const SLOTS_REMAINING = 14; // ← update this daily
-const PHASE_2_DEADLINE = new Date("2026-06-18T23:59:00+01:00"); // WAT (UTC+1)
-// ─────────────────────────────────────────────────────────────────────────────
-
-const PAYSTACK_FOUNDATION_URL = import.meta.env.VITE_PAYSTACK_FOUNDATION_URL as string;
-const PAYSTACK_PROFESSIONAL_URL = import.meta.env.VITE_PAYSTACK_PROFESSIONAL_URL as string;
-const PAYSTACK_EXECUTIVE_URL = import.meta.env.VITE_PAYSTACK_EXECUTIVE_URL as string;
+const LAUNCH_DATE = new Date("2026-06-08T00:00:00+01:00"); // WAT — update when you go live
+const PHASE_2_DEADLINE = new Date(LAUNCH_DATE.getTime() + 12 * 24 * 60 * 60 * 1000);
+// ──────────────────────────────────────────────────────────────────────────────
 
 function useCountdown(deadline: Date) {
   const calc = () => {
@@ -54,9 +46,38 @@ const perks = [
 ];
 
 const StarterPackPricing = () => {
+  const navigate = useNavigate();
   const countdown = useCountdown(PHASE_2_DEADLINE);
-  const slotsFilled = TOTAL_SLOTS - SLOTS_REMAINING;
+
+  const [slotsRemaining, setSlotsRemaining] = useState(TOTAL_SLOTS);
+  const [slotsLoading, setSlotsLoading] = useState(true);
+
+  // Fetch live count of completed Professional purchases
+  useEffect(() => {
+    supabase
+      .from("starter_pack_orders")
+      .select("*", { count: "exact", head: true })
+      .ilike("plan_name", "%Professional%")
+      .eq("payment_status", "completed")
+      .then(({ count }) => {
+        setSlotsRemaining(Math.max(0, TOTAL_SLOTS - (count ?? 0)));
+        setSlotsLoading(false);
+      });
+  }, []);
+
+  const daysSinceLaunch =
+    (Date.now() - LAUNCH_DATE.getTime()) / (1000 * 60 * 60 * 24);
+
+  const isPhase2 = daysSinceLaunch >= 10;
+  const offerClosed =
+    slotsRemaining === 0 || (isPhase2 && countdown.expired);
+
+  const slotsFilled = TOTAL_SLOTS - slotsRemaining;
   const slotsPercent = Math.round((slotsFilled / TOTAL_SLOTS) * 100);
+
+  const handleBuyNow = (plan: string, amount: number) => {
+    navigate("/checkout", { state: { plan, amount } });
+  };
 
   return (
     <section id="starter-pack" className="py-24 bg-muted/30 dark:bg-secondary/20">
@@ -69,12 +90,16 @@ const StarterPackPricing = () => {
           viewport={{ once: true }}
           className="text-center mb-4"
         >
-          {LAUNCH_PHASE === 1 ? (
+          {/* Urgency banner */}
+          {!offerClosed && !isPhase2 && (
             <span className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-semibold text-accent mb-4">
               <Users className="h-3.5 w-3.5" />
-              Only {SLOTS_REMAINING} of {TOTAL_SLOTS} founding slots remaining at ₦20,000
+              {slotsLoading
+                ? "Founding slots available at ₦20,000"
+                : `Only ${slotsRemaining} of ${TOTAL_SLOTS} founding slots remaining at ₦20,000`}
             </span>
-          ) : (
+          )}
+          {!offerClosed && isPhase2 && (
             <span className="inline-flex items-center gap-2 rounded-full bg-destructive/10 px-4 py-1.5 text-sm font-semibold text-destructive mb-4 animate-pulse">
               <Clock className="h-3.5 w-3.5" />
               Final 48 hours — founding slots close forever. Price returns to ₦35,000.
@@ -166,15 +191,15 @@ const StarterPackPricing = () => {
               </div>
             </div>
 
-            <a
-              href={PAYSTACK_FOUNDATION_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full group touch-manipulation")}
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full group"
+              onClick={() => handleBuyNow("Foundation Pack", 15000)}
             >
-              Get Foundation Pack
+              Buy Now — ₦15,000
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </a>
+            </Button>
           </motion.div>
 
           {/* ── Professional (urgency) ── */}
@@ -185,9 +210,14 @@ const StarterPackPricing = () => {
             transition={{ duration: 0.5, delay: 0.12 }}
             className="relative flex flex-col rounded-2xl border border-accent bg-accent/5 dark:bg-accent/10 shadow-lg p-8 transition-all hover:shadow-xl scale-[1.02]"
           >
-            {LAUNCH_PHASE === 1 ? (
+            {/* Card badge */}
+            {offerClosed ? (
+              <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-muted px-5 py-1 text-xs font-bold text-muted-foreground whitespace-nowrap">
+                Now ₦35,000
+              </span>
+            ) : !isPhase2 ? (
               <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-accent px-5 py-1 text-xs font-bold text-accent-foreground whitespace-nowrap">
-                🔥 {SLOTS_REMAINING} Founding Slots Left
+                {slotsLoading ? "🔥 Founding Slots Available" : `🔥 ${slotsRemaining} Slots Left`}
               </span>
             ) : (
               <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-destructive px-5 py-1 text-xs font-bold text-white whitespace-nowrap">
@@ -203,30 +233,38 @@ const StarterPackPricing = () => {
 
             {/* Pricing */}
             <div className="mb-4">
-              <div className="flex items-baseline gap-2">
-                <span className="text-sm text-muted-foreground line-through">₦35,000</span>
-                <span className="text-xs text-muted-foreground">regular price</span>
-              </div>
-              <div className="flex items-baseline gap-2 mt-1">
-                <span className="font-heading text-4xl font-bold text-primary">₦20,000</span>
-                <span className="text-sm font-medium text-accent">Founding price</span>
-              </div>
+              {offerClosed ? (
+                <span className="font-heading text-4xl font-bold text-primary">₦35,000</span>
+              ) : (
+                <>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-sm text-muted-foreground line-through">₦35,000</span>
+                    <span className="text-xs text-muted-foreground">regular price</span>
+                  </div>
+                  <div className="flex items-baseline gap-2 mt-1">
+                    <span className="font-heading text-4xl font-bold text-primary">₦20,000</span>
+                    <span className="text-sm font-medium text-accent">Founding price</span>
+                  </div>
+                </>
+              )}
             </div>
 
-            {/* Phase 1 — slot counter */}
-            {LAUNCH_PHASE === 1 && (
+            {/* Phase 1 — live slot counter */}
+            {!offerClosed && !isPhase2 && (
               <div className="mb-4 rounded-xl border border-accent/20 bg-background/50 p-3">
                 <div className="flex items-center justify-between text-sm mb-2">
                   <span className="font-medium text-foreground flex items-center gap-1.5">
                     <Users className="h-3.5 w-3.5 text-accent" />
-                    {SLOTS_REMAINING} of {TOTAL_SLOTS} slots remaining
+                    {slotsLoading ? "Loading slots…" : `${slotsRemaining} of ${TOTAL_SLOTS} slots remaining`}
                   </span>
-                  <span className="text-xs text-muted-foreground">{slotsFilled} claimed</span>
+                  {!slotsLoading && (
+                    <span className="text-xs text-muted-foreground">{slotsFilled} claimed</span>
+                  )}
                 </div>
                 <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-accent to-primary transition-all duration-500"
-                    style={{ width: `${slotsPercent}%` }}
+                    className="h-full rounded-full bg-gradient-to-r from-accent to-primary transition-all duration-700"
+                    style={{ width: slotsLoading ? "0%" : `${slotsPercent}%` }}
                   />
                 </div>
                 <p className="mt-2 text-xs text-muted-foreground">
@@ -236,29 +274,25 @@ const StarterPackPricing = () => {
             )}
 
             {/* Phase 2 — countdown timer */}
-            {LAUNCH_PHASE === 2 && (
+            {!offerClosed && isPhase2 && (
               <div className="mb-4 rounded-xl border border-destructive/20 bg-destructive/5 p-3">
                 <p className="text-xs font-semibold text-destructive uppercase tracking-wider mb-2 text-center">
                   Founding slots close in
                 </p>
-                {countdown.expired ? (
-                  <p className="text-center text-sm font-bold text-destructive">Offer closed — price is now ₦35,000</p>
-                ) : (
-                  <div className="flex justify-center gap-3">
-                    {[
-                      { value: countdown.hours, label: "hrs" },
-                      { value: countdown.minutes, label: "min" },
-                      { value: countdown.seconds, label: "sec" },
-                    ].map(({ value, label }) => (
-                      <div key={label} className="flex flex-col items-center">
-                        <span className="font-heading text-2xl font-bold text-destructive tabular-nums w-10 text-center">
-                          {String(value).padStart(2, "0")}
-                        </span>
-                        <span className="text-xs text-muted-foreground">{label}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <div className="flex justify-center gap-3">
+                  {[
+                    { value: countdown.hours, label: "hrs" },
+                    { value: countdown.minutes, label: "min" },
+                    { value: countdown.seconds, label: "sec" },
+                  ].map(({ value, label }) => (
+                    <div key={label} className="flex flex-col items-center">
+                      <span className="font-heading text-2xl font-bold text-destructive tabular-nums w-10 text-center">
+                        {String(value).padStart(2, "0")}
+                      </span>
+                      <span className="text-xs text-muted-foreground">{label}</span>
+                    </div>
+                  ))}
+                </div>
                 <p className="mt-2 text-xs text-muted-foreground text-center">
                   After deadline, price returns to ₦35,000. No extensions.
                 </p>
@@ -291,20 +325,26 @@ const StarterPackPricing = () => {
               </div>
             </div>
 
-            {LAUNCH_PHASE === 2 && countdown.expired ? (
-              <Button variant="brand" size="lg" className="w-full" disabled>
-                Offer Closed
+            {offerClosed ? (
+              <Button
+                variant="brand"
+                size="lg"
+                className="w-full"
+                onClick={() => handleBuyNow("Professional Pack", 35000)}
+              >
+                Buy Now — ₦35,000
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             ) : (
-              <a
-                href={PAYSTACK_PROFESSIONAL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(buttonVariants({ variant: "brand", size: "lg" }), "w-full group touch-manipulation")}
+              <Button
+                variant="brand"
+                size="lg"
+                className="w-full group"
+                onClick={() => handleBuyNow("Professional Pack — Founding Member", 20000)}
               >
-                Claim Founding Slot — ₦20,000
+                Buy Now — ₦20,000
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </a>
+              </Button>
             )}
           </motion.div>
 
@@ -354,18 +394,28 @@ const StarterPackPricing = () => {
               </div>
             </div>
 
-            <a
-              href={PAYSTACK_EXECUTIVE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full group touch-manipulation")}
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full group"
+              onClick={() => handleBuyNow("Executive Pack", 50000)}
             >
-              Get Executive Pack
+              Buy Now — ₦50,000
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </a>
+            </Button>
           </motion.div>
 
         </div>
+
+        {/* Disclaimer */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mt-10 text-center text-xs text-muted-foreground/70 max-w-xl mx-auto"
+        >
+          This product does not guarantee employment. Results depend on your experience, effort, and the job market.
+        </motion.p>
       </div>
     </section>
   );

@@ -18,7 +18,6 @@ const navLinks = [
     children: [
       { label: "Talent Solutions", href: "#employers-core-services" },
       { label: "How It Works (Hiring)", href: "#employers-how-it-works" },
-      { label: "Pricing", href: "/pricing", isPage: true },
     ],
   },
   {
@@ -29,6 +28,7 @@ const navLinks = [
       { label: "Job Listings", href: "/jobs", isPage: true },
     ],
   },
+  { label: "Pricing", href: "/pricing", isPage: true },
   { label: "About", href: "#about" },
   {
     label: "Resources",

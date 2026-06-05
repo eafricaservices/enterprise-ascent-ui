@@ -361,6 +361,48 @@ export interface Database {
         };
         Relationships: [];
       };
+      starter_pack_orders: {
+        Row: {
+          id: string;
+          first_name: string;
+          last_name: string;
+          email: string;
+          phone: string;
+          plan_name: string;
+          amount_naira: number;
+          payment_reference: string | null;
+          payment_status: "pending" | "completed" | "failed";
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          first_name: string;
+          last_name: string;
+          email: string;
+          phone: string;
+          plan_name: string;
+          amount_naira: number;
+          payment_reference?: string | null;
+          payment_status?: "pending" | "completed" | "failed";
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          first_name?: string;
+          last_name?: string;
+          email?: string;
+          phone?: string;
+          plan_name?: string;
+          amount_naira?: number;
+          payment_reference?: string | null;
+          payment_status?: "pending" | "completed" | "failed";
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       client_logos: {
         Row: {
           id: string;
