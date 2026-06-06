@@ -96,9 +96,13 @@ const Checkout = () => {
       .single();
 
     if (dbError || !order) {
-      console.error("DB insert error:", dbError);
+      console.error("DB insert error:", dbError?.message, dbError?.details, dbError?.hint, dbError);
       setLoading(false);
-      alert("Something went wrong. Please try again.");
+      alert(
+        dbError
+          ? `Order could not be saved: ${dbError.message}`
+          : "Something went wrong. Please try again."
+      );
       return;
     }
 
