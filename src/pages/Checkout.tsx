@@ -128,34 +128,35 @@ const Checkout = () => {
           { display_name: "Order Ref", variable_name: "order_ref", value: ref },
         ],
       },
-      callback: async (response: { reference: string }) => {
-        // Update order as completed (Paystack may return a different reference)
-        await supabase
+      // Paystack requires plain functions — not async (AsyncFunction fails its type check)
+      callback: (response: { reference: string }) => {
+        supabase
           .from("starter_pack_orders")
           .update({
             payment_reference: response.reference,
             payment_status: "completed",
           })
-          .eq("payment_reference", ref);
-
-        navigate("/thank-you", {
-          state: {
-            plan,
-            amount,
-            reference: response.reference,
-            firstName: form.firstName,
-          },
-        });
+          .eq("payment_reference", ref)
+          .then(() => {
+            navigate("/thank-you", {
+              state: {
+                plan,
+                amount,
+                reference: response.reference,
+                firstName: form.firstName,
+              },
+            });
+          });
       },
-      onClose: async () => {
-        // Mark order as failed
-        await supabase
+      onClose: () => {
+        supabase
           .from("starter_pack_orders")
           .update({ payment_status: "failed" })
-          .eq("payment_reference", ref);
-
-        setLoading(false);
-        navigate("/payment-failed");
+          .eq("payment_reference", ref)
+          .then(() => {
+            setLoading(false);
+            navigate("/payment-failed");
+          });
       },
     });
 
