@@ -48,9 +48,22 @@ const ThankYou = () => {
       });
     }
 
-    // Auto-trigger download via window.open — browsers allow this on initial page mount.
-    // setTimeout + link.click() is blocked as a popup on mobile/Safari (no user gesture).
-    window.open(downloadUrl, "_blank");
+    // Hidden iframe triggers the download without a user gesture.
+    // window.open() and link.click() inside useEffect are blocked as popups
+    // by Safari and mobile browsers. Iframes are not subject to that restriction.
+    const iframe = document.createElement("iframe");
+    iframe.style.cssText = "display:none;width:0;height:0;border:none;position:absolute;";
+    iframe.src = downloadUrl;
+    document.body.appendChild(iframe);
+
+    const cleanup = setTimeout(() => {
+      if (document.body.contains(iframe)) document.body.removeChild(iframe);
+    }, 10_000);
+
+    return () => {
+      clearTimeout(cleanup);
+      if (document.body.contains(iframe)) document.body.removeChild(iframe);
+    };
   }, []);
 
   return (
