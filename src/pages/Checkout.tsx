@@ -114,6 +114,10 @@ const Checkout = () => {
       });
     }
 
+    // Paystack fires onClose even after a successful payment (when the modal closes).
+    // This flag prevents onClose from overriding the thank-you redirect.
+    let paymentSucceeded = false;
+
     const handler = PaystackPop.setup({
       key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
       email: form.email.trim(),
@@ -128,35 +132,27 @@ const Checkout = () => {
           { display_name: "Order Ref", variable_name: "order_ref", value: ref },
         ],
       },
-      // Paystack requires plain functions — not async (AsyncFunction fails its type check)
+      // Paystack requires plain (non-async) functions
       callback: (response: { reference: string }) => {
+        paymentSucceeded = true;
+        // Fire-and-forget DB update — navigate immediately so Pixel fires on /thank-you
         supabase
           .from("starter_pack_orders")
-          .update({
-            payment_reference: response.reference,
-            payment_status: "completed",
-          })
-          .eq("payment_reference", ref)
-          .then(() => {
-            navigate("/thank-you", {
-              state: {
-                plan,
-                amount,
-                reference: response.reference,
-                firstName: form.firstName,
-              },
-            });
-          });
+          .update({ payment_reference: response.reference, payment_status: "completed" })
+          .eq("payment_reference", ref);
+        navigate("/thank-you", {
+          state: { plan, amount, reference: response.reference, firstName: form.firstName },
+        });
       },
       onClose: () => {
+        // Guard: if callback already ran, this close is post-success — skip
+        if (paymentSucceeded) return;
         supabase
           .from("starter_pack_orders")
           .update({ payment_status: "failed" })
-          .eq("payment_reference", ref)
-          .then(() => {
-            setLoading(false);
-            navigate("/payment-failed");
-          });
+          .eq("payment_reference", ref);
+        setLoading(false);
+        navigate("/payment-failed");
       },
     });
 

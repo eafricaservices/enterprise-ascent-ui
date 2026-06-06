@@ -6,21 +6,21 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 // ── DOWNLOAD LINKS PER TIER ────────────────────────────────────────────────
-// Add the correct Google Drive link for each tier.
-// All tiers currently point to the same file — update as needed.
+// &confirm=t bypasses Google Drive's virus-scan warning page for larger files.
+// Update each link when tier-specific files are ready.
 const DOWNLOAD_LINKS: Record<string, string> = {
   "Foundation Pack":
-    "https://drive.google.com/uc?export=download&id=1zQPKTcnd5Ca-Vafbb_85_3dwZ22t2zHN",
+    "https://drive.google.com/uc?export=download&confirm=t&id=1zQPKTcnd5Ca-Vafbb_85_3dwZ22t2zHN",
   "Professional Pack — Founding Member":
-    "https://drive.google.com/uc?export=download&id=1zQPKTcnd5Ca-Vafbb_85_3dwZ22t2zHN",
+    "https://drive.google.com/uc?export=download&confirm=t&id=1zQPKTcnd5Ca-Vafbb_85_3dwZ22t2zHN",
   "Professional Pack":
-    "https://drive.google.com/uc?export=download&id=1zQPKTcnd5Ca-Vafbb_85_3dwZ22t2zHN",
+    "https://drive.google.com/uc?export=download&confirm=t&id=1zQPKTcnd5Ca-Vafbb_85_3dwZ22t2zHN",
   "Executive Pack":
-    "https://drive.google.com/uc?export=download&id=1zQPKTcnd5Ca-Vafbb_85_3dwZ22t2zHN",
+    "https://drive.google.com/uc?export=download&confirm=t&id=1zQPKTcnd5Ca-Vafbb_85_3dwZ22t2zHN",
 };
 
 const DEFAULT_DOWNLOAD =
-  "https://drive.google.com/uc?export=download&id=1zQPKTcnd5Ca-Vafbb_85_3dwZ22t2zHN";
+  "https://drive.google.com/uc?export=download&confirm=t&id=1zQPKTcnd5Ca-Vafbb_85_3dwZ22t2zHN";
 // ──────────────────────────────────────────────────────────────────────────
 
 interface ThankYouState {
@@ -48,17 +48,9 @@ const ThankYou = () => {
       });
     }
 
-    // Auto-trigger download after a short delay so the page renders first
-    const timer = setTimeout(() => {
-      const link = document.createElement("a");
-      link.href = downloadUrl;
-      link.setAttribute("download", "E-Africa-Remote-Job-Starter-Pack.pdf");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }, 1500);
-
-    return () => clearTimeout(timer);
+    // Auto-trigger download via window.open — browsers allow this on initial page mount.
+    // setTimeout + link.click() is blocked as a popup on mobile/Safari (no user gesture).
+    window.open(downloadUrl, "_blank");
   }, []);
 
   return (
