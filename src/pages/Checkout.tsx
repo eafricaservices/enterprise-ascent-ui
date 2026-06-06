@@ -125,7 +125,7 @@ const Checkout = () => {
           { display_name: "Plan", variable_name: "plan", value: plan },
           { display_name: "Name", variable_name: "name", value: `${form.firstName} ${form.lastName}` },
           { display_name: "Phone", variable_name: "phone", value: form.phone },
-          { display_name: "Order ID", variable_name: "order_id", value: orderId },
+          { display_name: "Order Ref", variable_name: "order_ref", value: ref },
         ],
       },
       callback: async (response: { reference: string }) => {
