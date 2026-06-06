@@ -80,8 +80,11 @@ const Checkout = () => {
 
     setLoading(true);
 
+    // Generate ref before insert so we can use it as the lookup key
+    const ref = String(Math.floor(Math.random() * 1_000_000_000) + 1);
+
     // Save order to DB before opening Paystack
-    const { data: order, error: dbError } = await supabase
+    const { error: dbError } = await supabase
       .from("starter_pack_orders")
       .insert({
         first_name: form.firstName.trim(),
@@ -90,24 +93,16 @@ const Checkout = () => {
         phone: form.phone.trim(),
         plan_name: plan,
         amount_naira: amount,
+        payment_reference: ref,
         payment_status: "pending",
-      })
-      .select("id")
-      .single();
+      });
 
-    if (dbError || !order) {
+    if (dbError) {
       console.error("DB insert error:", dbError?.message, dbError?.details, dbError?.hint, dbError);
       setLoading(false);
-      alert(
-        dbError
-          ? `Order could not be saved: ${dbError.message}`
-          : "Something went wrong. Please try again."
-      );
+      alert(`Order could not be saved: ${dbError.message}`);
       return;
     }
-
-    const orderId = order.id;
-    const ref = String(Math.floor(Math.random() * 1_000_000_000) + 1);
 
     // Pixel: buyer is entering payment
     const fbq = (window as any).fbq;
@@ -134,14 +129,14 @@ const Checkout = () => {
         ],
       },
       callback: async (response: { reference: string }) => {
-        // Update order as completed
+        // Update order as completed (Paystack may return a different reference)
         await supabase
           .from("starter_pack_orders")
           .update({
             payment_reference: response.reference,
             payment_status: "completed",
           })
-          .eq("id", orderId);
+          .eq("payment_reference", ref);
 
         navigate("/thank-you", {
           state: {
@@ -157,7 +152,7 @@ const Checkout = () => {
         await supabase
           .from("starter_pack_orders")
           .update({ payment_status: "failed" })
-          .eq("id", orderId);
+          .eq("payment_reference", ref);
 
         setLoading(false);
         navigate("/payment-failed");
