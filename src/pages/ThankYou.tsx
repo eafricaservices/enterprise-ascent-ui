@@ -48,21 +48,24 @@ const ThankYou = () => {
       });
     }
 
-    // Hidden iframe triggers the download without a user gesture.
-    // window.open() and link.click() inside useEffect are blocked as popups
-    // by Safari and mobile browsers. Iframes are not subject to that restriction.
-    const iframe = document.createElement("iframe");
-    iframe.style.cssText = "display:none;width:0;height:0;border:none;position:absolute;";
-    iframe.src = downloadUrl;
-    document.body.appendChild(iframe);
+    // 4-second delay so the thank-you page is fully visible before the
+    // download prompt appears. Hidden iframe bypasses mobile popup blockers.
+    let iframe: HTMLIFrameElement | null = null;
 
-    const cleanup = setTimeout(() => {
-      if (document.body.contains(iframe)) document.body.removeChild(iframe);
-    }, 10_000);
+    const trigger = setTimeout(() => {
+      iframe = document.createElement("iframe");
+      iframe.style.cssText = "display:none;width:0;height:0;border:none;position:absolute;";
+      iframe.src = downloadUrl;
+      document.body.appendChild(iframe);
+
+      setTimeout(() => {
+        if (iframe && document.body.contains(iframe)) document.body.removeChild(iframe);
+      }, 10_000);
+    }, 4_000);
 
     return () => {
-      clearTimeout(cleanup);
-      if (document.body.contains(iframe)) document.body.removeChild(iframe);
+      clearTimeout(trigger);
+      if (iframe && document.body.contains(iframe)) document.body.removeChild(iframe);
     };
   }, []);
 
@@ -99,13 +102,20 @@ const ThankYou = () => {
               </div>
             )}
 
+            {/* Email notice */}
+            <div className="mb-4 rounded-xl bg-green-500/10 border border-green-500/30 px-5 py-3">
+              <p className="text-sm font-bold text-green-700 dark:text-green-400">
+                A copy will be sent to your email shortly.
+              </p>
+            </div>
+
             {/* Download CTA */}
             <div className="mb-6 rounded-xl border-2 border-primary/30 bg-primary/5 p-6">
               <p className="text-sm font-semibold text-foreground mb-1">
                 Your download is ready
               </p>
               <p className="text-xs text-muted-foreground mb-4">
-                Your file should start downloading automatically. If it doesn't, click the button below.
+                Your file will start downloading automatically in a few seconds. If it doesn't, click the button below.
               </p>
               <a
                 href={downloadUrl}

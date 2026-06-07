@@ -121,6 +121,9 @@ const Checkout = () => {
     const handler = PaystackPop.setup({
       key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
       email: form.email.trim(),
+      first_name: form.firstName.trim(),
+      last_name: form.lastName.trim(),
+      phone: form.phone.trim(),
       amount: amount * 100,
       currency: "NGN",
       ref,
