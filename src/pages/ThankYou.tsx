@@ -8,19 +8,19 @@ import Footer from "@/components/Footer";
 // ── DOWNLOAD LINKS PER TIER ────────────────────────────────────────────────
 // &confirm=t bypasses Google Drive's virus-scan warning page for larger files.
 // Update each link when tier-specific files are ready.
-const DOWNLOAD_LINKS: Record<string, string> = {
-  "Foundation Pack":
-    "https://drive.google.com/uc?export=download&confirm=t&id=1zQPKTcnd5Ca-Vafbb_85_3dwZ22t2zHN",
-  "Professional Pack — Founding Member":
-    "https://drive.google.com/uc?export=download&confirm=t&id=1zQPKTcnd5Ca-Vafbb_85_3dwZ22t2zHN",
-  "Professional Pack":
-    "https://drive.google.com/uc?export=download&confirm=t&id=1zQPKTcnd5Ca-Vafbb_85_3dwZ22t2zHN",
-  "Executive Pack":
-    "https://drive.google.com/uc?export=download&confirm=t&id=1zQPKTcnd5Ca-Vafbb_85_3dwZ22t2zHN",
-};
+// const DOWNLOAD_LINKS: Record<string, string> = {
+//   "Foundation Pack":
+//     "https://drive.google.com/uc?export=download&confirm=t&id=1DsVmX7cTB2XfEL47tvhyooFBXqGB-a7p",
+//   "Professional Pack — Founding Member":
+//     "https://drive.google.com/uc?export=download&confirm=t&id=1DsVmX7cTB2XfEL47tvhyooFBXqGB-a7p",
+//   "Professional Pack":
+//     "https://drive.google.com/uc?export=download&confirm=t&id=1DsVmX7cTB2XfEL47tvhyooFBXqGB-a7p",
+//   "Executive Pack":
+//     "https://drive.google.com/uc?export=download&confirm=t&id=1DsVmX7cTB2XfEL47tvhyooFBXqGB-a7p",
+// };
 
 const DEFAULT_DOWNLOAD =
-  "https://drive.google.com/uc?export=download&confirm=t&id=1zQPKTcnd5Ca-Vafbb_85_3dwZ22t2zHN";
+  "https://drive.google.com/uc?export=download&confirm=t&id=1DsVmX7cTB2XfEL47tvhyooFBXqGB-a7p";
 // ──────────────────────────────────────────────────────────────────────────
 
 interface ThankYouState {
