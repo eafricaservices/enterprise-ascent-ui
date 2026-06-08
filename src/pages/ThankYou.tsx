@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 // &confirm=t bypasses Google Drive's virus-scan warning page for larger files.
 // Update each link when tier-specific files are ready.
 const DEFAULT_DOWNLOAD =
-  "https://drive.google.com/uc?export=download&confirm=t&id=1DsVmX7cTB2XfEL47tvhyooFBXqGB-a7p";
+  "https://drive.google.com/uc?export=download&id=1gC4SXBlDZ7Y1yd7u8tVZfrbJ2qWxValF";
 
 interface ThankYouState {
   plan: string;
@@ -25,7 +25,6 @@ const ThankYou = () => {
   const downloadUrl = DEFAULT_DOWNLOAD;
 
   useEffect(() => {
-    // Fire Meta Pixel Purchase event
     const fbq = (window as any).fbq;
     if (fbq) {
       fbq("track", "Purchase", {
@@ -34,26 +33,6 @@ const ThankYou = () => {
         content_name: state?.plan ?? "E-Africa Remote Job Starter Pack",
       });
     }
-
-    // 4-second delay so the thank-you page is fully visible before the
-    // download prompt appears. Hidden iframe bypasses mobile popup blockers.
-    let iframe: HTMLIFrameElement | null = null;
-
-    const trigger = setTimeout(() => {
-      iframe = document.createElement("iframe");
-      iframe.style.cssText = "display:none;width:0;height:0;border:none;position:absolute;";
-      iframe.src = downloadUrl;
-      document.body.appendChild(iframe);
-
-      setTimeout(() => {
-        if (iframe && document.body.contains(iframe)) document.body.removeChild(iframe);
-      }, 10_000);
-    }, 4_000);
-
-    return () => {
-      clearTimeout(trigger);
-      if (iframe && document.body.contains(iframe)) document.body.removeChild(iframe);
-    };
   }, []);
 
   return (
@@ -92,7 +71,7 @@ const ThankYou = () => {
             {/* Email notice */}
             <div className="mb-4 rounded-xl bg-green-500/10 border border-green-500/30 px-5 py-3">
               <p className="text-sm font-bold text-green-700 dark:text-green-400">
-                A copy will be sent to your email shortly.
+                A mail would be sent to your inbox shortly.
               </p>
             </div>
 
