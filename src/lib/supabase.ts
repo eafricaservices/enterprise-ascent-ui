@@ -466,6 +466,39 @@ export interface Database {
         };
         Relationships: [];
       };
+      leads: {
+        Row: {
+          id: string;
+          first_name: string;
+          last_name: string;
+          email: string;
+          status: string;
+          paid: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          first_name: string;
+          last_name: string;
+          email: string;
+          status?: string;
+          paid?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          first_name?: string;
+          last_name?: string;
+          email?: string;
+          status?: string;
+          paid?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       impact_items: {
         Row: {
           id: string;
@@ -501,7 +534,20 @@ export interface Database {
       };
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      upsert_lead: {
+        Args: { p_first_name: string; p_last_name: string; p_email: string };
+        Returns: {
+          id: string;
+          first_name: string;
+          last_name: string;
+          email: string;
+          status: string;
+          paid: boolean;
+          created_at: string;
+        }[];
+      };
+    };
     Enums: {
       contact_status: "new" | "in_review" | "responded" | "closed";
       application_status:
