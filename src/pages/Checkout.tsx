@@ -51,7 +51,7 @@ const Checkout = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!state?.plan) navigate("/#starter-pack");
+    if (!state?.plan) navigate("/#pricing");
   }, [state, navigate]);
 
   if (!state?.plan) return null;

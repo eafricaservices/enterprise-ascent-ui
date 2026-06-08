@@ -37,7 +37,7 @@ const PaymentFailed = () => {
                 variant="brand"
                 size="lg"
                 className="w-full"
-                onClick={() => navigate("/#starter-pack")}
+                onClick={() => navigate("/#pricing")}
               >
                 <RefreshCcw className="h-4 w-4" />
                 Try Again

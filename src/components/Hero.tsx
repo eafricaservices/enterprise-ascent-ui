@@ -109,7 +109,7 @@ const Hero = () => {
             <Button
               variant="hero-outline"
               size="lg"
-              onClick={() => scrollTo("starter-pack")}
+              onClick={() => scrollTo("pricing")}
               className="group"
             >
               Get the Starter Pack

@@ -2,12 +2,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ScrollToHash from "@/components/ScrollToHash";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import Index from "./pages/Index";
-import PricingPage from "./pages/Pricing";
 import BlogPage from "./pages/Blog";
 import ContactPage from "./pages/Contact";
 import JobsPage from "./pages/Jobs";
@@ -28,7 +27,7 @@ const App = () => (
           <ScrollToHash />
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/pricing" element={<Navigate to="/#pricing" replace />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/jobs" element={<JobsPage />} />

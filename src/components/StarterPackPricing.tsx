@@ -80,7 +80,7 @@ const StarterPackPricing = () => {
   };
 
   return (
-    <section id="starter-pack" className="py-24 bg-muted/30 dark:bg-secondary/20">
+    <section id="pricing" className="py-24 bg-muted/30 dark:bg-secondary/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
