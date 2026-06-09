@@ -142,13 +142,13 @@ const Checkout = () => {
       callback: (response: { reference: string }) => {
         paymentSucceeded = true;
         sessionStorage.removeItem("checkout_plan");
+        const thankYouState = { plan, amount, reference: response.reference, firstName: form.firstName };
+        sessionStorage.setItem("thankyou_state", JSON.stringify(thankYouState));
         supabase
           .from("starter_pack_orders")
           .update({ payment_reference: response.reference, payment_status: "completed" })
           .eq("payment_reference", ref);
-        navigate("/thank-you", {
-          state: { plan, amount, reference: response.reference, firstName: form.firstName },
-        });
+        navigate("/thank-you", { state: thankYouState });
       },
       onClose: () => {
         if (paymentSucceeded) return;
@@ -271,7 +271,7 @@ const Checkout = () => {
             <div className="flex items-start gap-3 rounded-xl bg-primary/5 border border-primary/20 p-4 mb-6">
               <Lock className="h-4 w-4 text-primary mt-0.5 shrink-0" />
               <p className="text-xs text-muted-foreground leading-relaxed">
-                You will not leave this page. Payment is processed securely via Paystack.
+                Price below does not include tax. Payment is processed securely by Paystack.
               </p>
             </div>
 

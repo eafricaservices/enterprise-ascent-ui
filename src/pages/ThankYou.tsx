@@ -20,7 +20,10 @@ interface ThankYouState {
 
 const ThankYou = () => {
   const location = useLocation();
-  const state = location.state as ThankYouState | null;
+  const rawState = location.state as ThankYouState | null;
+  const stored = sessionStorage.getItem("thankyou_state");
+  const state: ThankYouState | null =
+    rawState ?? (stored ? (JSON.parse(stored) as ThankYouState) : null);
 
   const downloadUrl = DEFAULT_DOWNLOAD;
 
@@ -81,7 +84,7 @@ const ThankYou = () => {
                 Your download is ready
               </p>
               <p className="text-xs text-muted-foreground mb-4">
-                Your file will start downloading automatically in a few seconds. If it doesn't, click the button below.
+                Click the button below to start downloading.
               </p>
               <a
                 href={downloadUrl}
