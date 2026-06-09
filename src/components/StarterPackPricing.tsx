@@ -76,6 +76,7 @@ const StarterPackPricing = () => {
   const slotsPercent = Math.round((slotsFilled / TOTAL_SLOTS) * 100);
 
   const handleBuyNow = (plan: string, amount: number) => {
+    sessionStorage.setItem("checkout_plan", JSON.stringify({ plan, amount }));
     navigate("/checkout", { state: { plan, amount } });
   };
 

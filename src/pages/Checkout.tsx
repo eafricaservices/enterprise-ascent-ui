@@ -39,7 +39,10 @@ const validate = (data: FormData): FormErrors => {
 const Checkout = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const state = location.state as CheckoutState | null;
+  const rawState = location.state as CheckoutState | null;
+  const stored = sessionStorage.getItem("checkout_plan");
+  const state: CheckoutState | null =
+    rawState ?? (stored ? (JSON.parse(stored) as CheckoutState) : null);
 
   const [form, setForm] = useState<FormData>({
     firstName: "",
@@ -138,7 +141,7 @@ const Checkout = () => {
       // Paystack requires plain (non-async) functions
       callback: (response: { reference: string }) => {
         paymentSucceeded = true;
-        // Fire-and-forget DB update — navigate immediately so Pixel fires on /thank-you
+        sessionStorage.removeItem("checkout_plan");
         supabase
           .from("starter_pack_orders")
           .update({ payment_reference: response.reference, payment_status: "completed" })
@@ -148,8 +151,8 @@ const Checkout = () => {
         });
       },
       onClose: () => {
-        // Guard: if callback already ran, this close is post-success — skip
         if (paymentSucceeded) return;
+        sessionStorage.removeItem("checkout_plan");
         supabase
           .from("starter_pack_orders")
           .update({ payment_status: "failed" })
