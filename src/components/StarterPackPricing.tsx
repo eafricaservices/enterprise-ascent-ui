@@ -195,9 +195,9 @@ const StarterPackPricing = () => {
               variant="outline"
               size="lg"
               className="w-full group"
-              onClick={() => handleBuyNow("Foundation Pack", 15000)}
+              onClick={() => handleBuyNow("Foundation Pack", 100)}
             >
-              Buy Now — ₦15,000
+              Buy Now — ₦100
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </motion.div>
