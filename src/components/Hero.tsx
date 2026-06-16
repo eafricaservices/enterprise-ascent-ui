@@ -63,36 +63,38 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Main Heading with gradient text */}
-          <motion.h1 variants={itemVariants} className="font-heading text-4xl font-bold leading-[1.15] text-black dark:text-white sm:text-5xl md:text-6xl lg:text-7xl">
-            Africa's Global Talent Infrastructure for{" "}
-            <span className="text-black dark:text-white">
-              Customer Service and Outsourcing
-            </span>
+          {/* Main Heading */}
+          <motion.h1 variants={itemVariants} className="font-heading text-4xl font-bold leading-[1.1] text-white sm:text-5xl md:text-6xl">
+            Hire Exceptional African Talent{" "}
+            <br className="hidden sm:block" />
+            You Can Actually{" "}
+            <span className="text-primary">Trust.</span>
           </motion.h1>
 
           {/* Subheading */}
           <motion.p
             variants={itemVariants}
-            className="mt-10 max-w-5xl mx-auto text-xl md:text-2xl lg:text-3xl leading-snug text-black dark:text-white font-normal"
+            className="mt-6 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed text-white/70 font-normal"
           >
-            We connect global companies with vetted, multilingual African professionals for{' '}
-            <span className="font-semibold text-accent dark:text-accent"></span>{' '}
-            and{' '}
-            <span className="font-semibold text-primary dark:text-primary">work from home English speaking jobs</span>{' '}
-            <span className="text-black/90 dark:text-white/90">— while helping Africans build international careers.</span>
+            Finding great people overseas shouldn't feel like a gamble.
+          </motion.p>
+          <motion.p
+            variants={itemVariants}
+            className="mt-3 max-w-2xl mx-auto text-base md:text-lg leading-relaxed text-white/60 font-normal"
+          >
+            At E-Africa, we help founders and growing teams hire vetted African professionals who communicate exceptionally, thrive in remote environments, and consistently deliver results—so you can scale your business with confidence.
           </motion.p>
 
           {/* CTA Buttons */}
           <motion.div
             variants={itemVariants}
-            className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap"
+            className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Button
               variant="brand"
               size="lg"
               onClick={() => scrollTo("employers-core-services")}
-              className="group bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300"
+              className="group w-full sm:w-auto px-8 shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300"
             >
               Hire Talent
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -101,29 +103,30 @@ const Hero = () => {
               variant="brand"
               size="lg"
               onClick={() => scrollTo("job-seekers-talent-pool")}
-              className="group bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent shadow-lg hover:shadow-xl transition-all duration-300 text-white"
+              className="group w-full sm:w-auto px-8 bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent shadow-lg hover:shadow-xl transition-all duration-300 text-white"
             >
-              Find a Job
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button
-              variant="hero-outline"
-              size="lg"
-              onClick={() => scrollTo("pricing")}
-              className="group"
-            >
-              Get the Starter Pack
+              Find Your Next Opportunity
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </motion.div>
 
-          {/* Trust bar */}
-          <motion.p
+          {/* Stats row */}
+          <motion.div
             variants={itemVariants}
-            className="mt-12 pt-12 border-t border-white/10 text-center text-sm text-white/70 font-light"
+            className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3"
           >
-            Trusted by 100+ companies • 500+ professionals placed • 25+ African countries • <strong className="text-white">A trusted staffing agency for startups</strong>
-          </motion.p>
+            {[
+              { value: "100+", label: "Companies Served" },
+              { value: "500+", label: "Professionals Placed" },
+              { value: "25+", label: "African Countries" },
+            ].map(({ value, label }) => (
+              <div key={label} className="flex items-center gap-2">
+                <span className="font-heading text-xl font-bold text-primary">{value}</span>
+                <span className="text-sm text-white/50">{label}</span>
+              </div>
+            ))}
+          </motion.div>
+
         </motion.div>
       </div>
 
