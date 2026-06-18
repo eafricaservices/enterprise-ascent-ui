@@ -93,7 +93,7 @@ const Hero = () => {
             <Button
               variant="brand"
               size="lg"
-              onClick={() => scrollTo("employers-core-services")}
+              onClick={() => scrollTo("contact-form")}
               className="group w-full sm:w-auto px-8 shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300"
             >
               Hire Talent
