@@ -28,7 +28,7 @@ const navLinks = [
       { label: "Job Listings", href: "/jobs", isPage: true },
     ],
   },
-  { label: "Pricing", href: "/#pricing" },
+  { label: "Pricing", href: "#pricing" },
   { label: "About", href: "#about" },
   {
     label: "Resources",
