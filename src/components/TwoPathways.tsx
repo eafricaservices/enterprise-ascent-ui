@@ -96,7 +96,7 @@ const TwoPathways = () => {
               <Button
                 variant="secondary"
                 size="lg"
-                onClick={() => scrollTo("job-seekers-talent-pool")}
+                onClick={() => scrollTo("job-seekers-how-it-works")}
               >
                 Join Talent Pool
               </Button>

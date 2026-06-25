@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import BlogPage from "./pages/Blog";
 import ContactPage from "./pages/Contact";
 import JobsPage from "./pages/Jobs";
+import PricingPage from "./pages/Pricing";
 import CheckoutPage from "./pages/Checkout";
 import ThankYouPage from "./pages/ThankYou";
 import PaymentFailedPage from "./pages/PaymentFailed";
@@ -27,7 +28,7 @@ const App = () => (
           <ScrollToHash />
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/pricing" element={<Navigate to="/#pricing" replace />} />
+            <Route path="/pricing" element={<PricingPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/jobs" element={<JobsPage />} />

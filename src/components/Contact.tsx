@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Clock, ArrowRight } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, ArrowRight, CheckCircle2, CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,7 +14,7 @@ const contactInfo = [
     label: "Operations Footprint",
     value: "Pan-African talent network — Remote-first delivery",
   },
-  { icon: Phone, label: "Phone", value: "+254 700 000 000" },
+  { icon: Phone, label: "Phone", value: "+2349076628205" },
   { icon: Mail, label: "Email", value: "info@eafricaservices.com" },
   {
     icon: Clock,
@@ -26,6 +26,7 @@ const contactInfo = [
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -66,10 +67,7 @@ const Contact = () => {
         return;
       }
 
-      toast({
-        title: "Request Submitted",
-        description: "Thank you. Our team will contact you shortly to discuss your hiring needs.",
-      });
+      setSubmitted(true);
       setFormData({ name: "", email: "", company_name: "", rc_number: "", subject: "", message: "" });
     } catch (err) {
       const isTimeout = err instanceof Error && err.name === "AbortError";
@@ -132,6 +130,43 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
             className="lg:col-span-3"
           >
+            {submitted ? (
+              <div className="rounded-xl border border-primary/30 bg-card p-8 sm:p-10 shadow-sm text-center">
+                <div className="flex justify-center mb-4">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                    <CheckCircle2 className="h-8 w-8 text-primary" />
+                  </div>
+                </div>
+                <h3 className="font-heading text-2xl font-bold text-foreground mb-2">
+                  Request Received!
+                </h3>
+                <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
+                  Thank you. Our team will be in touch shortly. In the meantime, you can book a call directly on our calendar.
+                </p>
+                <a
+                  href="https://calender.app.google/dTydD4sWQtB5xs9Y6"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-8 py-3 text-sm font-semibold text-white shadow hover:brightness-110 transition-all"
+                >
+                  <CalendarDays className="h-4 w-4" />
+                  Schedule a Call
+                </a>
+                <p className="mt-6 text-xs text-muted-foreground">
+                  Prefer email?{" "}
+                  <a href="mailto:info@eafricaservices.com" className="text-primary hover:underline">
+                    info@eafricaservices.com
+                  </a>
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSubmitted(false)}
+                  className="mt-4 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Submit another message
+                </button>
+              </div>
+            ) : (
             <form
               id="contact-form"
               onSubmit={handleSubmit}
@@ -230,6 +265,7 @@ const Contact = () => {
                 {!isSubmitting && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
               </Button>
             </form>
+            )}
           </motion.div>
         </div>
       </div>

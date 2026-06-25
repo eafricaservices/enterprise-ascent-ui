@@ -102,7 +102,7 @@ const Hero = () => {
             <Button
               variant="brand"
               size="lg"
-              onClick={() => scrollTo("job-seekers-talent-pool")}
+              onClick={() => scrollTo("job-seekers-how-it-works")}
               className="group w-full sm:w-auto px-8 bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent shadow-lg hover:shadow-xl transition-all duration-300 text-white"
             >
               Find Your Next Opportunity

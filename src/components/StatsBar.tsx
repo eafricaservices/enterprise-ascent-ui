@@ -75,7 +75,7 @@ const StatsBar = () => {
               variant="outline"
               size="lg"
               className="mt-6"
-              onClick={() => scrollTo("job-seekers-talent-pool")}
+              onClick={() => scrollTo("job-seekers-how-it-works")}
             >
               Join Talent Pool
             </Button>

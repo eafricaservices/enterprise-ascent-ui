@@ -23,12 +23,12 @@ const navLinks = [
   {
     label: "For Job Seekers",
     children: [
-      { label: "Talent Pool", href: "#job-seekers-talent-pool" },
+      { label: "Talent Pool", href: "#job-seekers-how-it-works" },
       { label: "How It Works (Applying)", href: "#job-seekers-how-it-works" },
       { label: "Job Listings", href: "/jobs", isPage: true },
     ],
   },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Pricing", href: "/pricing", isPage: true },
   { label: "About", href: "#about" },
   {
     label: "Resources",

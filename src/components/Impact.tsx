@@ -17,7 +17,7 @@ const Impact = () => {
             className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
             asChild
           >
-            <a href="#job-seekers-talent-pool">Join Talent Pool</a>
+            <a href="#job-seekers-how-it-works">Join Talent Pool</a>
           </Button>
         </div>
       </div>
