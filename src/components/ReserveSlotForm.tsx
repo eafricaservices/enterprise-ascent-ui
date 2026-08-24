@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { supabase } from "@/lib/supabase";
+import PrivacyPolicyModal from "./PrivacyPolicyModal";
 
 interface FormData {
   firstName: string;
@@ -31,6 +33,9 @@ const ReserveSlotForm = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [privacyError, setPrivacyError] = useState("");
+  const [policyOpen, setPolicyOpen] = useState(false);
 
   const set = (field: keyof FormData) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +46,15 @@ const ReserveSlotForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs = validate(form);
-    if (Object.keys(errs).length > 0) { setErrors(errs); return; }
+    let hasError = false;
+    if (Object.keys(errs).length > 0) { setErrors(errs); hasError = true; }
+    if (!privacyAccepted) {
+      setPrivacyError("You must accept the Privacy Policy & Terms of Service to continue.");
+      hasError = true;
+    } else {
+      setPrivacyError("");
+    }
+    if (hasError) return;
 
     setStatus("loading");
     setErrorMsg("");
@@ -147,6 +160,41 @@ const ReserveSlotForm = () => {
       {status === "error" && (
         <p className="text-sm text-destructive">{errorMsg}</p>
       )}
+
+      {/* Privacy Policy Consent */}
+      <PrivacyPolicyModal open={policyOpen} onOpenChange={setPolicyOpen} />
+      <div className="flex items-start gap-3 rounded-lg border border-border bg-muted/40 p-3">
+        <Checkbox
+          id="rsf-privacy"
+          checked={privacyAccepted}
+          onCheckedChange={(checked) => {
+            setPrivacyAccepted(checked === true);
+            if (checked) setPrivacyError("");
+          }}
+          className="mt-0.5"
+        />
+        <div>
+          <label
+            htmlFor="rsf-privacy"
+            className="text-xs leading-relaxed text-muted-foreground cursor-pointer"
+          >
+            I have read and agree to the{" "}
+            <button
+              type="button"
+              onClick={() => setPolicyOpen(true)}
+              className="font-medium text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
+            >
+              Privacy Policy &amp; Terms of Service
+            </button>
+            . I consent to E-Africa Services collecting my personal information
+            to reserve my slot and send follow-up communications.{" "}
+            <span className="text-destructive">*</span>
+          </label>
+          {privacyError && (
+            <p className="mt-1 text-xs text-destructive">{privacyError}</p>
+          )}
+        </div>
+      </div>
 
       <Button
         type="submit"

@@ -3,9 +3,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Lock, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { supabase } from "@/lib/supabase";
+import PrivacyPolicyModal from "@/components/PrivacyPolicyModal";
 
 interface CheckoutState {
   plan: string;
@@ -52,6 +54,9 @@ const Checkout = () => {
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [privacyError, setPrivacyError] = useState("");
+  const [policyOpen, setPolicyOpen] = useState(false);
 
   useEffect(() => {
     if (!state?.plan) navigate("/#pricing");
@@ -70,10 +75,18 @@ const Checkout = () => {
 
   const handlePayment = async () => {
     const errs = validate(form);
+    let hasError = false;
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
-      return;
+      hasError = true;
     }
+    if (!privacyAccepted) {
+      setPrivacyError("You must accept the Privacy Policy & Terms of Service to proceed.");
+      hasError = true;
+    } else {
+      setPrivacyError("");
+    }
+    if (hasError) return;
 
     const PaystackPop = (window as any).PaystackPop;
     if (!PaystackPop) {
@@ -268,11 +281,46 @@ const Checkout = () => {
             </div>
 
             {/* Security note */}
-            <div className="flex items-start gap-3 rounded-xl bg-primary/5 border border-primary/20 p-4 mb-6">
+            <div className="flex items-start gap-3 rounded-xl bg-primary/5 border border-primary/20 p-4 mb-4">
               <Lock className="h-4 w-4 text-primary mt-0.5 shrink-0" />
               <p className="text-xs text-muted-foreground leading-relaxed">
                 Price below does not include tax. Payment is processed securely by Paystack.
               </p>
+            </div>
+
+            {/* Privacy Policy Consent */}
+            <PrivacyPolicyModal open={policyOpen} onOpenChange={setPolicyOpen} />
+            <div className="flex items-start gap-3 rounded-xl border border-border bg-muted/40 p-4 mb-6">
+              <Checkbox
+                id="checkout-privacy"
+                checked={privacyAccepted}
+                onCheckedChange={(checked) => {
+                  setPrivacyAccepted(checked === true);
+                  if (checked) setPrivacyError("");
+                }}
+                className="mt-0.5"
+              />
+              <div>
+                <label
+                  htmlFor="checkout-privacy"
+                  className="text-sm leading-relaxed text-muted-foreground cursor-pointer"
+                >
+                  I have read and agree to the{" "}
+                  <button
+                    type="button"
+                    onClick={() => setPolicyOpen(true)}
+                    className="font-medium text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
+                  >
+                    Privacy Policy &amp; Terms of Service
+                  </button>
+                  . I consent to E-Africa Services collecting and processing my personal
+                  information to complete this purchase.{" "}
+                  <span className="text-destructive">*</span>
+                </label>
+                {privacyError && (
+                  <p className="mt-1 text-xs text-destructive">{privacyError}</p>
+                )}
+              </div>
             </div>
 
             {/* CTA */}

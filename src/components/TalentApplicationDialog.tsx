@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PrivacyPolicyModal from "./PrivacyPolicyModal";
 import { ArrowRight, X, Video, ExternalLink, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -66,6 +67,7 @@ const TalentApplicationDialog = ({
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState(INITIAL_FORM);
+  const [policyOpen, setPolicyOpen] = useState(false);
 
   const [cvFile, setCvFile] = useState<File | null>(null);
 
@@ -479,7 +481,8 @@ const TalentApplicationDialog = ({
             />
           </div>
 
-          {/* T&Cs */}
+          {/* Privacy Policy & T&Cs */}
+          <PrivacyPolicyModal open={policyOpen} onOpenChange={setPolicyOpen} />
           <div className="flex items-start gap-3 rounded-lg border border-border bg-muted/40 p-4">
             <Checkbox
               id="terms"
@@ -496,13 +499,16 @@ const TalentApplicationDialog = ({
               htmlFor="terms"
               className="text-sm leading-relaxed text-muted-foreground cursor-pointer"
             >
-              I agree to the{" "}
-              <span className="font-medium text-foreground">
-                Terms & Conditions
-              </span>{" "}
-              and consent to E-Africa Services storing my information for
-              recruitment purposes. I understand I may be contacted regarding
-              remote work placement opportunities.{" "}
+              I have read and agree to the{" "}
+              <button
+                type="button"
+                onClick={() => setPolicyOpen(true)}
+                className="font-medium text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
+              >
+                Privacy Policy, Terms of Service &amp; Talent Pool Participation Agreement
+              </button>
+              . I consent to E-Africa Services collecting, using, and sharing my personal information
+              for recruitment and placement purposes, including cross-border data transfers.{" "}
               <span className="text-destructive">*</span>
             </label>
           </div>
