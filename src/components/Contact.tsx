@@ -8,7 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import SectionHeading from "./SectionHeading";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
-import PrivacyPolicyModal from "./PrivacyPolicyModal";
+
 
 const contactInfo = [
   {
@@ -29,8 +29,6 @@ const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [privacyAccepted, setPrivacyAccepted] = useState(false);
-  const [policyOpen, setPolicyOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -42,15 +40,6 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!privacyAccepted) {
-      toast({
-        title: "Please accept the Privacy Policy",
-        description: "You must read and accept our Privacy Policy & Terms of Service before submitting.",
-        variant: "destructive",
-      });
-      return;
-    }
 
     setIsSubmitting(true);
 
@@ -274,32 +263,7 @@ const Contact = () => {
                   className="mt-1.5 resize-none text-base sm:text-sm"
                 />
               </div>
-              {/* Privacy Policy Consent */}
-              <PrivacyPolicyModal open={policyOpen} onOpenChange={setPolicyOpen} />
-              <div className="flex items-start gap-3 rounded-lg border border-border bg-muted/40 p-4">
-                <Checkbox
-                  id="contact-privacy"
-                  checked={privacyAccepted}
-                  onCheckedChange={(checked) => setPrivacyAccepted(checked === true)}
-                  className="mt-0.5"
-                />
-                <label
-                  htmlFor="contact-privacy"
-                  className="text-sm leading-relaxed text-muted-foreground cursor-pointer"
-                >
-                  I have read and agree to the{" "}
-                  <button
-                    type="button"
-                    onClick={() => setPolicyOpen(true)}
-                    className="font-medium text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
-                  >
-                    Privacy Policy &amp; Terms of Service
-                  </button>
-                  . I consent to E-Africa Services collecting and processing my personal information
-                  to respond to this inquiry.{" "}
-                  <span className="text-destructive">*</span>
-                </label>
-              </div>
+
               <Button type="submit" variant="brand" size="lg" className="w-full sm:w-auto group" disabled={isSubmitting}>
                 {isSubmitting ? "Submitting…" : "Book Hiring Consultation"}
                 {!isSubmitting && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
