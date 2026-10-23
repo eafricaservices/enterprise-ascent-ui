@@ -2,9 +2,17 @@ type Sponsor = {
   name: string;
   website?: string;
   logoPath: string;
+  description?: string;
 };
 
 const sponsors: Sponsor[] = [
+  {
+    name: "Cyberiad Labs",
+    website: "https://cyberiadlabs.com/",
+    logoPath: "/sponsors/cyberiad-labs.png",
+    description:
+      "Cyberiad Labs turns curiosity about AI into real, lasting skill. Its online courses are open to learners of every background, and walk them through how AI tools actually work, how to use them to solve everyday problems at work, school and home, and how to keep a healthy skepticism about what they produce. Courses are free for individual learners. Cyberiad Labs collaborates with partners worldwide to put these skills within reach of their people.",
+  },
   {
     name: "BYU-Pathway",
     website: "https://www.byupathway.edu/",
@@ -94,6 +102,7 @@ const LogoCloud = () => {
               <img
                 src={sponsor.logoPath}
                 alt={`${sponsor.name} logo`}
+                title={sponsor.description ?? sponsor.name}
                 className="h-8 w-auto max-w-[140px] object-contain opacity-70 transition-opacity hover:opacity-100"
                 loading="lazy"
               />

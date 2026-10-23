@@ -107,6 +107,7 @@ export interface Database {
           skills: string[] | null;
           languages: string[] | null;
           cv_storage_path: string | null;
+          portfolio_url: string | null;
           loom_video_url: string | null;
           speed_test_url: string | null;
           intro_video_path: string | null;
@@ -148,6 +149,7 @@ export interface Database {
           skills?: string[] | null;
           languages?: string[] | null;
           cv_storage_path?: string | null;
+          portfolio_url?: string | null;
           loom_video_url?: string | null;
           speed_test_url?: string | null;
           intro_video_path?: string | null;
@@ -189,6 +191,7 @@ export interface Database {
           skills?: string[] | null;
           languages?: string[] | null;
           cv_storage_path?: string | null;
+          portfolio_url?: string | null;
           loom_video_url?: string | null;
           speed_test_url?: string | null;
           intro_video_path?: string | null;
